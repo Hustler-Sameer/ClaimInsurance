@@ -1,0 +1,179 @@
+.headerMainDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    height: 35px;
+}
+ 
+.headerMainDiv h3 {
+    margin-right: 10px;
+}
+h6{
+    margin: 0;
+    padding: 0;
+}
+ 
+.headerSearchBarDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+ 
+  #headerSearchBar {
+    border: 1px solid rgb(127, 127, 127);
+    border-radius: 10px;
+    height: 25px;
+    width: 200px;
+    padding: 3px;
+  }
+ 
+  #searchIcon:hover {
+    cursor: pointer;
+  }
+ 
+ 
+ 
+ 
+#mainClaimDiv {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    margin: 3px;
+  
+}
+ 
+#customerDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    height: 150px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    gap: 15px;
+    margin-bottom:5px ;
+    padding-bottom: 5px;
+}
+ 
+#claimDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    height: 210px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    gap: 15px;
+    margin-bottom:5px ;
+    padding-bottom: 5px;
+}
+ 
+#hospitalDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    height: 90px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    gap: 15px;
+}
+ 
+.inputDiv {
+    display: flex;
+    flex-direction: column;
+}
+ 
+#customerDetailsFields {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+}
+ 
+#customerDetailsFields input {
+    border: 1px solid rgb(127, 127, 127);
+    border-radius: 4px;
+    height: 30px;
+    width: 300px;
+}
+ 
+#claimDetailsFields {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+}
+ 
+#claimDetailsFields select {
+    border: 1px solid rgb(127, 127, 127);
+    border-radius: 4px;
+    height: 30px;
+    width: 300px;
+}
+ 
+#claimDetailsFields input {
+    border: 1px solid rgb(127, 127, 127);
+    border-radius: 4px;
+    height: 30px;
+    width: 300px;
+}
+ 
+#claimDetailsFields date {
+    border: 1px solid rgb(127, 127, 127);
+    border-radius: 4px;
+    height: 30px;
+    width: 300px;
+}
+ 
+#hospitalDetailsFields {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+}
+ 
+#hospitalDetailsFields select {
+    border: 1px solid rgb(127, 127, 127);
+    border-radius: 4px;
+    height: 30px;
+    width: 300px;
+}
+ 
+.nextBtn {
+  background-color: #811e7d;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  height: 30px;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100px;
+}
+ 
+.nextBtn:hover,
+.nextBtn:focus {
+  background-color: #c944b5;
+}
+ 
+#btnDiv {
+    height: 45px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+ 
+ 
+ 

@@ -1,0 +1,145 @@
+.heading{
+    display: flex;
+    align-items: center;
+    margin: 20px;
+    margin-inline: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+   
+
+}
+.heading h3{
+    color: #8e057e;
+    padding-right: 25px;
+}
+.heading input{
+    border: 1px solid rgb(127, 127, 127);
+    border-radius: 4px;
+    height: 30px;
+    width: 250px;
+
+}
+.searchButton{
+    height: 35px;
+    width: 100px;
+    border: 1px solid;
+    border-radius: 7px;
+    color: white;
+    background-color:#8e057e ;
+    cursor: pointer;
+    margin-left: 5px;
+
+
+}
+.parentElement{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px;
+    margin-inline: 10px;
+    padding: 10px;
+    /* border: 2px solid grey; */
+    border-radius: 5px;
+    /* width: 100%; */
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-inline: 30px;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.parentElement input{
+    border: 1px solid rgb(127, 127, 127);
+    border-radius: 4px;
+    height: 30px;
+    width: 300px;
+}
+
+
+@media (max-width: 767px) {
+    .parentElement {
+        grid-template-columns: 1fr; 
+    }
+}
+.componentDiv1{
+    display: flex;
+    flex-direction: column;
+}
+
+.componentDiv1 h6{
+    margin: 0;
+    padding: 0;
+}
+
+
+.parentElement2{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px;
+    margin-top: 10px;
+    margin-inline: 10px;
+    padding: 10px;
+    /* border: 2px solid grey; */
+    border-radius: 5px;
+    /* width: 100%; */
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-inline: 30px;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.parentElement2 input{
+    border: 1px solid rgb(127, 127, 127);
+    border-radius: 4px;
+    height: 30px;
+    width: 300px;
+}
+.parentElement2 select{
+    border: 1px solid rgb(127, 127, 127);
+    border-radius: 4px;
+    height: 30px;
+    width: 300px;
+}
+
+#lossDetails{
+    grid-column: 2/4;
+    width: 88%;
+}
+#lossDetails input{
+    grid-column: 2/4;
+    width: 88%;
+}
+#declaration{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    grid-column: 1/4;
+   
+}
+#declaration input{
+    width: 20px;
+}
+@media (max-width: 767px) {
+    .parentElement2 {
+        grid-template-columns: 1fr; 
+    }
+}
+
+button{
+    height: 35px;
+    width: 120px;
+    border: 1px solid;
+    border-radius: 7px;
+    color: white;
+    background-color:#8e057e ;
+    cursor: pointer;
+        
+}
+#declaration button{
+grid-column: 6/7;
+        margin-left: auto;
+}
+button:hover{
+    background-color: #740367;
+}

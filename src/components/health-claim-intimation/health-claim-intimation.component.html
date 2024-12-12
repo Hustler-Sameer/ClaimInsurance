@@ -1,0 +1,128 @@
+ 
+<div id="mainClaimDiv">
+ 
+    <!-- <div class="headerMainDiv">
+        <h3>Claim Registration</h3>
+        <div class="headerSearchBarDiv">
+            <input type="text" id="headerSearchBar" placeholder="search policy details">
+            <mat-icon id="searchIcon">search</mat-icon>
+        </div>
+    </div> -->
+ 
+    <div id="customerDetails">
+        <span style="font-weight: 500;">Customer Details</span>
+        <div id="customerDetailsFields">
+            <div class="inputDiv">
+                <h6 for="">Customer Name</h6>
+                <input type="text" [value]="getResponse![0].CUSTOMER_NAME">
+            </div>
+            <div class="inputDiv">
+                <h6 for="">Policy No.</h6>
+                <input type="text" [value]="getResponse![0].policy_NO">
+            </div>
+            <div class="inputDiv">
+                <h6 for="">Email Id</h6>
+                <input type="text" [value]="getResponse![0].Customer_EmailId">
+            </div>
+            <div class="inputDiv">
+                <h6 for="">Mobile No.</h6>
+                <input type="text" [value]="getResponse![0].Customer_MobileNumber">
+            </div>
+            <div class="inputDiv">
+                <h6 for="">Alternate Email Id</h6>
+                <input type="text">
+            </div>
+            <div class="inputDiv">
+                <h6 for="">Alternate Mobile No.</h6>
+                <input type="text">
+            </div>
+        </div>
+    </div>
+ 
+    <div id="claimDetails">
+        <span style="font-weight: 500;">Claim Details</span>
+        <div id="claimDetailsFields">
+            <div class="inputDiv">
+                <h6 for="">Select Type of Claim</h6>
+                <select name="" id="">
+                    <option value="">select type of claim</option>
+                </select>
+            </div>
+            <div class="inputDiv">
+                <h6 for="">Patient Name</h6>
+                <select name="" id="">
+                    <option value="select patient name"></option>
+                </select>
+            </div>
+            <div class="inputDiv">
+                <h6 for="">Approx Claim Amount</h6>
+                <input type="text" name="" id="">
+            </div>
+            <div class="inputDiv">
+                <h6 for="">Date of Admission</h6>
+                <input type="date" name="" id="">
+            </div>
+            <div class="inputDiv">
+                <h6 for="">Date of Discharge</h6>
+                <input type="date" name="" id="">
+            </div>
+            <div class="inputDiv">
+                <h6 for="">Remark</h6>
+                <input type="text" name="" id="">
+            </div>
+            <div class="inputDiv">
+                <h6 for="">Admission is due to</h6>
+                <select name="" id="">
+                    <option value="">Illness</option>
+                    <option value="">Accident</option>
+                    <option value="">Not Applicable</option>
+                </select>
+            </div>
+            <div class="inputDiv">
+                <h6 for="">In case of accident (Any police comlaint / FIR is involved)</h6>
+                <select name="" id="">
+                    <option value="">Yes</option>
+                    <option value="">No</option>
+                    <option value="">Not Applicable</option>
+                </select>
+            </div>
+        </div>
+    </div>
+ 
+    <div id="hospitalDetails">
+        <span style="font-weight: 500;">Hospital Details</span>
+        <div id="hospitalDetailsFields">
+            <div class="inputDiv">
+                <h6 for="">Hopital State</h6>
+                <select name="" id="">
+                    <option value="">select state</option>
+                </select>
+            </div>
+            <div class="inputDiv">
+                <h6 for="">Hopital City</h6>
+                <select name="" id="">
+                    <option value="">select city</option>
+                </select>
+            </div>
+            <div class="inputDiv">
+                <h6 for="">Hopital Pin Code</h6>
+                <select name="" id="">
+                    <option value="">select pin code</option>
+                </select>
+            </div>
+            <div class="inputDiv">
+                <h6 for="">Hopital Name</h6>
+                <select name="" id="">
+                    <option value="">select name</option>
+                </select>
+            </div>
+        </div>
+    </div>
+ 
+    <div id="btnDiv">
+        <button class="nextBtn" role="button">Next</button>
+    </div>
+ 
+</div>
+ 
+ 

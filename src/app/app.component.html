@@ -1,0 +1,19 @@
+<app-header> </app-header>
+<!-- <app-main-content></app-main-content>
+<app-motor-claim-intimation></app-motor-claim-intimation> -->
+
+<app-main-content (lobSelected)="onLobSelected($event)" (responseSelected)="onResponseSelected($event)"></app-main-content>
+
+<!-- Conditionally render components based on product name (LOB) -->
+<div *ngIf="productName === 'Health'">
+    <app-health-claim-intimation  [getResponse]="response"></app-health-claim-intimation>
+</div>
+
+<div *ngIf="productName === 'Motor'">
+ <app-motor-claim-intimation [getResponse]="response"></app-motor-claim-intimation>
+</div>
+
+<!-- Optionally, a default message if no matching LOB -->
+<div *ngIf="productName && productName !== 'health insurance' && productName !== 'motor'">
+  <p>No component found for this product.</p>
+</div>
