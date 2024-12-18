@@ -20,3 +20,19 @@
 .name{
     padding-left: 10px;
 }
+
+.simbaImg {
+    height: 60px;
+}
+
+.simbaDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-inline: 10px;
+}
+
+.hamburger_icon {
+
+}

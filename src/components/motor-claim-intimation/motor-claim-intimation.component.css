@@ -1,6 +1,7 @@
 .heading{
     display: flex;
     align-items: center;
+   
     margin: 20px;
     margin-inline: 10px;
     padding: 10px;
@@ -38,6 +39,7 @@
     grid-gap: 10px;
     margin-inline: 10px;
     padding: 10px;
+    background: white;
     /* border: 2px solid grey; */
     border-radius: 5px;
     /* width: 100%; */
@@ -45,7 +47,6 @@
     padding-top: 20px;
     padding-bottom: 20px;
     padding-inline: 30px;
-    background-color: rgba(255, 255, 255, 0.6);
 }
 
 .parentElement input{
@@ -58,6 +59,12 @@
 
 @media (max-width: 767px) {
     .parentElement {
+        grid-template-columns: 1fr; 
+    }
+}
+
+@media (max-width: 767px) {
+    .parentElement2 {
         grid-template-columns: 1fr; 
     }
 }
@@ -78,6 +85,7 @@
     grid-gap: 10px;
     margin-top: 10px;
     margin-inline: 10px;
+    background: white;
     padding: 10px;
     /* border: 2px solid grey; */
     border-radius: 5px;
@@ -86,7 +94,7 @@
     padding-top: 20px;
     padding-bottom: 20px;
     padding-inline: 30px;
-    background-color: rgba(255, 255, 255, 0.6);
+    /* background-color: rgba(255, 255, 255, 0.6); */
 }
 
 .parentElement2 input{

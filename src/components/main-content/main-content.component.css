@@ -1,6 +1,7 @@
 .heading{
     display: flex;
     align-items: center;
+    background: white;
     margin: 20px;
     margin-inline: 10px;
     padding: 10px;
@@ -29,6 +30,15 @@
     background-color:#8e057e ;
     cursor: pointer;
     margin-left: 5px;
+}
 
+.name {
+    color: white;
+    background-color: #0d1963;
+    padding: 10px;
+}
 
+.name h3  {
+    margin: 0;
+    margin-inline: 10px;
 }
