@@ -7,11 +7,12 @@ import { HttpClientModule } from '@angular/common/http'; //
 import { FormsModule } from '@angular/forms'; 
 import { CommonModule } from '@angular/common';  
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms'; 
 import { HealthClaimIntimationComponent } from '../components/health-claim-intimation/health-claim-intimation.component'; 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MotorClaimIntimationComponent, HeaderComponent, MainContentComponent,HttpClientModule,FormsModule , HealthClaimIntimationComponent,CommonModule],
+  imports: [RouterOutlet, MotorClaimIntimationComponent, HeaderComponent, MainContentComponent,HttpClientModule,FormsModule , HealthClaimIntimationComponent,CommonModule,ReactiveFormsModule],
   templateUrl: './app.component.html',
   // template:`
   // <main>

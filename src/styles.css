@@ -7,5 +7,20 @@ body{
     margin: 0;
     padding: 0;
 }
-html, body { height: 100%; }
+html, body { height: 100vh; overflow: hidden; }
+@media (max-width: 767px) {
+   body{
+    overflow-y: scroll;
+   }
+}
+@media (max-width: 480px) {
+    body{
+     overflow-y: scroll;
+    }
+ }
+ @media (max-width: 1024px) {
+    body{
+     overflow-y: scroll;
+    }
+ }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background: linear-gradient(rgba(176, 34, 204, 0.2),rgba(13, 154, 189, 0.2));}

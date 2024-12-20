@@ -1,95 +1,106 @@
 <body>
- 
   <main>
     <div class="mainDiv">
-      <div class="parentElement">
-        <div class="componentDiv1">
-          <h6>Customer Name</h6>
-          <input type="text" [value]="getResponse![0].CUSTOMER_NAME" />
-        </div>
-        <div class="componentDiv1">
-          <h6>Policy Number</h6>
-          <input type="text" [value]="getResponse![0].policy_NO" />
-        </div>
-        <div class="componentDiv1">
-          <h6>Registration Number</h6>
-          <input type="text" value="MH12FK3174" />
-        </div>
-        <div class="componentDiv1">
-          <h6>Make</h6>
-          <input type="text" value="Toyota" />
-        </div>
-        <div class="componentDiv1">
-          <h6>Model</h6>
-          <input type="text" value="Innova" />
-        </div>
-        <div class="componentDiv1">
-          <h6>Customer Email id</h6>
-          <input type="text" [value]="getResponse![0].customer_EmailId" />
-        </div>
-        <div class="componentDiv1">
-          <h6>Mobile Number</h6>
-          <input type="text" [value]="getResponse![0].customer_MobileNumber" />
-        </div>
-      </div>
-    </div>
+      <form [formGroup]="claimForm" (ngSubmit)="onSubmit()">
+        <div class="parentElement">
+          <div class="componentDiv1">
+            <h6>Customer Name</h6>
+            <input type="text" formControlName="customerName" />
+          </div>
 
-    <div class="mainDiv2">
-      <div class="parentElement2">
-        <div class="componentDiv1">
-          <h6>Date of Accident/Theft</h6>
-          <input type="date" />
+          <div class="componentDiv1">
+            <h6>Policy Number</h6>
+            <input type="text" formControlName="policyNumber" />
+          </div>
+
+          <div class="componentDiv1">
+            <h6>Registration Number</h6>
+            <input type="text" formControlName="registrationNumber" />
+          </div>
+
+          <div class="componentDiv1">
+            <h6>Make</h6>
+            <input type="text" formControlName="make" />
+          </div>
+
+          <div class="componentDiv1">
+            <h6>Model</h6>
+            <input type="text" formControlName="model" />
+          </div>
+
+          <div class="componentDiv1">
+            <h6>Customer Email id</h6>
+            <input type="text" formControlName="customerEmailId" />
+          </div>
+
+          <div class="componentDiv1">
+            <h6>Mobile Number</h6>
+            <input type="text" formControlName="customerMobileNumber" />
+          </div>
         </div>
-        <div class="componentDiv1">
-          <h6>Select Type of claim</h6>
-          <select name="Type of claim">
-            <option value="Value1">Value1</option>
-            <option value="Value1">Value1</option>
-            <option value="Value1">Value1</option>
-          </select>
+
+        <div class="mainDiv2">
+          <div class="parentElement2">
+            <div class="componentDiv1">
+              <h6>Date of Accident/Theft</h6>
+              <input type="date" formControlName="dateOfAccident" />
+            </div>
+
+            <div class="componentDiv1">
+              <h6>Select Type of claim</h6>
+              <select formControlName="claimType">
+                <option value="Value1">Value1</option>
+                <option value="Value2">Value2</option>
+                <option value="Value3">Value3</option>
+              </select>
+            </div>
+
+            <div class="componentDiv1">
+              <h6>Self Survey?</h6>
+              <input type="text" formControlName="selfSurvey" placeholder="Yes/No" />
+            </div>
+
+            <div class="componentDiv1">
+              <h6>File Upload</h6>
+              <input type="file" class="file-upload" formControlName="fileUpload" />
+            </div>
+
+            <div class="componentDiv1">
+              <h6>Location of Accident - Mumbai?</h6>
+              <input type="text" formControlName="locationOfAccident" placeholder="Yes/No" />
+            </div>
+
+            <div class="componentDiv1">
+              <h6>Workshop Name</h6>
+              <input type="text" formControlName="workshopName" placeholder="Please enter workshop name" />
+            </div>
+
+            <div class="componentDiv1">
+              <h6>Workshop Mobile Number</h6>
+              <input type="number" formControlName="workshopMobile" placeholder="Enter mobile number" />
+            </div>
+
+            <div class="componentDiv1" id="lossDetails">
+              <h6>Loss Details</h6>
+              <input type="text" formControlName="lossDetails" placeholder="Please enter loss Details" />
+            </div>
+
+            <div class="componentDiv1">
+              <h6>Remarks</h6>
+              <input type="text" formControlName="remarks" placeholder="Please enter remarks" />
+            </div>
+
+            <div class="componentDiv1" id="declaration">
+              <input type="checkbox" formControlName="declaration" />
+              <h5>I hereby confirm that the details provided by me are correct and I authorize SBI General Insurance to proceed further for claim process based on the information provided by me</h5>
+            </div>
+
+            <div class="componentDiv1">
+              <button type="submit" [disabled]="!claimForm.valid">Submit</button>
+            </div>
+          </div>
         </div>
-        <div class="componentDiv1">
-          <h6>Self Survey?</h6>
-          <input type="text" placeholder="Yes/No" />
-        </div>
-        <div class="componentDiv1">
-          <h6>File Upload</h6>
-          <input
-            type="file"
-            class="file-upload"
-            onchange="console.log(event.target.files)"
-          />
-        </div>
-        <div class="componentDiv1">
-          <h6>Location of Accident - Mumbai ?</h6>
-          <input type="text" placeholder="Yes/No" />
-        </div>
-        <div class="componentDiv1">
-          <h6>Workshop Name</h6>
-          <input type="text" placeholder="Please enter workshop name" />
-        </div>
-        <div class="componentDiv1">
-          <h6>Mobile Number</h6>
-          <input type="number" placeholder="Enter mobile number" />
-        </div>
-        <div class="componentDiv1" id="lossDetails">
-            <h6>Loss Details</h6>
-            <input  type="text" placeholder="Please enter loss Details" />
-        </div>
-        <div class="componentDiv1">
-            <h6>Remarks</h6>
-            <input type="text" placeholder="Please enter remarks" />
-        </div>
-        <div class="componentDiv1" id="declaration">
-            <input type="checkbox" />
-            <h5>I hereby confirm that the details provided by me are correct and I authorize SBI General Insurance to proceed further for claim process on basis of information provided by me</h5>
-        </div>
-        
-        <div class="componentDiv1" id="declaration">
-        <button>Submit</button>
-        </div>
-      </div>
-      
+      </form>
     </div>
   </main>
 </body>

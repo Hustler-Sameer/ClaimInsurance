@@ -47,6 +47,7 @@
     padding-top: 20px;
     padding-bottom: 20px;
     padding-inline: 30px;
+    /* background-color: rgba(255, 255, 255, 0.6); */
 }
 
 .parentElement input{
@@ -132,6 +133,7 @@
     .parentElement2 {
         grid-template-columns: 1fr; 
     }
+
 }
 
 button{
@@ -150,4 +152,59 @@ grid-column: 6/7;
 }
 button:hover{
     background-color: #740367;
+}
+
+
+@media (max-width: 1024px) {
+    /* On medium screens, like tablets, adjust grid and widths */
+    #lossDetails {
+        grid-column: 1/3;
+        width: 100%;
+    }
+
+    #lossDetails input {
+        grid-column: 1/3;
+        width: 100%;
+    }
+
+    #declaration {
+        grid-column: 1/3;
+    }
+}
+
+@media (max-width: 768px) {
+    /* On smaller screens, like phones in landscape or portrait mode */
+    #lossDetails {
+        grid-column: 1/2;
+        /* width: 100%; */
+    }
+
+    #lossDetails input {
+        grid-column: 1/2;
+        /* width: 100%; */
+    }
+
+    #declaration {
+        grid-column: 1/2;
+        flex-direction: column;  /* Stack items vertically */
+    }
+}
+
+@media (max-width: 480px) {
+    /* On very small screens like phones in portrait mode */
+    #lossDetails {
+        grid-column: 1/2;
+        /* width: 100%; */
+    }
+
+    #lossDetails input {
+        grid-column: 1/2;
+        width: 100%;
+    }
+
+    #declaration {
+        grid-column: 1/2;
+        flex-direction: column;  /* Stack items vertically */
+        align-items: flex-start;  /* Align items to the left */
+    }
 }
