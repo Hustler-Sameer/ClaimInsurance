@@ -9,34 +9,50 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./motor-claim-intimation.component.css'],
   imports: [
     CommonModule,
-    ReactiveFormsModule  // <-- Add this here
+    ReactiveFormsModule  
   ],
 })
 export class MotorClaimIntimationComponent implements OnInit {
 
   @Input() getResponse: PolicyResponse[] | null = [];
-  claimForm: FormGroup;
+  claimForm: FormGroup; 
 
   constructor(private fb: FormBuilder) {
     this.claimForm = this.fb.group({
       customerName: ['', Validators.required],
       policyNumber: ['', Validators.required],
-      // registrationNumber: ['', Validators.required],
-      // make: ['', Validators.required],
-      // model: ['', Validators.required],
-      // customerEmailId: ['', [Validators.required, Validators.email]],
-      // customerMobileNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      // dateOfAccident: ['', Validators.required],
-      // claimType: ['', Validators.required],
-      // selfSurvey: ['', Validators.required],
-      // fileUpload: [null],
-      // locationOfAccident: ['', Validators.required],
-      // workshopName: ['', Validators.required],
-      // workshopMobile: ['', Validators.required],
-      // lossDetails: ['', Validators.required],
-      // remarks: ['', Validators.required],
-      // declaration: [false, Validators.requiredTrue]
+      registrationNumber: ['', Validators.required],
+      make: ['', Validators.required],
+      model: ['', Validators.required],
+      customerEmailId: ['', [Validators.required, Validators.email]],
+      customerMobileNumber: ['', Validators.required],
+      AccidentDateTime: ['', Validators.required],
+      claimType: ['', Validators.required],
+      selfSurvey: ['', Validators.required],
+      fileUpload: [null],
+      LossCity:['',Validators.required],
+      LossState:['',Validators.required],
+      DriverName:['',Validators.required],
+      workshopName: ['', Validators.required],
+      locationOfAccident: ['', Validators.required],
+      NatureOfLoss:['',Validators.required],
+      LossDescription:['',Validators.required],
+      SurveyPlaceOrGarageNameAddress:['',Validators.required],
+      workshopId:['',Validators.required],
+      EstimatedClaimAmount:['',Validators.required],
+      remarks: ['', Validators.required],
+      declaration: [false, Validators.requiredTrue]
     });
+  }
+  formatDateTime(dateTime: string): string {
+    const date = new Date(dateTime); // dateTime in "YYYY-MM-DDTHH:mm" format
+    const dd = String(date.getDate()).padStart(2, '0');
+    const mm = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const yyyy = date.getFullYear();
+    const hh = String(date.getHours()).padStart(2, '0');
+    const min = String(date.getMinutes()).padStart(2, '0');
+    const ss = String(date.getSeconds()).padStart(2, '0');
+    return `${dd}-${mm}-${yyyy} ${hh}:${min}:${ss}`;
   }
 
   ngOnInit(): void {
@@ -46,18 +62,29 @@ export class MotorClaimIntimationComponent implements OnInit {
       this.claimForm.patchValue({
         customerName: policy.CUSTOMER_NAME,
         policyNumber: policy.POLICY_NO,
-        // registrationNumber: policy.registrationNumber,
-        // make: policy.make,
-        // model: policy.model,
-        customerEmailId: policy.customer_EmailId,
+        customerEmailId: policy.Customer_EmailId,
         customerMobileNumber: policy.Customer_MobileNumber
       });
     }
   }
 
-  onSubmit(): void {
+  onSubmit() {
+    console.log("hhheheh");
+    console.log(this.claimForm.controls);
+    console.log("Form Values:", this.claimForm.value);
+    const formattedDate = this.formatDateTime(this.claimForm.value.AccidentDateTime);
+
+    const formData = { ...this.claimForm.value, AccidentDateTime: formattedDate };
+
+    console.log('Formatted Form Data:', formData);
+
+
+
+// for (const controlName in this.claimForm.controls) {
+//   console.log(controlName, this.claimForm.controls[controlName].valid);
+// }
     if (this.claimForm.valid) {
-      console.log('Form Submitted:', this.claimForm.value);
+      console.log('Form Submitted:', formData);
       // Handle the form submission (e.g., send data to an API)
     } else {
       console.log('Form is invalid');
