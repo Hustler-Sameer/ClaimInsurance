@@ -48,22 +48,22 @@
 
             <div class="componentDiv1">
               <h6>Select Type of claim</h6>
-              <select formControlName="claimType">
+              <select formControlName="ModeOfIntimation">
                 <option value="Email">Online</option>
                 <option value="Offline">Offline</option>
                 
               </select>
             </div>
 
-            <div class="componentDiv1">
+            <!-- <div class="componentDiv1">
               <h6>Self Survey?</h6>
               <input type="text" formControlName="selfSurvey" placeholder="Yes/No" />
-            </div>
+            </div> -->
 
-            <div class="componentDiv1">
+            <!-- <div class="componentDiv1">
               <h6>File Upload</h6>
               <input type="file" class="file-upload" formControlName="fileUpload" />
-            </div>
+            </div> -->
             <div class="componentDiv1">
               <h6>Loss City</h6>
               <input type="text" formControlName="LossCity" placeholder="Please enter loss city" />
@@ -80,13 +80,17 @@
               </select>
             </div>
 
-            <div class="componentDiv1">
+            <!-- <div class="componentDiv1">
               <h6>Location of Accident - Mumbai?</h6>
               <input type="text" formControlName="locationOfAccident" placeholder="Yes/No" />
-            </div>
+            </div> -->
             <div class="componentDiv1">
               <h6>Driver Name</h6>
               <input type="text" formControlName="DriverName" placeholder="Please enter driver name" />
+            </div>
+            <div class="componentDiv1">
+              <h6>Driving License Number</h6>
+              <input type="text" formControlName="DrivingLicenseNumber" placeholder="Please enter driver name" />
             </div>
             <div class="componentDiv1">
               <h6>Garage Name</h6>
@@ -109,7 +113,7 @@
             </div>
             <div class="componentDiv1">
               <h6>Workshop Id</h6>
-              <input type="number" formControlName="workshopId" placeholder="Enter workshop id" />
+              <input type="number" formControlName="WorkshopId" placeholder="Enter workshop id" />
             </div>
             
 
@@ -119,10 +123,10 @@
               <input type="text" formControlName="EstimatedClaimAmount" placeholder="Please enter estimated claim amount" />
             </div>
 
-            <div class="componentDiv1">
+            <!-- <div class="componentDiv1">
               <h6>Remarks</h6>
               <input type="text" formControlName="remarks" placeholder="Please enter remarks" />
-            </div>
+            </div> -->
 
             <div class="componentDiv1" id="declaration">
               <input type="checkbox" formControlName="declaration" />

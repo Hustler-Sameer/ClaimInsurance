@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PolicyResponse } from '../main-content/main-content.component';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { LoaderService } from '../../services/loader.service';
 
 @Component({
   selector: 'app-motor-claim-intimation',
@@ -16,8 +18,9 @@ export class MotorClaimIntimationComponent implements OnInit {
 
   @Input() getResponse: PolicyResponse[] | null = [];
   claimForm: FormGroup; 
+  
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private loadingService: LoaderService) {
     this.claimForm = this.fb.group({
       customerName: ['', Validators.required],
       policyNumber: ['', Validators.required],
@@ -27,20 +30,21 @@ export class MotorClaimIntimationComponent implements OnInit {
       customerEmailId: ['', [Validators.required, Validators.email]],
       customerMobileNumber: ['', Validators.required],
       AccidentDateTime: ['', Validators.required],
-      claimType: ['', Validators.required],
-      selfSurvey: ['', Validators.required],
-      fileUpload: [null],
+      ModeOfIntimation: ['', Validators.required],
+      // selfSurvey: ['', Validators.required],
+      // fileUpload: [null],
       LossCity:['',Validators.required],
       LossState:['',Validators.required],
       DriverName:['',Validators.required],
+      DrivingLicenseNumber:['',Validators.required],
       workshopName: ['', Validators.required],
       locationOfAccident: ['', Validators.required],
       NatureOfLoss:['',Validators.required],
       LossDescription:['',Validators.required],
       SurveyPlaceOrGarageNameAddress:['',Validators.required],
-      workshopId:['',Validators.required],
+      WorkshopId:['',Validators.required],
       EstimatedClaimAmount:['',Validators.required],
-      remarks: ['', Validators.required],
+      // remarks: ['', Validators.required],
       declaration: [false, Validators.requiredTrue]
     });
   }
@@ -85,9 +89,39 @@ export class MotorClaimIntimationComponent implements OnInit {
 // }
     if (this.claimForm.valid) {
       console.log('Form Submitted:', formData);
+      // this.loadingService.showSpinner();
+      // this.http.post()
+      
       // Handle the form submission (e.g., send data to an API)
     } else {
       console.log('Form is invalid');
     }
   }
+}
+
+
+export interface MotorClaimIntimationAncillary {
+  customerName : String;
+  policyNumber : String; 
+  registrationNumber : String;
+  InsuredEmailId:String; // it is customerEmailId
+  MobileNumber:String; // it is 
+  AccidentDateTime:String;
+  ModeOfIntimation:String;
+  // claimType:String;
+  // selfSurvey:String;
+  LossCity:String;
+  LossState:String;
+  DriverName:String;
+  DrivingLicenseNumber:String;
+  // workshopName:String;
+  locationOfAccident:String;
+  NatureOfLoss:String;
+  LossDescription:String;
+  SurveyPlaceOrGarageNameAddress:String;
+  workshopId:String;
+  EstimatedClaimAmount:String;
+  // remarks:String;
+  WorkshopId:String;
+  ServiceType:"Intimation";
 }
