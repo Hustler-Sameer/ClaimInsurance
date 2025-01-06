@@ -2,8 +2,8 @@ import { createRequire } from 'module';const require = createRequire(import.meta
 import {
   MatCommonModule,
   coerceBooleanProperty
-} from "./chunk-GDHOJQOI.js";
-import "./chunk-N4KAXK3S.js";
+} from "./chunk-EYT4UUNQ.js";
+import "./chunk-EZOZDAQE.js";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -16,7 +16,8 @@ import {
   ɵɵdefineComponent,
   ɵɵdefineInjector,
   ɵɵdefineNgModule
-} from "./chunk-YWKVNC5O.js";
+} from "./chunk-CDYYZWIK.js";
+import "./chunk-T4XHMJL2.js";
 import "./chunk-YHCV7DAQ.js";
 
 // node_modules/@angular/material/fesm2022/divider.mjs

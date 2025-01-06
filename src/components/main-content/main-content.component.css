@@ -13,6 +13,7 @@
 .heading h3{
     color: #8e057e;
     padding-right: 25px;
+    font-weight: 400;
 }
 .heading input{
     border: 1px solid lightgray;
@@ -41,4 +42,5 @@
 .name h3  {
     margin: 0;
     margin-inline: 10px;
+    font-weight: 100;
 }
