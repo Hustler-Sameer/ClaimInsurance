@@ -21,21 +21,6 @@ export class MotorClaimIntimationComponent implements OnInit {
     this.claimForm = this.fb.group({
       customerName: ['', Validators.required],
       policyNumber: ['', Validators.required],
-      // registrationNumber: ['', Validators.required],
-      // make: ['', Validators.required],
-      // model: ['', Validators.required],
-      // customerEmailId: ['', [Validators.required, Validators.email]],
-      // customerMobileNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      // dateOfAccident: ['', Validators.required],
-      // claimType: ['', Validators.required],
-      // selfSurvey: ['', Validators.required],
-      // fileUpload: [null],
-      // locationOfAccident: ['', Validators.required],
-      // workshopName: ['', Validators.required],
-      // workshopMobile: ['', Validators.required],
-      // lossDetails: ['', Validators.required],
-      // remarks: ['', Validators.required],
-      // declaration: [false, Validators.requiredTrue]
     });
   }
 
@@ -46,9 +31,6 @@ export class MotorClaimIntimationComponent implements OnInit {
       this.claimForm.patchValue({
         customerName: policy.CUSTOMER_NAME,
         policyNumber: policy.POLICY_NO,
-        // registrationNumber: policy.registrationNumber,
-        // make: policy.make,
-        // model: policy.model,
         customerEmailId: policy.customer_EmailId,
         customerMobileNumber: policy.Customer_MobileNumber
       });

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { LoaderService } from '../../services/loader.service';
 
 @Component({
   selector: 'app-main-content',
@@ -12,10 +13,11 @@ export class MainContentComponent {
   // Component logic here
   policyNumber: string = '';
   lob:string="";
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private loadingService: LoaderService) {}
   @Output() responseSelected = new EventEmitter<PolicyResponse[]>(); 
   @Output() lobSelected = new EventEmitter<string>(); // passing component to parent element
   searchPolicy() {
+    this.loadingService.showSpinner();
     this.http
       .post<PolicyResponse[]>(
         'https://ansappsuat.sbigen.in/SECUREAPI/getPolicyInfo',
@@ -32,9 +34,11 @@ export class MainContentComponent {
           console.log("Product Name: ", this.lob);
           this.responseSelected.emit(response); 
           this.lobSelected.emit(this.lob); //sending it to parent element
+          this.loadingService.hideSpinner();
         },  
         (error) => {
           console.log(error);
+          this.loadingService.hideSpinner();
         }
       );
   }

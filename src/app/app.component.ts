@@ -7,12 +7,14 @@ import { HttpClientModule } from '@angular/common/http'; //
 import { FormsModule } from '@angular/forms'; 
 import { CommonModule } from '@angular/common';  
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms'; 
+import { ReactiveFormsModule } from '@angular/forms';
+import { LoaderService } from '../services/loader.service';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { HealthClaimIntimationComponent } from '../components/health-claim-intimation/health-claim-intimation.component'; 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MotorClaimIntimationComponent, HeaderComponent, MainContentComponent,HttpClientModule,FormsModule , HealthClaimIntimationComponent,CommonModule,ReactiveFormsModule],
+  imports: [RouterOutlet, MotorClaimIntimationComponent, HeaderComponent, MainContentComponent,HttpClientModule,FormsModule , HealthClaimIntimationComponent,CommonModule,ReactiveFormsModule, MatProgressSpinnerModule],
   templateUrl: './app.component.html',
   // template:`
   // <main>
@@ -27,7 +29,15 @@ export class AppComponent {
   title = 'claimIntimation';
   productName: string = ''; // Store the received product name (LOB)
   response: PolicyResponse[] | null = null; // Store the motor claim response
- 
+  isLoading = false;
+
+  constructor(private loaderService: LoaderService){
+    this.loaderService.spinner$.subscribe((data: boolean) => {
+      
+      this.isLoading = data;
+     
+    });
+  }
 
   // Method to receive the product name (LOB) from the child component
   onLobSelected(lob: string) {
