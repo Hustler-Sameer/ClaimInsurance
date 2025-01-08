@@ -83,26 +83,6 @@ import {
   tap
 } from "./chunk-5TID76VL.js";
 
-// node_modules/@angular/cdk/fesm2022/coercion.mjs
-function coerceBooleanProperty(value) {
-  return value != null && `${value}` !== "false";
-}
-function coerceNumberProperty(value, fallbackValue = 0) {
-  if (_isNumberValue(value)) {
-    return Number(value);
-  }
-  return arguments.length === 2 ? fallbackValue : 0;
-}
-function _isNumberValue(value) {
-  return !isNaN(parseFloat(value)) && !isNaN(Number(value));
-}
-function coerceArray(value) {
-  return Array.isArray(value) ? value : [value];
-}
-function coerceElement(elementOrRef) {
-  return elementOrRef instanceof ElementRef ? elementOrRef.nativeElement : elementOrRef;
-}
-
 // node_modules/@angular/cdk/fesm2022/platform.mjs
 var hasV8BreakIterator;
 try {
@@ -310,6 +290,26 @@ var _VisuallyHiddenLoader = class __VisuallyHiddenLoader {
     }]
   }], null, null);
 })();
+
+// node_modules/@angular/cdk/fesm2022/coercion.mjs
+function coerceBooleanProperty(value) {
+  return value != null && `${value}` !== "false";
+}
+function coerceNumberProperty(value, fallbackValue = 0) {
+  if (_isNumberValue(value)) {
+    return Number(value);
+  }
+  return arguments.length === 2 ? fallbackValue : 0;
+}
+function _isNumberValue(value) {
+  return !isNaN(parseFloat(value)) && !isNaN(Number(value));
+}
+function coerceArray(value) {
+  return Array.isArray(value) ? value : [value];
+}
+function coerceElement(elementOrRef) {
+  return elementOrRef instanceof ElementRef ? elementOrRef.nativeElement : elementOrRef;
+}
 
 // node_modules/@angular/cdk/fesm2022/keycodes.mjs
 var ENTER = 13;
@@ -5094,13 +5094,13 @@ var _MatInternalFormField = class __MatInternalFormField {
 })();
 
 export {
-  coerceBooleanProperty,
   Platform,
   _CdkPrivateStyleLoader,
+  coerceBooleanProperty,
   FocusMonitor,
   MatCommonModule,
   _StructuralStylesLoader,
   MatRippleModule,
   MatRippleLoader
 };
-//# sourceMappingURL=chunk-F3VYRQ2I.js.map
+//# sourceMappingURL=chunk-T4CVNVMN.js.map

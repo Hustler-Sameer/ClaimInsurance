@@ -7,9 +7,9 @@
         </div>
     </div> -->
 
-  <div id="customerDetails">
-    <span style="font-weight: 500">Customer Details</span>
-    <form [formGroup]="claimForm" action="">
+  <form [formGroup]="claimForm" action="" (ngSubmit)="onSubmit()">
+    <div id="customerDetails">
+      <span style="font-weight: 500">Customer Details</span>
       <div id="customerDetailsFields">
         <div class="inputDiv">
           <h6 for="">Customer Name</h6>
@@ -35,93 +35,103 @@
           <h6 for="">Alternate Mobile No.</h6>
           <input type="text" formControlName="customerAlternateMobileNo" />
         </div>
-      </div>
-    </form>
-  </div>
-
-  <div id="claimDetails">
-    <span style="font-weight: 500">Claim Details</span>
-    <div id="claimDetailsFields">
-      <div class="inputDiv">
-        <h6 for="">Select Type of Claim</h6>
-        <select name="" id="">
-          <option value="">select type of claim</option>
-        </select>
-      </div>
-      <div class="inputDiv">
-        <h6 for="">Patient Name</h6>
-        <select name="" id="">
-          <option value="select patient name"></option>
-        </select>
-      </div>
-      <div class="inputDiv">
-        <h6 for="">Approx Claim Amount</h6>
-        <input type="text" name="" id="" />
-      </div>
-      <div class="inputDiv">
-        <h6 for="">Date of Admission</h6>
-        <input type="date" name="" id="" />
-      </div>
-      <div class="inputDiv">
-        <h6 for="">Date of Discharge</h6>
-        <input type="date" name="" id="" />
-      </div>
-      <div class="inputDiv">
-        <h6 for="">Remark</h6>
-        <input type="text" name="" id="" />
-      </div>
-      <div class="inputDiv">
-        <h6 for="">Admission is due to</h6>
-        <select name="" id="">
-          <option value="">Illness</option>
-          <option value="">Accident</option>
-          <option value="">Not Applicable</option>
-        </select>
-      </div>
-      <div class="inputDiv">
-        <h6 for="">
-          In case of accident (Any police comlaint / FIR is involved)
-        </h6>
-        <select name="" id="">
-          <option value="">Yes</option>
-          <option value="">No</option>
-          <option value="">Not Applicable</option>
-        </select>
+        <div class="inputDiv">
+          <h6>Member Id</h6>
+          <input type="text" />
+        </div>
       </div>
     </div>
-  </div>
 
-  <div id="hospitalDetails">
-    <span style="font-weight: 500">Hospital Details</span>
-    <div id="hospitalDetailsFields">
-      <div class="inputDiv">
-        <h6 for="">Hopital State</h6>
-        <select name="" id="">
-          <option value="">select state</option>
-        </select>
-      </div>
-      <div class="inputDiv">
-        <h6 for="">Hopital City</h6>
-        <select name="" id="">
-          <option value="">select city</option>
-        </select>
-      </div>
-      <div class="inputDiv">
-        <h6 for="">Hopital Pin Code</h6>
-        <select name="" id="">
-          <option value="">select pin code</option>
-        </select>
-      </div>
-      <div class="inputDiv">
-        <h6 for="">Hopital Name</h6>
-        <select name="" id="">
-          <option value="">select name</option>
-        </select>
+    <div id="claimDetails">
+      <span style="font-weight: 500">Claim Details</span>
+      <div id="claimDetailsFields">
+        <div class="inputDiv">
+          <h6 for="">Select Type of Claim</h6>
+          <input type="text" formControlName="claimType" />
+        </div>
+        <div class="inputDiv">
+          <h6 for="">Patient Name</h6>
+          <input type="text" formControlName="patientName" />
+        </div>
+        <div class="inputDiv">
+          <h6 for="">Approx Claim Amount</h6>
+          <input type="text" formControlName="claimAmount" />
+        </div>
+        <div class="inputDiv">
+          <h6 for="">Date of Admission</h6>
+          <input type="date" formControlName="dateOfAdmission" />
+        </div>
+        <div class="inputDiv">
+          <h6 for="">Date of Discharge</h6>
+          <input type="date" formControlName="dateOfDischarge" />
+        </div>
+        <div class="inputDiv">
+          <h6 for="">Remark</h6>
+          <input type="text" formControlName="remark" />
+        </div>
+        <div class="inputDiv">
+          <h6 for="">Admission is due to</h6>
+          <select formControlName="admissionReason">
+            <option value="">Illness</option>
+            <option value="">Accident</option>
+            <option value="">Not Applicable</option>
+          </select>
+        </div>
+        <div class="inputDiv">
+          <h6 for="">
+            In case of accident (Any police comlaint / FIR is involved)
+          </h6>
+          <select formControlName="isAccidentCase">
+            <option value="">Yes</option>
+            <option value="">No</option>
+            <option value="">Not Applicable</option>
+          </select>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div id="btnDiv">
-    <button class="nextBtn" role="button">Next</button>
-  </div>
+    <div id="hospitalDetails">
+      <span style="font-weight: 500">Hospital Details</span>
+      <div id="hospitalDetailsFields">
+        <div class="inputDiv">
+          <h6 for="">Hopital State</h6>
+          <select formControlName="hospitalState">
+            <option value="">select state</option>
+          </select>
+        </div>
+        <div class="inputDiv">
+          <h6 for="">Hopital City</h6>
+          <select formControlName="hospitalCity">
+            <option value="">select city</option>
+          </select>
+        </div>
+        <div class="inputDiv">
+          <h6 for="">Hopital Pin Code</h6>
+          <select formControlName="hospitalPinCode">
+            <option value="">select pin code</option>
+          </select>
+        </div>
+        <div class="inputDiv">
+          <h6 for="">Hopital Name</h6>
+          <select formControlName="hospitalName">
+            <option value="">select name</option>
+          </select>
+        </div>
+
+        <div class="inputDiv">
+          <h6>Doctor Name</h6>
+          <input type="text" formControlName="doctorName" />
+        </div>
+
+        <div class="inputDiv">
+          <h6>Room Type</h6>
+          <input type="text" formControlName="roomType" />
+        </div>
+      </div>
+    </div>
+
+    <div id="btnDiv">
+      <button class="nextBtn" role="submit">Next</button>
+    </div>
+  </form>
 </div>
