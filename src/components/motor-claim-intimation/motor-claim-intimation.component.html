@@ -43,52 +43,90 @@
           <div class="parentElement2">
             <div class="componentDiv1">
               <h6>Date of Accident/Theft</h6>
-              <input type="date" formControlName="dateOfAccident" />
+              <input type="datetime-local" formControlName="AccidentDateTime" />
             </div>
 
             <div class="componentDiv1">
               <h6>Select Type of claim</h6>
-              <select formControlName="claimType">
-                <option value="Value1">Value1</option>
-                <option value="Value2">Value2</option>
-                <option value="Value3">Value3</option>
+              <select formControlName="ModeOfIntimation">
+                <option value="Email">Online</option>
+                <option value="Offline">Offline</option>
+                
               </select>
             </div>
 
-            <div class="componentDiv1">
+            <!-- <div class="componentDiv1">
               <h6>Self Survey?</h6>
               <input type="text" formControlName="selfSurvey" placeholder="Yes/No" />
-            </div>
+            </div> -->
 
-            <div class="componentDiv1">
+            <!-- <div class="componentDiv1">
               <h6>File Upload</h6>
               <input type="file" class="file-upload" formControlName="fileUpload" />
+            </div> -->
+            <div class="componentDiv1">
+              <h6>Loss City</h6>
+              <input type="text" formControlName="LossCity" placeholder="Please enter loss city" />
+            </div>
+            <div class="componentDiv1">
+              <h6>Loss State</h6>
+              <select formControlName="LossState">
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Gujrat">Gujrat</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Uttar Pradesh">UP</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                
+              </select>
             </div>
 
-            <div class="componentDiv1">
+            <!-- <div class="componentDiv1">
               <h6>Location of Accident - Mumbai?</h6>
               <input type="text" formControlName="locationOfAccident" placeholder="Yes/No" />
-            </div>
-
+            </div> -->
             <div class="componentDiv1">
-              <h6>Workshop Name</h6>
+              <h6>Driver Name</h6>
+              <input type="text" formControlName="DriverName" placeholder="Please enter driver name" />
+            </div>
+            <div class="componentDiv1">
+              <h6>Driving License Number</h6>
+              <input type="text" formControlName="DrivingLicenseNumber" placeholder="Please enter driver name" />
+            </div>
+            <div class="componentDiv1">
+              <h6>Garage Name</h6>
               <input type="text" formControlName="workshopName" placeholder="Please enter workshop name" />
             </div>
+            <div class="componentDiv1">
+              <h6>Nature of Loss</h6>
+              <select formControlName="NatureOfLoss">
+                <option value="Motor OD">Motor OD</option>
+              </select>
+            </div>
+            <div class="componentDiv1">
+              <h6>Loss Description</h6>
+              <input type="text" formControlName="LossDescription" placeholder="Please describe loss" />
+            </div>
 
             <div class="componentDiv1">
-              <h6>Workshop Mobile Number</h6>
-              <input type="number" formControlName="workshopMobile" placeholder="Enter mobile number" />
+              <h6>Garage Address</h6>
+              <input type="text" formControlName="SurveyPlaceOrGarageNameAddress" placeholder="Enter garage details" />
             </div>
+            <div class="componentDiv1">
+              <h6>Workshop Id</h6>
+              <input type="number" formControlName="WorkshopId" placeholder="Enter workshop id" />
+            </div>
+            
+
 
             <div class="componentDiv1" id="lossDetails">
-              <h6>Loss Details</h6>
-              <input type="text" formControlName="lossDetails" placeholder="Please enter loss Details" />
+              <h6>Estimated Claim Amount</h6>
+              <input type="text" formControlName="EstimatedClaimAmount" placeholder="Please enter estimated claim amount" />
             </div>
 
-            <div class="componentDiv1">
+            <!-- <div class="componentDiv1">
               <h6>Remarks</h6>
               <input type="text" formControlName="remarks" placeholder="Please enter remarks" />
-            </div>
+            </div> -->
 
             <div class="componentDiv1" id="declaration">
               <input type="checkbox" formControlName="declaration" />
@@ -96,7 +134,7 @@
             </div>
 
             <div class="componentDiv1">
-              <button type="submit" [disabled]="!claimForm.valid">Submit</button>
+              <button type="submit">Submit</button>
             </div>
           </div>
         </div>
