@@ -30,7 +30,7 @@ export class EncryptDecryptService {
     const paddedKey = this.functionpadKeyTo256Bit(fixedKeyBase64);
     console.log("padded key : " + paddedKey);
     const keyUint8 = new Uint8Array(
-      atob(paddedKey)
+      atob(fixedKeyBase64)
         .split("")
         .map((char) => char.charCodeAt(0))
     );
@@ -44,7 +44,7 @@ export class EncryptDecryptService {
     const key = await window.crypto.subtle.importKey(
       "raw",
       keyUint8,
-      { name: "AES-GCM", length: 256 },
+      { name: "AES-GCM"},
       true,
       ["encrypt"]
     );
