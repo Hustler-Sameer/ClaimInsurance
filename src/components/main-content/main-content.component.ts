@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LoaderService } from '../../services/loader.service';
+import { DevAPITokenService } from '../../services/DevAPIToken.service';
 
 @Component({
   selector: 'app-main-content',
@@ -9,15 +10,50 @@ import { LoaderService } from '../../services/loader.service';
   styleUrls: ['./main-content.component.css'],
   // Corrected the property name
 })
-export class MainContentComponent {
+export class MainContentComponent implements OnDestroy {
   // Component logic here
   policyNumber: string = '';
   lob:string="";
-  constructor(private http: HttpClient, private loadingService: LoaderService) {}
+  private devAPIToken:any;
+  constructor(private http: HttpClient, private loadingService: LoaderService , private DevAPITokenService:DevAPITokenService) {}
   @Output() responseSelected = new EventEmitter<PolicyResponse[]>(); 
   @Output() lobSelected = new EventEmitter<string>(); // passing component to parent element
+
+
+  // ngOnInit(): void {    
+  //   this.fetchToken();
+
+  //   this.devAPIToken = setInterval(() => {
+  //     this.fetchToken();
+  //   }, 150000);
+  // }
+
+  fetchToken(): void {
+    this.DevAPITokenService.fetchData().subscribe(
+      data => {
+        console.log('DevAPI Token :', data);  
+      },
+      error => {
+        console.error('Error fetching token:', error);
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    if (this.devAPIToken) {
+      clearInterval(this.devAPIToken);
+    }
+  }
+
   searchPolicy() {
     this.loadingService.showSpinner();
+    this.fetchToken();
+
+    this.devAPIToken = setInterval(() => {
+      this.fetchToken();
+    }, 150000);
+    
+    
     this.http
       .post<PolicyResponse[]>(
         'https://ansappsuat.sbigen.in/SECUREAPI/getPolicyInfo',
@@ -46,6 +82,9 @@ export class MainContentComponent {
   setPolicyNumber(e: any) {
     this.policyNumber = e.target.value;
   }
+
+
+
 }
 
 

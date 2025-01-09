@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { PolicyResponse } from "../main-content/main-content.component";
 import { FormGroup } from "@angular/forms";
-import { EncryptDecryptService } from "src/services/EncryptDecrypt.service";
+import { EncryptDecryptService } from "../../services/EncryptDecrypt.service";
 
 @Component({
   selector: "app-health-claim-intimation",
