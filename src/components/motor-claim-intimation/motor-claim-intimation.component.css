@@ -111,14 +111,14 @@
     width: 300px;
 }
 
-#lossDetails{
+/* #lossDetails{
     grid-column: 2/4;
     width: 88%;
 }
 #lossDetails input{
     grid-column: 2/4;
     width: 88%;
-}
+} */
 #declaration{
     display: flex;
     flex-direction: row;

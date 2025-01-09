@@ -50,7 +50,7 @@
               <h6>Select Type of claim</h6>
               <select formControlName="ModeOfIntimation">
                 <option value="Email">Online</option>
-                <option value="Offline">Offline</option>
+                <!-- <option value="Offline">Offline</option> -->
                 
               </select>
             </div>
@@ -113,7 +113,9 @@
             </div>
             <div class="componentDiv1">
               <h6>Workshop Id</h6>
-              <input type="number" formControlName="WorkshopId" placeholder="Enter workshop id" />
+              <select formControlName="WorkshopId">
+                <option value="DEAL123">Deal</option>
+              </select>
             </div>
             
 
