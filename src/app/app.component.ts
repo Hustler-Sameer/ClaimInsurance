@@ -11,10 +11,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoaderService } from '../services/loader.service';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { HealthClaimIntimationComponent } from '../components/health-claim-intimation/health-claim-intimation.component'; 
+import { DevAPITokenService } from '../services/DevAPIToken.service';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, MotorClaimIntimationComponent, HeaderComponent, MainContentComponent,HttpClientModule,FormsModule , HealthClaimIntimationComponent,CommonModule,ReactiveFormsModule, MatProgressSpinnerModule],
+  providers: [DevAPITokenService],
   templateUrl: './app.component.html',
   // template:`
   // <main>
@@ -31,7 +34,7 @@ export class AppComponent {
   response: PolicyResponse[] | null = null; // Store the motor claim response
   isLoading = false;
 
-  constructor(private loaderService: LoaderService){
+  constructor(private loaderService: LoaderService , private devAPITokenService:DevAPITokenService){
     this.loaderService.spinner$.subscribe((data: boolean) => {
       
       this.isLoading = data;
