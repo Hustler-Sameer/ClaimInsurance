@@ -6,13 +6,12 @@ import { MainContentComponent, PolicyResponse } from "../components/main-content
 import { HttpClientModule } from '@angular/common/http'; //
 import { FormsModule } from '@angular/forms'; 
 import { CommonModule } from '@angular/common';  
-import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoaderService } from '../services/loader.service';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { HealthClaimIntimationComponent } from '../components/health-claim-intimation/health-claim-intimation.component'; 
 import { DevAPITokenService } from '../services/DevAPIToken.service';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-root',

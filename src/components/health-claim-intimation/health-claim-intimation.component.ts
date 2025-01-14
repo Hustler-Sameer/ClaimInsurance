@@ -98,8 +98,9 @@ export class HealthClaimIntimationComponent implements OnInit {
       // );
       const encryptedData1 = await this.encryptService.encryptText(
         formValue,
-        this.base64ToUint8Array("VTXb7e2p1iQ="),
-        this.base64ToUint8Array("05y/Zh9tsXeFAkRCz93poem27hMLV2iX")
+        
+        this.base64ToUint8Array("05y/Zh9tsXeFAkRCz93poem27hMLV2iX"),
+        this.base64ToUint8Array("VTXb7e2p1iQ=")
         
       )
       console.log("Encrypted data : " + encryptedData1);

@@ -39,26 +39,26 @@ export class MainContentComponent implements OnDestroy {
   //     }
   //   );
   // }
-  fetchToken(): void {
-    this.DevAPITokenService.fetchData().subscribe(
-      data => {
-        console.log('DevAPI Token:', data);
+  // fetchToken(): void {
+  //   this.DevAPITokenService.fetchData().subscribe(
+  //     data => {
+  //       console.log('DevAPI Token:', data);
   
-        // Assuming `data` contains the token in the format { accessToken: 'your-token' }
-        if (data && data.accessToken) {
-          // Store the token in localStorage
-          localStorage.setItem('devapiToken', data.accessToken);
+  //       // Assuming `data` contains the token in the format { accessToken: 'your-token' }
+  //       if (data && data.accessToken) {
+  //         // Store the token in localStorage
+  //         localStorage.setItem('devapiToken', data.accessToken);
   
-          console.log('Token stored in localStorage successfully.');
-        } else {
-          console.warn('No access token found in the response.');
-        }
-      },
-      error => {
-        console.error('Error fetching token:', error);
-      }
-    );
-  }
+  //         console.log('Token stored in localStorage successfully.');
+  //       } else {
+  //         console.warn('No access token found in the response.');
+  //       }
+  //     },
+  //     error => {
+  //       console.error('Error fetching token:', error);
+  //     }
+  //   );
+  // }
   
 
   ngOnDestroy(): void {
@@ -69,10 +69,10 @@ export class MainContentComponent implements OnDestroy {
 
   searchPolicy() {
     this.loadingService.showSpinner();
-    this.fetchToken();
+    // this.fetchToken();
 
     this.devAPIToken = setInterval(() => {
-      this.fetchToken();
+      // this.fetchToken();
     }, 150000);
     
     
