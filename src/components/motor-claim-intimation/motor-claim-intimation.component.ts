@@ -33,6 +33,8 @@ export class MotorClaimIntimationComponent implements OnInit {
       customerMobileNumber: ['', Validators.required],
       AccidentDateTime: ['', Validators.required],
       ModeOfIntimation: ['', Validators.required],
+      claimServicingBranch:['',Validators.required],
+      isInsured:['',Validators.required],
       // selfSurvey: ['', Validators.required],
       // fileUpload: [null],
       LossCity: ['', Validators.required],
@@ -46,7 +48,8 @@ export class MotorClaimIntimationComponent implements OnInit {
       SurveyPlaceOrGarageNameAddress: ['', Validators.required],
       WorkshopId: ['', Validators.required],
       EstimatedClaimAmount: ['', Validators.required],
-      // remarks: ['', Validators.required],
+      remarks: ['', Validators.required],
+
       declaration: [false, Validators.requiredTrue]
     });
   }
@@ -119,9 +122,47 @@ export class MotorClaimIntimationComponent implements OnInit {
 
         }
       }
+      const chatBotPayload = {
+        RequestHeader:{
+          requestId:"123456",
+          action:"claimIntimation",
+          channel:"SBIG",
+          transactionTimestamp:"20-Jan-2025-16:41:23"
+        },
+        RequestBody:{
+          Claims:{
+            ServiceType:"Intimation",
+            TieUpClaimId:null,
+            InsuranceCompany:"UATAICI",
+            Claim:{
+              PolicyNumber:this.claimForm.value.policy_NO,
+              RegistrationNumber:this.claimForm.value.registrationNumber,
+              ContactName:this.claimForm.value.customerName,
+              ClaimServicingbranch:this.claimForm.value.claimServicingBranch,
+              ContactNumber:this.claimForm.value.customerMobileNumber,
+              emailID:this.claimForm.value.customerEmailId,
+              AccidentDateandtime:this.claimForm.value.AccidentDateTime,
+              AccidentCity:this.claimForm.value.LossCity,
+              VehicleInspectionAddress:this.claimForm.value.workshopName,
+              CityName:this.claimForm.value.LossCity,
+              StateName:this.claimForm.value.LossState,
+              InspectionSpotLocation:this.claimForm.value.SurveyPlaceOrGarageNameAddress,
+              Garage:this.claimForm.value.workshopName,
+              DriverName:this.claimForm.value.DriverName,
+              isInsured:this.claimForm.value.isInsured,
+              ClaimIntimatedBy:"Insured",
+              CauseOfLoss:this.claimForm.value.LossDescription,
+              Others:this.claimForm.value.remarks,
+              EstimatedClaimAmount:this.claimForm.value.EstimatedClaimAmount
+
+            }
+          }
+        }
+      }
+      console.log("The chatbot request body is :" + chatBotPayload);
       try {
-        const response = await this.motorClaimIntimation.intimateClaim(motoveysPayload);
-        console.log(response);
+        // const response = await this.motorClaimIntimation.intimateClaim(motoveysPayload);
+        // console.log(response);
       } catch (error) {
         console.log(error);
 

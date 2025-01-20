@@ -112,12 +112,17 @@
               <input type="text" formControlName="SurveyPlaceOrGarageNameAddress" placeholder="Enter garage details" />
             </div>
             <div class="componentDiv1">
-              <h6>Workshop Id</h6>
-              <select formControlName="WorkshopId">
-                <option value="DEAL123">Deal</option>
+              <h6>Claim Servicing Branch</h6>
+              <input type="text" formControlName="claimServicingBranch" placeholder="Enter Claim Servicing Branch Name">
+            </div>
+            <div class="componentDiv1">
+              <h6>Is Insured?</h6>
+              <select formControlName="isInsured">
+                <option value="Y">Yes</option>
+                <option value="N">No</option>
+                
               </select>
             </div>
-            
 
 
             <div class="componentDiv1" id="lossDetails">
@@ -125,10 +130,10 @@
               <input type="text" formControlName="EstimatedClaimAmount" placeholder="Please enter estimated claim amount" />
             </div>
 
-            <!-- <div class="componentDiv1">
+            <div class="componentDiv1">
               <h6>Remarks</h6>
               <input type="text" formControlName="remarks" placeholder="Please enter remarks" />
-            </div> -->
+            </div>
 
             <div class="componentDiv1" id="declaration">
               <input type="checkbox" formControlName="declaration" />
