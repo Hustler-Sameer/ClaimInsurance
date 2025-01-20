@@ -26,9 +26,9 @@ export class MotorClaimIntimationComponent implements OnInit {
     this.claimForm = this.fb.group({
       customerName: ['', Validators.required],
       policyNumber: ['', Validators.required],
-      registrationNumber: ['', Validators.required],
-      make: ['', Validators.required],
-      model: ['', Validators.required],
+      // registrationNumber: ['', Validators.required],
+      // make: ['', Validators.required],
+      // model: ['', Validators.required],
       customerEmailId: ['', [Validators.required, Validators.email]],
       customerMobileNumber: ['', Validators.required],
       AccidentDateTime: ['', Validators.required],
@@ -46,7 +46,7 @@ export class MotorClaimIntimationComponent implements OnInit {
       NatureOfLoss: ['', Validators.required],
       LossDescription: ['', Validators.required],
       SurveyPlaceOrGarageNameAddress: ['', Validators.required],
-      WorkshopId: ['', Validators.required],
+      // WorkshopId: ['', Validators.required],
       EstimatedClaimAmount: ['', Validators.required],
       remarks: ['', Validators.required],
 
@@ -159,7 +159,7 @@ export class MotorClaimIntimationComponent implements OnInit {
           }
         }
       }
-      console.log("The chatbot request body is :" + chatBotPayload);
+      console.log("The chatbot request body is :" + JSON.stringify(chatBotPayload));
       try {
         // const response = await this.motorClaimIntimation.intimateClaim(motoveysPayload);
         // console.log(response);
