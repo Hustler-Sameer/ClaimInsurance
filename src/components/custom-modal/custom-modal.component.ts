@@ -1,7 +1,8 @@
 
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, inject} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {
+  MAT_DIALOG_DATA,
   MatDialog,
   MatDialogActions,
   MatDialogClose,
@@ -41,5 +42,9 @@ export class CustomModalComponent {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogAnimationsExampleDialog {
-  readonly dialogRef = inject(MatDialogRef<DialogAnimationsExampleDialog>);
+  // readonly dialogRef = inject(MatDialogRef<DialogAnimationsExampleDialog>);
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: { claimNumber: string, remarks: string },
+    private dialogRef: MatDialogRef<DialogAnimationsExampleDialog>
+  ) {}
 }

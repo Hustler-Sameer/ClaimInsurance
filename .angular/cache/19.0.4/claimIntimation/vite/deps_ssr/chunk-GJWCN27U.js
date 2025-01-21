@@ -5171,6 +5171,8 @@ export {
   _getFocusedElementPierceShadowDom,
   _getEventTarget,
   _isTestEnvironment,
+  Directionality,
+  BidiModule,
   _CdkPrivateStyleLoader,
   ESCAPE,
   hasModifierKey,
@@ -5179,11 +5181,9 @@ export {
   FocusMonitor,
   A11yModule,
   _IdGenerator,
-  Directionality,
-  BidiModule,
   MatCommonModule,
   _StructuralStylesLoader,
   MatRippleModule,
   MatRippleLoader
 };
-//# sourceMappingURL=chunk-ALOYU2WZ.js.map
+//# sourceMappingURL=chunk-GJWCN27U.js.map

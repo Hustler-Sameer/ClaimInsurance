@@ -127,9 +127,10 @@ export class MotorClaimIntimationComponent implements OnInit {
 
         }
       }
+      console.log("The policy no is + " +this.claimForm.value.policyNumber);
       const chatBotPayload = {
         RequestHeader:{
-          requestId:"123456",
+          requestID:"123456",
           action:"claimIntimation",
           channel:"SBIG",
           transactionTimestamp:"20-Jan-2025-16:41:23"
@@ -140,13 +141,13 @@ export class MotorClaimIntimationComponent implements OnInit {
             TieUpClaimId:null,
             InsuranceCompany:"UATAICI",
             Claim:{
-              PolicyNumber:this.claimForm.value.policy_NO,
+              PolicyNumber:this.claimForm.value.policyNumber,
               RegistrationNumber:this.claimForm.value.registrationNumber,
               ContactName:this.claimForm.value.customerName,
               ClaimServicingbranch:this.claimForm.value.claimServicingBranch,
               ContactNumber:this.claimForm.value.customerMobileNumber,
               emailID:this.claimForm.value.customerEmailId,
-              AccidentDateandtime:this.claimForm.value.AccidentDateTime,
+              AccidentDateandtime:formattedDate,
               AccidentCity:this.claimForm.value.LossCity,
               VehicleInspectionAddress:this.claimForm.value.workshopName,
               CityName:this.claimForm.value.LossCity,
@@ -172,8 +173,30 @@ export class MotorClaimIntimationComponent implements OnInit {
       try {
         // const response = await this.motorClaimIntimation.intimateClaim(motoveysPayload);
         // console.log(response);
+        this.loadingService.showSpinner();
+        const response = await this.http.post<{
+          "claimNo":string,
+          "statusMessage":string
+        }>(
+          'http://localhost:7002/Intimation/intimateMotorClaim',
+          chatBotPayload,
+          
+            {
+              headers: { 'Content-Type': 'application/json' },
+            }
+          
+        ).toPromise();
+        this.loadingService.hideSpinner();
+        console.log(response);
+           this.dialog.open(DialogAnimationsExampleDialog, {
+        width: '300px',
+        data: { claimNumber: response?.claimNo, remarks: response?.statusMessage }
+      });
+
       } catch (error) {
+        this.loadingService.hideSpinner();
         console.log(error);
+
 
       }
     } else {
