@@ -1,6 +1,6 @@
 import {
   MatCommonModule
-} from "./chunk-SCJQ2FF3.js";
+} from "./chunk-HM633BOT.js";
 import {
   NgTemplateOutlet
 } from "./chunk-5YQGLIFT.js";
