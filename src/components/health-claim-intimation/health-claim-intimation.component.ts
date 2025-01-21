@@ -63,12 +63,12 @@ export class HealthClaimIntimationComponent implements OnInit {
     if (this.getResponse && this.getResponse.length > 0) {
       const policy = this.getResponse[0];
       this.claimForm.patchValue({
-        customerName: policy.customer_NAME,
-        policyNumber: policy.policy_NO,
-        customerEmailId: policy.Customer_EmailId,
-        customerMobileNo: policy.Customer_MobileNumber,
-        customerAlternateEmailId: policy.customer_EmailId,
-        customerAlternateMobileNo: policy.customer_MobileNumber,
+        customerName: policy.customerName,
+        policyNumber: policy.policyNo,
+        customerEmailId: policy.emailID,
+        customerMobileNo: policy.mobileNo,
+        customerAlternateEmailId: policy.alternateEmailId,
+        customerAlternateMobileNo: policy.alternateMobileNo,
       });
     }
   }

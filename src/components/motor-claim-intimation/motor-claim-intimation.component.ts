@@ -6,6 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { LoaderService } from '../../services/loader.service';
 import { EncryptDecryptService } from '../../services/EncryptDecrypt.service';
 import { MotorClaimIntimation } from '../../services/MotorClaimIntimation.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogAnimationsExampleDialog } from '../custom-modal/custom-modal.component';
 
 @Component({
   selector: 'app-motor-claim-intimation',
@@ -22,17 +24,17 @@ export class MotorClaimIntimationComponent implements OnInit {
   claimForm: FormGroup;
 
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private loadingService: LoaderService, private motorClaimIntimation: MotorClaimIntimation) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private loadingService: LoaderService, private motorClaimIntimation: MotorClaimIntimation,private dialog: MatDialog ) {
     this.claimForm = this.fb.group({
       customerName: ['', Validators.required],
       policyNumber: ['', Validators.required],
-      // registrationNumber: ['', Validators.required],
+      registrationNumber: ['', Validators.required],
       // make: ['', Validators.required],
       // model: ['', Validators.required],
       customerEmailId: ['', [Validators.required, Validators.email]],
       customerMobileNumber: ['', Validators.required],
       AccidentDateTime: ['', Validators.required],
-      ModeOfIntimation: ['', Validators.required],
+      // ModeOfIntimation: ['', Validators.required],
       claimServicingBranch:['',Validators.required],
       isInsured:['',Validators.required],
       // selfSurvey: ['', Validators.required],
@@ -43,7 +45,7 @@ export class MotorClaimIntimationComponent implements OnInit {
       DrivingLicenseNumber: ['', Validators.required],
       workshopName: ['', Validators.required],
       // locationOfAccident: ['', Validators.required],
-      NatureOfLoss: ['', Validators.required],
+      // NatureOfLoss: ['', Validators.required],
       LossDescription: ['', Validators.required],
       SurveyPlaceOrGarageNameAddress: ['', Validators.required],
       // WorkshopId: ['', Validators.required],
@@ -69,10 +71,13 @@ export class MotorClaimIntimationComponent implements OnInit {
       const policy = this.getResponse[0];
       console.log(" The policy info is :" + JSON.stringify(policy));
       this.claimForm.patchValue({
-        customerName: policy.CUSTOMER_NAME,
-        policyNumber: policy.POLICY_NO,
-        customerEmailId: policy.Customer_EmailId,
-        customerMobileNumber: policy.Customer_MobileNumber
+        customerName: policy.customerName,
+        policyNumber: policy.policyNo,
+        customerEmailId: policy.emailID,
+        customerMobileNumber: policy.mobileNo,
+        DrivingLicenseNumber:policy.drivingLicenseNo,
+        registrationNumber:policy.registrationNo
+        
       });
     }
   }
@@ -160,6 +165,10 @@ export class MotorClaimIntimationComponent implements OnInit {
         }
       }
       console.log("The chatbot request body is :" + JSON.stringify(chatBotPayload));
+      // this.dialog.open(DialogAnimationsExampleDialog, {
+      //   width: '300px',
+      //   data: { claimNumber: "12345", remarks: "Dialog opened on initialization" }
+      // });
       try {
         // const response = await this.motorClaimIntimation.intimateClaim(motoveysPayload);
         // console.log(response);

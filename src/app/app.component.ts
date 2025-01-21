@@ -11,11 +11,13 @@ import { LoaderService } from '../services/loader.service';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { HealthClaimIntimationComponent } from '../components/health-claim-intimation/health-claim-intimation.component'; 
 import { DevAPITokenService } from '../services/DevAPIToken.service';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogAnimationsExampleDialog } from '../components/custom-modal/custom-modal.component';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MotorClaimIntimationComponent, HeaderComponent, MainContentComponent,HttpClientModule,FormsModule , HealthClaimIntimationComponent,CommonModule,ReactiveFormsModule, MatProgressSpinnerModule],
+  imports: [RouterOutlet, MotorClaimIntimationComponent, HeaderComponent, MainContentComponent,HttpClientModule,FormsModule , HealthClaimIntimationComponent,CommonModule,ReactiveFormsModule, MatProgressSpinnerModule,MatDialogModule,DialogAnimationsExampleDialog],
   providers: [DevAPITokenService],
   templateUrl: './app.component.html',
   // template:`
