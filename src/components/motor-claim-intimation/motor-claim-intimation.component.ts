@@ -146,7 +146,7 @@ export class MotorClaimIntimationComponent implements OnInit {
             claimNo: string;
             statusMessage: string;
           }>(
-            "http://localhost:7002/Intimation/intimateMotorClaim",
+            "https://ansappsuat.sbigen.in/Intimation/intimateMotorClaim",
             chatBotPayload,
 
             {

@@ -47,4 +47,8 @@ export class DialogAnimationsExampleDialog {
     @Inject(MAT_DIALOG_DATA) public data: { claimNumber: string, remarks: string },
     private dialogRef: MatDialogRef<DialogAnimationsExampleDialog>
   ) {}
+  onOkClick() : void {
+    this.dialogRef.close();
+    window.location.reload();
+  }
 }

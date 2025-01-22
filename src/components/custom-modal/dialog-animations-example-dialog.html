@@ -4,5 +4,5 @@
   <p>Remarks: <strong>{{ data.remarks }}</strong></p>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+  <button mat-button mat-dialog-close cdkFocusInitial (click)="onOkClick()">Ok</button>
 </mat-dialog-actions>
