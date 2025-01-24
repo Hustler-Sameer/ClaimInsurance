@@ -4,6 +4,7 @@ import { PolicyResponse } from '../main-content/main-content.component';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { LoaderService } from '../../services/loader.service';
+import { EncryptDecryptService } from '../../services/EncryptDecrypt.service';
 
 @Component({
   selector: 'app-motor-claim-intimation',
@@ -20,7 +21,7 @@ export class MotorClaimIntimationComponent implements OnInit {
   claimForm: FormGroup; 
   
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private loadingService: LoaderService) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private loadingService: LoaderService , private encService:EncryptDecryptService) {
     this.claimForm = this.fb.group({
       customerName: ['', Validators.required],
       policyNumber: ['', Validators.required],
@@ -38,7 +39,7 @@ export class MotorClaimIntimationComponent implements OnInit {
       DriverName:['',Validators.required],
       DrivingLicenseNumber:['',Validators.required],
       workshopName: ['', Validators.required],
-      locationOfAccident: ['', Validators.required],
+      // locationOfAccident: ['', Validators.required],
       NatureOfLoss:['',Validators.required],
       LossDescription:['',Validators.required],
       SurveyPlaceOrGarageNameAddress:['',Validators.required],
@@ -72,7 +73,7 @@ export class MotorClaimIntimationComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  async onSubmit() {
     console.log("hhheheh");
     console.log(this.claimForm.controls);
     console.log("Form Values:", this.claimForm.value);
@@ -84,15 +85,79 @@ export class MotorClaimIntimationComponent implements OnInit {
 
 
 
-// for (const controlName in this.claimForm.controls) {
-//   console.log(controlName, this.claimForm.controls[controlName].valid);
-// }
+for (const controlName in this.claimForm.controls) {
+  console.log(controlName, this.claimForm.controls[controlName].valid);
+}
     if (this.claimForm.valid) {
       console.log('Form Submitted:', formData);
-      // this.loadingService.showSpinner();
-      // this.http.post()
-      
-      // Handle the form submission (e.g., send data to an API)
+      const motoveysPayload = {
+        Claims : {
+          Claim:{
+            PolicyNumber: this.claimForm.value.policy_NO,
+            RegistrationNumber:this.claimForm.value.registrationNumber,
+            InsuredName:this.claimForm.value.customerName,
+            ClaimServicingBranch:this.claimForm.value.WorkshopId,
+            MobileNumber:this.claimForm.value.customerMobileNumber,
+            InsuredEmailId:this.claimForm.value.customerEmailId,
+            AccidentDateTime:this.claimForm.value.AccidentDateTime,
+            LossState:this.claimForm.value.LossState,
+            LossCity:this.claimForm.value.LossCity,
+            DriverName:this.claimForm.value.DriverName,
+            LossDescription:this.claimForm.value.LossDescription,
+            NatureOfLoss:this.claimForm.value.NatureOfLoss,
+            SurveyPlaceOrGarageNameAddress:this.claimForm.value.SurveyPlaceOrGarageNameAddress,
+            WorkshopId:this.claimForm.value.WorkshopId,
+            DrivingLicenseNumber:this.claimForm.value.DrivingLicenseNumber,
+            EstimatedClaimAmount:this.claimForm.value.EstimatedClaimAmount,
+            ModeOfIntimation:this.claimForm.value.ModeOfIntimation
+          },
+          InsuranceCompany:"SBIGCL",
+          ServiceType:"Intimation",
+          TieUpClaimId:"",
+          UserId:""
+
+        }
+      }
+      try {
+        const encryptedData = await this.encService.encryptText(
+          motoveysPayload,
+          "05y/Zh9tsXeFAkRCz93poem27hMLV2iX",
+          "VTXb7e2p1iQ="
+  
+        );
+        console.log("The encrypted data is " + encryptedData.encryptedText);
+        const devapiBody = {
+          ciphertext:encryptedData.encryptedText
+        }
+        const token = localStorage.getItem('devapiToken');
+        this.loadingService.showSpinner();
+        this.http.post<any>(
+          'https://devapi.sbigeneral.in/v1/Motoveys/API1/ICIntimation',
+          devapiBody,
+          {
+            headers:{
+              'X-IBM-Client-Id': '458b817795bad480c5c59e6c424fd285',
+              'X-IBM-Client-Secret': '51d9ae9279382a4fa6f1becd4c41ca84',
+              'Authorization':token || '' 
+            }
+          }
+
+        )
+        .subscribe(
+          (response:any) => {
+            console.log("The response " + response)
+          }
+          
+        )
+        this.loadingService.hideSpinner();
+      } catch (error) {
+        console.log(error);
+        this.loadingService.hideSpinner();
+
+      }
+     
+
+
     } else {
       console.log('Form is invalid');
     }
@@ -124,4 +189,14 @@ export interface MotorClaimIntimationAncillary {
   // remarks:String;
   WorkshopId:String;
   ServiceType:"Intimation";
+
+}
+
+
+
+
+export interface MotorClaimIntimationMotoveys{
+
+
+
 }

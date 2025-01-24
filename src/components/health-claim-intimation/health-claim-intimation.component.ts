@@ -3,7 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { PolicyResponse } from "../main-content/main-content.component";
 import { FormGroup } from "@angular/forms";
 import { EncryptDecryptService } from "../../services/EncryptDecrypt.service";
-
+import { encryptService } from "../../services/Encrypt-util.service";
 @Component({
   selector: "app-health-claim-intimation",
   imports: [ReactiveFormsModule],
@@ -13,10 +13,24 @@ import { EncryptDecryptService } from "../../services/EncryptDecrypt.service";
 export class HealthClaimIntimationComponent implements OnInit {
   @Input() getResponse: PolicyResponse[] | null = [];
   claimForm: FormGroup;
+  private base64ToUint8Array(base64: string): Uint8Array {
+    const binaryString = atob(base64);
+    const length = binaryString.length;
+    const bytes = new Uint8Array(length);
+
+    for (let i = 0; i < length; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+
+    return bytes;
+  }
+
+
 
   constructor(
     private fb: FormBuilder,
-    private encService: EncryptDecryptService
+    private encService: EncryptDecryptService,
+    private encryptService : encryptService
   ) {
     this.claimForm = this.fb.group({
       customerName: ["", Validators.required],
@@ -62,13 +76,33 @@ export class HealthClaimIntimationComponent implements OnInit {
   async onSubmit() {
     try {
       const formValue = this.claimForm.value;
+
+      const healthPayload = {
+        ACCESS_TOKEN:'',
+        MemberId : formValue.memeberId,
+        PatientName : formValue.patientName,
+        PolicyNo : formValue.policyNumber,
+        EmailAddress : formValue.customerEmailId,
+        DateOfAdmission : formValue.dateOfAdmission,
+        HospitalName : formValue.hospitalName,
+        ReasonForHospitalisation : formValue.admissionReason,
+        DoctorName : formValue.doctorName,
+        EstimatedAmount : formValue.claimAmount,
+        RoomType : formValue.roomType
+      }
       console.log("Submitted Form : " + JSON.stringify(formValue));
-      const encryptedData = await this.encService.encryptText(
+      // const encryptedData = await this.encService.encryptText(
+      //   formValue,
+      //   "05y/Zh9tsXeFAkRCz93poem27hMLV2iX",
+      //   "VTXb7e2p1iQ="
+      // );
+      const encryptedData1 = await this.encryptService.encryptText(
         formValue,
-        "05y/Zh9tsXeFAkRCz93poem27hMLV2iX",
-        "VTXb7e2p1iQ="
-      );
-      console.log("Encrypted data : " + encryptedData.encryptedText);
+        this.base64ToUint8Array("VTXb7e2p1iQ="),
+        this.base64ToUint8Array("05y/Zh9tsXeFAkRCz93poem27hMLV2iX")
+        
+      )
+      console.log("Encrypted data : " + encryptedData1);
     } catch (error) {
       console.log("Error during encyption : " + error);
     }

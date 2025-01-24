@@ -28,16 +28,38 @@ export class MainContentComponent implements OnDestroy {
   //   }, 150000);
   // }
 
+  // fetchToken(): void {
+  //   this.DevAPITokenService.fetchData().subscribe(
+  //     data => {
+  //       console.log('DevAPI Token :', data);  
+        
+  //     },
+  //     error => {
+  //       console.error('Error fetching token:', error);
+  //     }
+  //   );
+  // }
   fetchToken(): void {
     this.DevAPITokenService.fetchData().subscribe(
       data => {
-        console.log('DevAPI Token :', data);  
+        console.log('DevAPI Token:', data);
+  
+        // Assuming `data` contains the token in the format { accessToken: 'your-token' }
+        if (data && data.accessToken) {
+          // Store the token in localStorage
+          localStorage.setItem('devapiToken', data.accessToken);
+  
+          console.log('Token stored in localStorage successfully.');
+        } else {
+          console.warn('No access token found in the response.');
+        }
       },
       error => {
         console.error('Error fetching token:', error);
       }
     );
   }
+  
 
   ngOnDestroy(): void {
     if (this.devAPIToken) {
