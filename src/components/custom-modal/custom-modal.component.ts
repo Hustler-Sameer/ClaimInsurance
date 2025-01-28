@@ -42,7 +42,6 @@ export class CustomModalComponent {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogAnimationsExampleDialog {
-  // readonly dialogRef = inject(MatDialogRef<DialogAnimationsExampleDialog>);
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { claimNumber: string, remarks: string },
     private dialogRef: MatDialogRef<DialogAnimationsExampleDialog>
