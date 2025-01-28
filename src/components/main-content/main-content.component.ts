@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LoaderService } from '../../services/loader.service';
 import { DevAPITokenService } from '../../services/DevAPIToken.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-content',
@@ -15,51 +16,11 @@ export class MainContentComponent implements OnDestroy {
   policyNumber: string = '';
   lob:string="";
   private devAPIToken:any;
-  constructor(private http: HttpClient, private loadingService: LoaderService , private DevAPITokenService:DevAPITokenService) {}
+  constructor(private http: HttpClient, private loadingService: LoaderService , private DevAPITokenService:DevAPITokenService,private router: Router) {}
   @Output() responseSelected = new EventEmitter<PolicyResponse[]>(); 
   @Output() lobSelected = new EventEmitter<string>(); // passing component to parent element
 
 
-  // ngOnInit(): void {    
-  //   this.fetchToken();
-
-  //   this.devAPIToken = setInterval(() => {
-  //     this.fetchToken();
-  //   }, 150000);
-  // }
-
-  // fetchToken(): void {
-  //   this.DevAPITokenService.fetchData().subscribe(
-  //     data => {
-  //       console.log('DevAPI Token :', data);  
-        
-  //     },
-  //     error => {
-  //       console.error('Error fetching token:', error);
-  //     }
-  //   );
-  // }
-  // fetchToken(): void {
-  //   this.DevAPITokenService.fetchData().subscribe(
-  //     data => {
-  //       console.log('DevAPI Token:', data);
-  
-  //       // Assuming `data` contains the token in the format { accessToken: 'your-token' }
-  //       if (data && data.accessToken) {
-  //         // Store the token in localStorage
-  //         localStorage.setItem('devapiToken', data.accessToken);
-  
-  //         console.log('Token stored in localStorage successfully.');
-  //       } else {
-  //         console.warn('No access token found in the response.');
-  //       }
-  //     },
-  //     error => {
-  //       console.error('Error fetching token:', error);
-  //     }
-  //   );
-  // }
-  
 
   ngOnDestroy(): void {
     if (this.devAPIToken) {
@@ -91,7 +52,10 @@ export class MainContentComponent implements OnDestroy {
           this.lob = response[0].lob;
           console.log("Product Name: ", this.lob);
           this.responseSelected.emit(response); 
-          this.lobSelected.emit(this.lob); //sending it to parent element
+          this.lobSelected.emit(this.lob); //
+          // sending it to parent element
+          this.navigateBasedOnLOB(this.lob);
+
           this.loadingService.hideSpinner();
         },  
         (error) => {
@@ -105,12 +69,20 @@ export class MainContentComponent implements OnDestroy {
     this.policyNumber = e.target.value;
   }
 
-
+  navigateBasedOnLOB(lob: string) {
+    if (lob.startsWith('Motor')) {
+      this.router.navigate(['/motor-claim']);
+    } else if (lob.startsWith('Health')) {
+      this.router.navigate(['/health-claim']);
+    } else {
+      console.warn('LOB not recognized:', lob);
+    }
+  }
 
 }
 
 
-
+ 
 // export interface PolicyResponse {
 //   POLICY_NO: string;
 //   CUSTOMER_NAME: string;
