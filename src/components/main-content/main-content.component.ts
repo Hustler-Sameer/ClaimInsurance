@@ -39,26 +39,26 @@ export class MainContentComponent implements OnDestroy {
   //     }
   //   );
   // }
-  fetchToken(): void {
-    this.DevAPITokenService.fetchData().subscribe(
-      data => {
-        console.log('DevAPI Token:', data);
+  // fetchToken(): void {
+  //   this.DevAPITokenService.fetchData().subscribe(
+  //     data => {
+  //       console.log('DevAPI Token:', data);
   
-        // Assuming `data` contains the token in the format { accessToken: 'your-token' }
-        if (data && data.accessToken) {
-          // Store the token in localStorage
-          localStorage.setItem('devapiToken', data.accessToken);
+  //       // Assuming `data` contains the token in the format { accessToken: 'your-token' }
+  //       if (data && data.accessToken) {
+  //         // Store the token in localStorage
+  //         localStorage.setItem('devapiToken', data.accessToken);
   
-          console.log('Token stored in localStorage successfully.');
-        } else {
-          console.warn('No access token found in the response.');
-        }
-      },
-      error => {
-        console.error('Error fetching token:', error);
-      }
-    );
-  }
+  //         console.log('Token stored in localStorage successfully.');
+  //       } else {
+  //         console.warn('No access token found in the response.');
+  //       }
+  //     },
+  //     error => {
+  //       console.error('Error fetching token:', error);
+  //     }
+  //   );
+  // }
   
 
   ngOnDestroy(): void {
@@ -69,16 +69,16 @@ export class MainContentComponent implements OnDestroy {
 
   searchPolicy() {
     this.loadingService.showSpinner();
-    this.fetchToken();
+    // this.fetchToken();
 
     this.devAPIToken = setInterval(() => {
-      this.fetchToken();
+      // this.fetchToken();
     }, 150000);
     
     
     this.http
       .post<PolicyResponse[]>(
-        'https://ansappsuat.sbigen.in/SECUREAPI/getPolicyInfo',
+        'https://ansappsuat.sbigen.in/Intimation/getIntimationPolicyDetails',
         this.policyNumber,
         {
           headers: { 'Content-Type': 'text/plain' },
@@ -111,39 +111,59 @@ export class MainContentComponent implements OnDestroy {
 
 
 
-export interface PolicyResponse {
-  POLICY_NO: string;
-  CUSTOMER_NAME: string;
-  Customer_MobileNumber: string;
-  Customer_EmailId: string;
-  PolicyStartDate: string;
-  PolicyEndDate: string;
-  PRODUCT_NAME: string;
-  AGREEMENT_CODE: string;
-  INTERMEDIARY_CODE: string;
-  INTERMEDIARY_NAME: string;
-  SBI_BRANCH: string;
-  SECONDARY_SALES_MANAGER_CODE: string;
-  SECONDARY_SALES_MANAGER_NAME: string;
-  SALES_MANAGER_EMAIL_ID: string;
-  SM_MOBILE_NUMBER: string;
-  LOB: string;
-  SM_ID: string;
-  customer_EmailId: string;
-  sm_MOBILE_NUMBER: string;
-  customer_MobileNumber: string;
-  policyEndDate: string;
-  agreement_CODE: string;
-  sbi_BRANCH: string;
-  sm_ID: string;
-  sales_MANAGER_EMAIL_ID: string;
-  secondary_SALES_MANAGER_NAME: string;
-  customer_NAME: string;
-  policy_NO: string;
-  product_NAME: string;
-  intermediary_NAME: string;
-  intermediary_CODE: string;
-  secondary_SALES_MANAGER_CODE: string;
-  policyStartDate: string;
-  lob: string;
+// export interface PolicyResponse {
+//   POLICY_NO: string;
+//   CUSTOMER_NAME: string;
+//   Customer_MobileNumber: string;
+//   Customer_EmailId: string;
+//   PolicyStartDate: string;
+//   PolicyEndDate: string;
+//   PRODUCT_NAME: string;
+//   AGREEMENT_CODE: string;
+//   INTERMEDIARY_CODE: string;
+//   INTERMEDIARY_NAME: string;
+//   SBI_BRANCH: string;
+//   SECONDARY_SALES_MANAGER_CODE: string;
+//   SECONDARY_SALES_MANAGER_NAME: string;
+//   SALES_MANAGER_EMAIL_ID: string;
+//   SM_MOBILE_NUMBER: string;
+//   LOB: string;
+//   SM_ID: string;
+//   customer_EmailId: string;
+//   sm_MOBILE_NUMBER: string;
+//   customer_MobileNumber: string;
+//   policyEndDate: string;
+//   agreement_CODE: string;
+//   sbi_BRANCH: string;
+//   sm_ID: string;
+//   sales_MANAGER_EMAIL_ID: string;
+//   secondary_SALES_MANAGER_NAME: string;
+//   customer_NAME: string;
+//   policy_NO: string;
+//   product_NAME: string;
+//   intermediary_NAME: string;
+//   intermediary_CODE: string;
+//   secondary_SALES_MANAGER_CODE: string;
+//   policyStartDate: string;
+//   lob: string;
+// }
+
+
+export interface PolicyResponse{
+  policyNo:string,
+  customerName:string,
+  emailID:string,
+  mobileNo:string,
+  alternateMobileNo:string,
+  alternateEmailId:string,
+  policyStartDate:string,
+  policyEndDate:string,
+  productName:string,
+  registrationNo:string,
+  drivingLicenseNo:string,
+  engineNo:string,
+  chasisNo:string,
+  lob:string,
+  id:number,
+  MemberId:string
 }

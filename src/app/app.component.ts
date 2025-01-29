@@ -6,17 +6,18 @@ import { MainContentComponent, PolicyResponse } from "../components/main-content
 import { HttpClientModule } from '@angular/common/http'; //
 import { FormsModule } from '@angular/forms'; 
 import { CommonModule } from '@angular/common';  
-import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoaderService } from '../services/loader.service';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { HealthClaimIntimationComponent } from '../components/health-claim-intimation/health-claim-intimation.component'; 
 import { DevAPITokenService } from '../services/DevAPIToken.service';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogAnimationsExampleDialog } from '../components/custom-modal/custom-modal.component';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MotorClaimIntimationComponent, HeaderComponent, MainContentComponent,HttpClientModule,FormsModule , HealthClaimIntimationComponent,CommonModule,ReactiveFormsModule, MatProgressSpinnerModule],
+  imports: [RouterOutlet, MotorClaimIntimationComponent, HeaderComponent, MainContentComponent,HttpClientModule,FormsModule , HealthClaimIntimationComponent,CommonModule,ReactiveFormsModule, MatProgressSpinnerModule,MatDialogModule,DialogAnimationsExampleDialog],
   providers: [DevAPITokenService],
   templateUrl: './app.component.html',
   // template:`

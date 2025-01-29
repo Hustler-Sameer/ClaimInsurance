@@ -2,8 +2,11 @@ import { Component, Input, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { PolicyResponse } from "../main-content/main-content.component";
 import { FormGroup } from "@angular/forms";
-import { EncryptDecryptService } from "../../services/EncryptDecrypt.service";
-import { encryptService } from "../../services/Encrypt-util.service";
+import { HttpClient } from "@angular/common/http";
+import { LoaderService } from "../../services/loader.service";
+import { MatDialog } from "@angular/material/dialog";
+import { DialogAnimationsExampleDialog } from "../custom-modal/custom-modal.component";
+
 @Component({
   selector: "app-health-claim-intimation",
   imports: [ReactiveFormsModule],
@@ -25,36 +28,35 @@ export class HealthClaimIntimationComponent implements OnInit {
     return bytes;
   }
 
-
-
   constructor(
     private fb: FormBuilder,
-    private encService: EncryptDecryptService,
-    private encryptService : encryptService
+    private http: HttpClient,
+    private loadingService: LoaderService,
+    private dialog: MatDialog
   ) {
     this.claimForm = this.fb.group({
       customerName: ["", Validators.required],
       policyNumber: ["", Validators.required],
       customerEmailId: ["", Validators.required],
       customerMobileNo: ["", Validators.required],
-      customerAlternateEmailId: ["", Validators.required],
-      customerAlternateMobileNo: ["", Validators.required],
-      memeberId:[""],
+      customerAlternateEmailId: [""],
+      customerAlternateMobileNo: [""],
+      memeberId: ["", Validators.required],
       claimType: [""],
-      patientName: [""],
-      claimAmount: [""],
-      dateOfAdmission: [""],
+      patientName: ["", Validators.required],
+      claimAmount: ["", Validators.required],
+      dateOfAdmission: ["", Validators.required],
       dateOfDischarge: [""],
       remark: [""],
-      admissionReason: [""],
+      admissionReason: ["", Validators.required],
       isAccidentCase: [""],
-      FIRNo:[""],
+      FIRNo: [""],
       hospitalState: [""],
       hospitalCity: [""],
       hospitalPinCode: [""],
-      hospitalName: [""],
-      doctorName: [""],
-      roomType: [""],
+      hospitalName: ["", Validators.required],
+      doctorName: ["", Validators.required],
+      roomType: ["", Validators.required],
     });
   }
 
@@ -63,48 +65,51 @@ export class HealthClaimIntimationComponent implements OnInit {
     if (this.getResponse && this.getResponse.length > 0) {
       const policy = this.getResponse[0];
       this.claimForm.patchValue({
-        customerName: policy.customer_NAME,
-        policyNumber: policy.policy_NO,
-        customerEmailId: policy.Customer_EmailId,
-        customerMobileNo: policy.Customer_MobileNumber,
-        customerAlternateEmailId: policy.customer_EmailId,
-        customerAlternateMobileNo: policy.customer_MobileNumber,
+        customerName: policy.customerName,
+        policyNumber: policy.policyNo,
+        customerEmailId: policy.emailID,
+        customerMobileNo: policy.mobileNo,
+        customerAlternateEmailId: policy.alternateEmailId,
+        customerAlternateMobileNo: policy.alternateMobileNo,
+        memeberId: "4016520383",
       });
     }
   }
 
   async onSubmit() {
-    try {
-      const formValue = this.claimForm.value;
+    const formValue = this.claimForm.value;
+    console.log("Form values : " + JSON.stringify(formValue));
 
-      const healthPayload = {
-        ACCESS_TOKEN:'',
-        MemberId : formValue.memeberId,
-        PatientName : formValue.patientName,
-        PolicyNo : formValue.policyNumber,
-        EmailAddress : formValue.customerEmailId,
-        DateOfAdmission : formValue.dateOfAdmission,
-        HospitalName : formValue.hospitalName,
-        ReasonForHospitalisation : formValue.admissionReason,
-        DoctorName : formValue.doctorName,
-        EstimatedAmount : formValue.claimAmount,
-        RoomType : formValue.roomType
+    try {
+      if (this.claimForm.valid) {
+        this.loadingService.showSpinner();
+        const response = await this.http
+          .post<{
+            IntimationNo: string;
+            ErrorMessage: string;
+          }>(
+            "http://localhost:7002/Intimation/healthClaimIntimation",
+            formValue,
+            {
+              headers: { "Content-Type": "application/json" },
+            }
+          )
+          .toPromise();
+        this.loadingService.hideSpinner();
+        console.log(response);
+        this.dialog.open(DialogAnimationsExampleDialog, {
+          width: "300px",
+          data: {
+            claimNumber: response?.IntimationNo,
+            remarks: response?.ErrorMessage,
+          },
+        });
+      } else {
+        console.log("All Required fields are not selected")
       }
-      console.log("Submitted Form : " + JSON.stringify(formValue));
-      // const encryptedData = await this.encService.encryptText(
-      //   formValue,
-      //   "05y/Zh9tsXeFAkRCz93poem27hMLV2iX",
-      //   "VTXb7e2p1iQ="
-      // );
-      const encryptedData1 = await this.encryptService.encryptText(
-        formValue,
-        this.base64ToUint8Array("VTXb7e2p1iQ="),
-        this.base64ToUint8Array("05y/Zh9tsXeFAkRCz93poem27hMLV2iX")
-        
-      )
-      console.log("Encrypted data : " + encryptedData1);
     } catch (error) {
-      console.log("Error during encyption : " + error);
+      this.loadingService.hideSpinner();
+      console.log(error);
     }
   }
 }

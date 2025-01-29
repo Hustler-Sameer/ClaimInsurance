@@ -37,7 +37,7 @@
         </div>
         <div class="inputDiv">
           <h6>Member Id</h6>
-          <input type="text" />
+          <input type="text" formControlName="memeberId">
         </div>
       </div>
     </div>
@@ -71,11 +71,12 @@
         </div>
         <div class="inputDiv">
           <h6 for="">Admission is due to</h6>
-          <select formControlName="admissionReason">
+          <input type="text" formControlName="admissionReason">
+          <!-- <select formControlName="admissionReason">
             <option value="">Illness</option>
             <option value="">Accident</option>
             <option value="">Not Applicable</option>
-          </select>
+          </select> -->
         </div>
         <div class="inputDiv">
           <h6 for="">
@@ -95,27 +96,31 @@
       <div id="hospitalDetailsFields">
         <div class="inputDiv">
           <h6 for="">Hopital State</h6>
-          <select formControlName="hospitalState">
+          <input type="text" formControlName="hospitalState">
+          <!-- <select formControlName="hospitalState">
             <option value="">select state</option>
-          </select>
+          </select> -->
         </div>
         <div class="inputDiv">
           <h6 for="">Hopital City</h6>
-          <select formControlName="hospitalCity">
+          <input type="text" formControlName="hospitalCity">
+          <!-- <select formControlName="hospitalCity">
             <option value="">select city</option>
-          </select>
+          </select> -->
         </div>
         <div class="inputDiv">
           <h6 for="">Hopital Pin Code</h6>
-          <select formControlName="hospitalPinCode">
+          <input type="text" formControlName="hospitalPinCode">
+          <!-- <select formControlName="hospitalPinCode">
             <option value="">select pin code</option>
-          </select>
+          </select> -->
         </div>
         <div class="inputDiv">
           <h6 for="">Hopital Name</h6>
-          <select formControlName="hospitalName">
+          <input type="text" formControlName="hospitalName">
+          <!-- <select formControlName="hospitalName">
             <option value="">select name</option>
-          </select>
+          </select> -->
         </div>
 
         <div class="inputDiv">
@@ -131,7 +136,7 @@
     </div>
 
     <div id="btnDiv">
-      <button class="nextBtn" role="submit">Next</button>
+      <button class="nextBtn" role="submit">Submit</button>
     </div>
   </form>
 </div>

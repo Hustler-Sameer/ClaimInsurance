@@ -1,7 +1,7 @@
 import {
   MatCommonModule,
   coerceBooleanProperty
-} from "./chunk-F3VYRQ2I.js";
+} from "./chunk-AYQZVUXD.js";
 import "./chunk-5YQGLIFT.js";
 import {
   ChangeDetectionStrategy,
