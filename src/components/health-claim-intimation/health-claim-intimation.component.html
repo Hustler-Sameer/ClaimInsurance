@@ -50,7 +50,7 @@
           <input type="text" formControlName="patientName" />
         </div> -->
         <div class="inputDiv">
-          <h5 for="patientName">Patient Name</h5>
+          <h5 for="patientName">Patient Name<span class="required"> * </span></h5>
           <select formControlName="patientName" (change)="onPatientNameChange($event)">
             <option *ngFor="let member of policyMembersList" [value]="member.name">{{ member.name }}</option>
           </select>
@@ -60,7 +60,7 @@
         </div>
 
         <div class="inputDiv">
-          <h5>Member Id</h5>
+          <h5>Member Id<span class="required"> * </span></h5>
           <input type="text" formControlName="memeberId" readonly>
           <div *ngIf="claimForm.controls['memeberId'].invalid && isSubmitted">
             <span class="error">Member Id is required</span>
@@ -68,14 +68,14 @@
         </div>
 
         <div class="inputDiv">
-          <h5 for="">Approx Claim Amount</h5>
+          <h5 for="">Approx Claim Amount<span class="required"> * </span></h5>
           <input type="text" formControlName="claimAmount" />
           <div *ngIf="claimForm.controls['claimAmount'].invalid && isSubmitted">
             <span class="error">Claim amount is required</span>
           </div>
         </div>
         <div class="inputDiv">
-          <h5 for="">Date of Admission</h5>
+          <h5 for="">Date of Admission<span class="required"> * </span></h5>
           <input type="date" formControlName="dateOfAdmission" />
           <div *ngIf="claimForm.controls['dateOfAdmission'].invalid && isSubmitted">
             <span class="error">Date of admission is required</span>
@@ -86,11 +86,11 @@
           <input type="date" formControlName="dateOfDischarge" />
         </div> -->
         <div class="inputDiv">
-          <h5 for="">Remark</h5>
+          <h5 for="">Any Remark</h5>
           <input type="text" formControlName="remark" />
         </div>
         <div class="inputDiv">
-          <h5 for="">Admission reason</h5>
+          <h5 for="">Admission reason<span class="required"> * </span></h5>
           <input type="text" formControlName="admissionReason">
           <div *ngIf="claimForm.controls['admissionReason'].invalid && isSubmitted">
             <span class="error">Admission reason is required</span>
@@ -104,6 +104,7 @@
         <div class="inputDiv">
           <h5 for="">
             In case of accident (Any police comlaint / FIR is involved)
+            <span class="required"> * </span>
           </h5>
           <select formControlName="isAccidentCase" (change)="onAccidentCaseChange($event)">
             <option value="" disabled selected>select</option>
@@ -115,7 +116,7 @@
           </div>
         </div>
         <div class="inputDiv" *ngIf="showFirNo">
-          <h5>Fir No</h5>
+          <h5>Fir No<span class="required"> * </span></h5>
           <input type="text" formControlName="FIRNo">
           <div *ngIf="claimForm.controls['FIRNo'].invalid && isSubmitted">
             <span class="error">FIR no. is required</span>
@@ -128,7 +129,7 @@
       <span style="font-weight: 500">Hospital Details</span>
       <div id="hospitalDetailsFields">
         <div class="inputDiv">
-          <h5 for="">Hospital State</h5>
+          <h5 for="">Hospital States<span class="required"> * </span></h5>
           <input type="text" formControlName="hospitalState">
           <div *ngIf="claimForm.controls['hospitalState'].invalid && isSubmitted">
             <span class="error">Hospital state is required</span>
@@ -138,7 +139,7 @@
           </select> -->
         </div>
         <div class="inputDiv">
-          <h5 for="">Hospital City</h5>
+          <h5 for="">Hospital City<span class="required"> * </span></h5>
           <input type="text" formControlName="hospitalCity">
           <div *ngIf="claimForm.controls['hospitalCity'].invalid && isSubmitted">
             <span class="error">Hospital city is required</span>
@@ -148,7 +149,7 @@
           </select> -->
         </div>
         <div class="inputDiv">
-          <h5 for="">Hospital Pin Code</h5>
+          <h5 for="">Hospital Pin Code<span class="required"> * </span></h5>
           <input type="text" formControlName="hospitalPinCode">
           <div *ngIf="claimForm.controls['hospitalPinCode'].invalid && isSubmitted">
             <span class="error">Hospital pincode is required</span>
@@ -158,7 +159,7 @@
           </select> -->
         </div>
         <div class="inputDiv">
-          <h5 for="">Hospital Name</h5>
+          <h5 for="">Hospital Name<span class="required"> * </span></h5>
           <input type="text" formControlName="hospitalName">
           <div *ngIf="claimForm.controls['hospitalName'].invalid && isSubmitted">
             <span class="error">Hospital name is required</span>
@@ -169,7 +170,7 @@
         </div>
 
         <div class="inputDiv">
-          <h5>Doctor Name</h5>
+          <h5>Doctor Name<span class="required"> * </span></h5>
           <input type="text" formControlName="doctorName" />
           <div *ngIf="claimForm.controls['doctorName'].invalid && isSubmitted">
             <span class="error">Doctor name is required</span>
@@ -177,7 +178,7 @@
         </div>
 
         <div class="inputDiv">
-          <h5>Room Type</h5>
+          <h5>Room Type<span class="required"> * </span></h5>
           <input type="text" formControlName="roomType" />
           <div *ngIf="claimForm.controls['roomType'].invalid && isSubmitted">
             <span class="error">Room type is required</span>

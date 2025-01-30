@@ -82,35 +82,6 @@ import {
   takeUntil,
   tap
 } from "./chunk-5TID76VL.js";
-<<<<<<<< HEAD:.angular/cache/19.0.4/claimIntimation/vite/deps/chunk-AYQZVUXD.js
-
-// node_modules/@angular/cdk/fesm2022/coercion.mjs
-function coerceBooleanProperty(value) {
-  return value != null && `${value}` !== "false";
-}
-function coerceNumberProperty(value, fallbackValue = 0) {
-  if (_isNumberValue(value)) {
-    return Number(value);
-  }
-  return arguments.length === 2 ? fallbackValue : 0;
-}
-function _isNumberValue(value) {
-  return !isNaN(parseFloat(value)) && !isNaN(Number(value));
-}
-function coerceArray(value) {
-  return Array.isArray(value) ? value : [value];
-}
-function coerceCssPixelValue(value) {
-  if (value == null) {
-    return "";
-  }
-  return typeof value === "string" ? value : `${value}px`;
-}
-function coerceElement(elementOrRef) {
-  return elementOrRef instanceof ElementRef ? elementOrRef.nativeElement : elementOrRef;
-}
-========
->>>>>>>> e243a6640d575e0e06ccb15438efd7d994b90fa4:.angular/cache/19.0.4/claimIntimation/vite/deps/chunk-HM633BOT.js
 
 // node_modules/@angular/cdk/fesm2022/platform.mjs
 var hasV8BreakIterator;
@@ -5215,8 +5186,4 @@ export {
   MatRippleModule,
   MatRippleLoader
 };
-<<<<<<<< HEAD:.angular/cache/19.0.4/claimIntimation/vite/deps/chunk-AYQZVUXD.js
-//# sourceMappingURL=chunk-AYQZVUXD.js.map
-========
 //# sourceMappingURL=chunk-HM633BOT.js.map
->>>>>>>> e243a6640d575e0e06ccb15438efd7d994b90fa4:.angular/cache/19.0.4/claimIntimation/vite/deps/chunk-HM633BOT.js
