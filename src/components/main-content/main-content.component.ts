@@ -1,65 +1,38 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { LoaderService } from '../../services/loader.service';
-import { DevAPITokenService } from '../../services/DevAPIToken.service';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { LoaderService } from "../../services/loader.service";
+import { DevAPITokenService } from "../../services/DevAPIToken.service";
+import { Router } from "@angular/router";
+import { MatDialog } from "@angular/material/dialog";
+import { DialogAnimationsExampleDialog } from "../custom-modal/custom-modal.component";
 
 @Component({
-  selector: 'app-main-content',
-  templateUrl: './main-content.component.html',
-  styleUrls: ['./main-content.component.css'],
+  selector: "app-main-content",
+  templateUrl: "./main-content.component.html",
+  styleUrls: ["./main-content.component.css"],
   // Corrected the property name
 })
 export class MainContentComponent implements OnDestroy {
   // Component logic here
-  policyNumber: string = '';
-  lob:string="";
-  private devAPIToken:any;
-  constructor(private http: HttpClient, private loadingService: LoaderService , private DevAPITokenService:DevAPITokenService) {}
-  @Output() responseSelected = new EventEmitter<PolicyResponse[]>(); 
+  policyNumber: string = "";
+  lob: string = "";
+  private devAPIToken: any;
+  constructor(
+    private http: HttpClient,
+    private loadingService: LoaderService,
+    private DevAPITokenService: DevAPITokenService,
+    private router: Router,
+    private dialog: MatDialog
+  ) {}
+  @Output() responseSelected = new EventEmitter<PolicyResponse[]>();
   @Output() lobSelected = new EventEmitter<string>(); // passing component to parent element
-
-
-  // ngOnInit(): void {    
-  //   this.fetchToken();
-
-  //   this.devAPIToken = setInterval(() => {
-  //     this.fetchToken();
-  //   }, 150000);
-  // }
-
-  // fetchToken(): void {
-  //   this.DevAPITokenService.fetchData().subscribe(
-  //     data => {
-  //       console.log('DevAPI Token :', data);  
-        
-  //     },
-  //     error => {
-  //       console.error('Error fetching token:', error);
-  //     }
-  //   );
-  // }
-  // fetchToken(): void {
-  //   this.DevAPITokenService.fetchData().subscribe(
-  //     data => {
-  //       console.log('DevAPI Token:', data);
-  
-  //       // Assuming `data` contains the token in the format { accessToken: 'your-token' }
-  //       if (data && data.accessToken) {
-  //         // Store the token in localStorage
-  //         localStorage.setItem('devapiToken', data.accessToken);
-  
-  //         console.log('Token stored in localStorage successfully.');
-  //       } else {
-  //         console.warn('No access token found in the response.');
-  //       }
-  //     },
-  //     error => {
-  //       console.error('Error fetching token:', error);
-  //     }
-  //   );
-  // }
-  
 
   ngOnDestroy(): void {
     if (this.devAPIToken) {
@@ -74,29 +47,39 @@ export class MainContentComponent implements OnDestroy {
     this.devAPIToken = setInterval(() => {
       // this.fetchToken();
     }, 150000);
-    
-    
+
     this.http
       .post<PolicyResponse[]>(
-        'https://ansappsuat.sbigen.in/Intimation/getIntimationPolicyDetails',
+        "https://ansappsuat.sbigen.in/Intimation/getIntimationPolicyDetails",
         this.policyNumber,
         {
-          headers: { 'Content-Type': 'text/plain' },
+          headers: { "Content-Type": "text/plain" },
         }
       )
 
       .subscribe(
-        (response:PolicyResponse[]) => {
-          console.log('Response ' + response);
+        (response: PolicyResponse[]) => {
+          console.log("Response " + response);
           this.lob = response[0].lob;
           console.log("Product Name: ", this.lob);
-          this.responseSelected.emit(response); 
-          this.lobSelected.emit(this.lob); //sending it to parent element
+          this.responseSelected.emit(response);
+          this.lobSelected.emit(this.lob); //
+          // sending it to parent element
+          this.navigateBasedOnLOB(this.lob);
+
           this.loadingService.hideSpinner();
-        },  
-        (error) => {
-          console.log(error);
+        },
+        (error:HttpErrorResponse) => {
+          console.log("Error In fetching policy details" + error.error);
           this.loadingService.hideSpinner();
+          this.dialog.open(DialogAnimationsExampleDialog, {
+            width: "300px",
+            data: {
+              heading:"Error",
+              claimNumber: "",
+              remarks: error.error,
+            },
+          });
         }
       );
   }
@@ -105,11 +88,16 @@ export class MainContentComponent implements OnDestroy {
     this.policyNumber = e.target.value;
   }
 
-
-
+  navigateBasedOnLOB(lob: string) {
+    if (lob.startsWith("Motor")) {
+      this.router.navigate(["/motor-claim"]);
+    } else if (lob.startsWith("Health")) {
+      this.router.navigate(["/health-claim"]);
+    } else {
+      console.warn("LOB not recognized:", lob);
+    }
+  }
 }
-
-
 
 // export interface PolicyResponse {
 //   POLICY_NO: string;
@@ -148,22 +136,27 @@ export class MainContentComponent implements OnDestroy {
 //   lob: string;
 // }
 
+export interface PolicyResponse {
+  policyNo: string;
+  customerName: string;
+  emailID: string;
+  mobileNo: string;
+  alternateMobileNo: string;
+  alternateEmailId: string;
+  policyStartDate: string;
+  policyEndDate: string;
+  productName: string;
+  registrationNo: string;
+  drivingLicenseNo: string;
+  engineNo: string;
+  chasisNo: string;
+  lob: string;
+  id: number;
+  memberId: number;
+}
 
-export interface PolicyResponse{
-  policyNo:string,
-  customerName:string,
-  emailID:string,
-  mobileNo:string,
-  alternateMobileNo:string,
-  alternateEmailId:string,
-  policyStartDate:string,
-  policyEndDate:string,
-  productName:string,
-  registrationNo:string,
-  drivingLicenseNo:string,
-  engineNo:string,
-  chasisNo:string,
-  lob:string,
-  id:number,
-  MemberId:string
+export interface policyMembers {
+  memberId: number;
+  name: string;
+  policyNo: string;
 }

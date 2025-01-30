@@ -9,13 +9,4 @@ body {
     background: linear-gradient(rgba(176, 34, 204, 0.2),rgba(13, 154, 189, 0.2));
 }
 
-.loadingContainer {
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    display: grid;
-    place-items: center;
-    background-color: rgba(109, 117, 119, 0.2);
-}
-
 

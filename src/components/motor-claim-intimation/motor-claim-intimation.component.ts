@@ -6,30 +6,38 @@ import {
   Validators,
 } from "@angular/forms";
 import { PolicyResponse } from "../main-content/main-content.component";
-import { CommonModule } from "@angular/common";
-import { HttpClient } from "@angular/common/http";
+import { CommonModule, Location } from "@angular/common";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { LoaderService } from "../../services/loader.service";
 import { MotorClaimIntimation } from "../../services/MotorClaimIntimation.service";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogAnimationsExampleDialog } from "../custom-modal/custom-modal.component";
+import { Router } from "@angular/router";
+import { PolicyService } from "../../services/PolicyInformation.service";
+import { StateService } from "../../services/SharedService.service";
 
 @Component({
   selector: "app-motor-claim-intimation",
   templateUrl: "./motor-claim-intimation.component.html",
   styleUrls: ["./motor-claim-intimation.component.css"],
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,HttpClientModule],
 })
 export class MotorClaimIntimationComponent implements OnInit {
   @Input() getResponse: PolicyResponse[] | null = [];
   claimForm: FormGroup;
+  policy!: any;
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private loadingService: LoaderService,
     private motorClaimIntimation: MotorClaimIntimation,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private stateService: StateService,
+    private router: Router,
   ) {
+    const response1 = this.stateService.response;
+  console.log("Received response in Motor Claim:", response1);
     this.claimForm = this.fb.group({
       customerName: ["", Validators.required],
       policyNumber: ["", Validators.required],
@@ -63,17 +71,16 @@ export class MotorClaimIntimationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.getResponse && this.getResponse.length > 0) {
-      const policy = this.getResponse[0];
-      console.log(" The policy info is :" + JSON.stringify(policy));
+    const response1 = this.stateService.response;
+    console.log("Received response in Motor Claim:", response1);
+    if(response1){
       this.claimForm.patchValue({
-        customerName: policy.customerName,
-        policyNumber: policy.policyNo,
-        customerEmailId: policy.emailID,
-        customerMobileNumber: policy.mobileNo,
-        DrivingLicenseNumber: policy.drivingLicenseNo,
-        registrationNumber: policy.registrationNo,
-      });
+        policyNumber:response1[0].policyNo,
+        customerName:response1[0].customerName,
+        customerEmailId:response1[0].emailID,
+        customerMobileNumber:response1[0].mobileNo,
+        registrationNumber:response1[0].registrationNo
+      })
     }
   }
 
@@ -159,12 +166,15 @@ export class MotorClaimIntimationComponent implements OnInit {
         this.dialog.open(DialogAnimationsExampleDialog, {
           width: "300px",
           data: {
-            claimNumber: response?.claimNo,
-            remarks: response?.statusMessage,
+            heading:"Claim Intimation Details",
+            claimNumber:"The intimation no.is : "+response?.claimNo,
+            remarks:"Remarks : "+ response?.statusMessage,
           },
         });
+        this.router.navigate(['']);
       } catch (error) {
         this.loadingService.hideSpinner();
+
         console.log(error);
       }
     } else {
