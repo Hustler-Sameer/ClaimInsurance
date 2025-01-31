@@ -11,12 +11,14 @@ import { DevAPITokenService } from "../../services/DevAPIToken.service";
 import { Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogAnimationsExampleDialog } from "../custom-modal/custom-modal.component";
+import { TableComponent } from "../table/table.component";
 
 @Component({
   selector: 'app-main-content',
   templateUrl: './main-content.component.html',
   styleUrls: ['./main-content.component.css'],
   // Corrected the property name
+  imports: [TableComponent]
 })
 export class MainContentComponent implements OnDestroy {
   // Component logic here
