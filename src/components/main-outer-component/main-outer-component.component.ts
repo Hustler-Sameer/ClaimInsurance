@@ -58,6 +58,7 @@ title = 'claimIntimation2';
       this.router.navigate(['/motor-claim']);
     } else if (lob.startsWith('Health')) {
       this.productName = 'Health';
+      this.stateService.response = this.response;
       this.router.navigate(['/health-claim'], { state: { response: this.response } });
     } else {
       this.productName = '';

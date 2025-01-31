@@ -26,12 +26,12 @@ export class MotorClaimIntimationComponent implements OnInit {
   @Input() getResponse: PolicyResponse[] | null = [];
   claimForm: FormGroup;
   policy!: any;
+  isSubmitted:boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private loadingService: LoaderService,
-    private motorClaimIntimation: MotorClaimIntimation,
     private dialog: MatDialog,
     private stateService: StateService,
     private router: Router,
@@ -85,6 +85,7 @@ export class MotorClaimIntimationComponent implements OnInit {
   }
 
   async onSubmit() {
+    this.isSubmitted = true;
     console.log("hhheheh");
     console.log(this.claimForm.controls);
     console.log("Form Values:", this.claimForm.value);
@@ -166,8 +167,9 @@ export class MotorClaimIntimationComponent implements OnInit {
         this.dialog.open(DialogAnimationsExampleDialog, {
           width: "300px",
           data: {
-            claimNumber: response?.claimNo,
-            remarks: response?.statusMessage,
+            heading:"Claim Intimation Details",
+            claimNumber:"The intimation no.is : "+response?.claimNo,
+            remarks:"Remarks : "+ response?.statusMessage,
           },
         });
         this.router.navigate(['']);
