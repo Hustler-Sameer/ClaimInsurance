@@ -50,8 +50,9 @@
           <input type="text" formControlName="patientName" />
         </div> -->
         <div class="inputDiv">
-          <h5 for="patientName">Patient Name<span class="required"> * </span></h5>
+          <h5 for="">Patient Name<span class="required"> * </span></h5>
           <select formControlName="patientName" (change)="onPatientNameChange($event)">
+            <option value="" disabled selected>select</option>
             <option *ngFor="let member of policyMembersList" [value]="member.name">{{ member.name }}</option>
           </select>
           <div *ngIf="claimForm.controls['patientName'].invalid && isSubmitted">
