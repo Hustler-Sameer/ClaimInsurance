@@ -43,10 +43,10 @@ export class HealthClaimIntimationComponent implements OnInit {
     private stateService: StateService
   ) {
     this.claimForm = this.fb.group({
-      customerName: ["", Validators.required],
-      policyNumber: ["", Validators.required],
-      customerEmailId: ["", Validators.required],
-      customerMobileNo: ["", Validators.required],
+      customerName: [""],
+      policyNumber: [""],
+      customerEmailId: [""],
+      customerMobileNo: [""],
       customerAlternateEmailId: [""],
       customerAlternateMobileNo: [""],
       memeberId: ["", Validators.required],
