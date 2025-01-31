@@ -2,14 +2,15 @@ import { Component, Input, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { PolicyResponse } from "../main-content/main-content.component";
 import { FormGroup } from "@angular/forms";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { LoaderService } from "../../services/loader.service";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogAnimationsExampleDialog } from "../custom-modal/custom-modal.component";
 import { StateService } from "../../services/SharedService.service";
 import { policyMembers } from "../main-content/main-content.component";
 import { CommonModule } from "@angular/common";
-
+import { NgModule } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-health-claim-intimation",
@@ -40,13 +41,14 @@ export class HealthClaimIntimationComponent implements OnInit {
     private http: HttpClient,
     private loadingService: LoaderService,
     private dialog: MatDialog,
-    private stateService: StateService
+    private stateService: StateService,
+    private router: Router,
   ) {
     this.claimForm = this.fb.group({
-      customerName: ["", Validators.required],
-      policyNumber: ["", Validators.required],
-      customerEmailId: ["", Validators.required],
-      customerMobileNo: ["", Validators.required],
+      customerName: [""],
+      policyNumber: [""],
+      customerEmailId: [""],
+      customerMobileNo: [""],
       customerAlternateEmailId: [""],
       customerAlternateMobileNo: [""],
       memeberId: ["", Validators.required],
@@ -126,6 +128,7 @@ export class HealthClaimIntimationComponent implements OnInit {
     const formValue = this.claimForm.value;
     console.log("Form values : " + JSON.stringify(formValue));
     this.isSubmitted = true;
+    console.log("Patient name selected : "+this.claimForm.controls['patientName'].valid);
     try {
       if (this.claimForm.valid) {
         this.loadingService.showSpinner();
@@ -151,12 +154,21 @@ export class HealthClaimIntimationComponent implements OnInit {
             remarks:"Remarks : "+ response?.ErrorMessage,
           },
         });
+        this.router.navigate(['']);
       } else {
         console.log("All Required fields are not selected");
       }
-    } catch (error) {
+    } catch (error:unknown) {
       this.loadingService.hideSpinner();
-      console.log(error);
+      this.dialog.open(DialogAnimationsExampleDialog, {
+        width: "300px",
+        data: {
+          heading:"Error",
+          claimNumber:"",
+          remarks:"Remarks : "+ (error as HttpErrorResponse).error,
+        },
+      });
+      console.log((error as HttpErrorResponse).error);
     }
   }
 }
