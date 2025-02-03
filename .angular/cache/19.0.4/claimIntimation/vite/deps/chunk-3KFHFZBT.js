@@ -2,7 +2,7 @@ import {
   ScrollDispatcher,
   ScrollingModule,
   ViewportRuler
-} from "./chunk-UGDCSONA.js";
+} from "./chunk-BLL3GIYJ.js";
 import {
   BidiModule,
   Directionality,
@@ -16,7 +16,7 @@ import {
   coerceCssPixelValue,
   hasModifierKey,
   supportsScrollBehavior
-} from "./chunk-3F33UDZQ.js";
+} from "./chunk-5ST3MRFQ.js";
 import {
   DOCUMENT,
   Location
@@ -3733,4 +3733,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-7CLSANN4.js.map
+//# sourceMappingURL=chunk-3KFHFZBT.js.map

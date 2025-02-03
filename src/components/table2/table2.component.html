@@ -1,0 +1,29 @@
+<table
+  datatable
+  [dtOptions]="dtOptions"
+  [dtTrigger]="dtTrigger"
+  class="row-border hover"
+>
+  <thead>
+    <tr>
+      <th>Claim Number</th>
+      <th>Policy Number</th>
+      <th>Customer Name</th>
+      <th>Customer Mobile Number</th>
+      <th>Customer EMail Id</th>
+      <th>Lob</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of tableDataList; track data) {
+    <tr>
+      <td>{{ data.customerName }}</td>
+      <td>{{ data.customerMobileNo }}</td>
+      <td>{{ data.customerEmailId }}</td>
+      <td>{{ data.policyNo }}</td>
+      <td>{{ data.intimationNo }}</td>
+      <td>{{ data.lob }}</td>
+    </tr>
+    }
+  </tbody>
+</table>

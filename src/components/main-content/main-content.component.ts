@@ -12,13 +12,14 @@ import { Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogAnimationsExampleDialog } from "../custom-modal/custom-modal.component";
 import { TableComponent } from "../table/table.component";
+import { Table2Component } from "../table2/table2.component";
 
 @Component({
   selector: 'app-main-content',
   templateUrl: './main-content.component.html',
   styleUrls: ['./main-content.component.css'],
   // Corrected the property name
-  imports: [TableComponent]
+  imports: [TableComponent, Table2Component]
 })
 export class MainContentComponent implements OnDestroy {
   // Component logic here
