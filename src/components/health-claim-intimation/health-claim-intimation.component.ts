@@ -1,16 +1,16 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
-import { PolicyResponse } from "../main-content/main-content.component";
 import { FormGroup } from "@angular/forms";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { LoaderService } from "../../services/loader.service";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogAnimationsExampleDialog } from "../custom-modal/custom-modal.component";
 import { StateService } from "../../services/SharedService.service";
-import { policyMembers } from "../main-content/main-content.component";
 import { CommonModule } from "@angular/common";
-import { NgModule } from "@angular/core";
 import { Router } from "@angular/router";
+import { PolicyResponse } from "../../model/policyResponse";
+import { policyMembers } from "../../model/policyMembers";
+import { createHealthClaimFormValidations } from "../../validations/healthValidations";
 
 @Component({
   selector: "app-health-claim-intimation",
@@ -44,30 +44,7 @@ export class HealthClaimIntimationComponent implements OnInit {
     private stateService: StateService,
     private router: Router,
   ) {
-    this.claimForm = this.fb.group({
-      customerName: [""],
-      policyNumber: [""],
-      customerEmailId: [""],
-      customerMobileNo: [""],
-      customerAlternateEmailId: [""],
-      customerAlternateMobileNo: [""],
-      memeberId: ["", Validators.required],
-      claimType: [""],
-      patientName: ["", Validators.required],
-      claimAmount: ["", Validators.required],
-      dateOfAdmission: ["", Validators.required],
-      dateOfDischarge: [""],
-      remark: [""],
-      admissionReason: ["", Validators.required],
-      isAccidentCase: ["", Validators.required],
-      FIRNo: [""],
-      hospitalState: ["",Validators.required],
-      hospitalCity: ["",Validators.required],
-      hospitalPinCode: ["",Validators.required],
-      hospitalName: ["", Validators.required],
-      doctorName: ["", Validators.required],
-      roomType: ["", Validators.required],
-    });
+    this.claimForm = createHealthClaimFormValidations(this.fb);
   }
 
   ngOnInit() {

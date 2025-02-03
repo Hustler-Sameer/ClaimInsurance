@@ -5,7 +5,7 @@
     <input (change)="setPolicyNumber($event)" placeholder="Please enter policy number" />
     <button class="searchButton" (click)="searchPolicy()">Search</button>
   </nav>
-  <div class="table">
+  <div class="table" *ngIf="showTable">
     <app-table2></app-table2>
   </div>
  

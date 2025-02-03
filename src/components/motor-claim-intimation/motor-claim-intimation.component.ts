@@ -5,16 +5,17 @@ import {
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
-import { PolicyResponse } from "../main-content/main-content.component";
 import { CommonModule, Location } from "@angular/common";
 import { HttpClient, HttpClientModule,HttpErrorResponse } from "@angular/common/http";
 import { LoaderService } from "../../services/loader.service";
-import { MotorClaimIntimation } from "../../services/MotorClaimIntimation.service";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogAnimationsExampleDialog } from "../custom-modal/custom-modal.component";
 import { Router } from "@angular/router";
-import { PolicyService } from "../../services/PolicyInformation.service";
 import { StateService } from "../../services/SharedService.service";
+import { PolicyResponse } from "../../model/policyResponse";
+import { createMotorClaimFormValidations } from "../../validations/motorClaimFormValidations";
+import { formatDateTime } from "../../commonFunctions/formatDateTime";
+import { buildChatBotPayload } from "../../commonFunctions/chatBotPayload";
 
 @Component({
   selector: "app-motor-claim-intimation",
@@ -38,38 +39,9 @@ export class MotorClaimIntimationComponent implements OnInit {
   ) {
     const response1 = this.stateService.response;
     console.log("Received response in Motor Claim:", response1);
-    this.claimForm = this.fb.group({
-      customerName: ["", Validators.required],
-      policyNumber: ["", Validators.required],
-      registrationNumber: ["", Validators.required],
-      customerEmailId: ["", [Validators.required, Validators.email]],
-      customerMobileNumber: ["", Validators.required],
-      AccidentDateTime: ["", Validators.required],
-      claimServicingBranch: ["", Validators.required],
-      isInsured: ["", Validators.required],
-      LossCity: ["", Validators.required],
-      LossState: ["", Validators.required],
-      DriverName: ["", Validators.required],
-      DrivingLicenseNumber: ["", Validators.required],
-      workshopName: ["", Validators.required],
-      LossDescription: ["", Validators.required],
-      SurveyPlaceOrGarageNameAddress: ["", Validators.required],
-      EstimatedClaimAmount: ["", Validators.required],
-      remarks: ["", Validators.required],
-      declaration: [false, Validators.requiredTrue],
-    });
+    this.claimForm = createMotorClaimFormValidations(this.fb);
   }
-  formatDateTime(dateTime: string): string {
-    const date = new Date(dateTime);
-    const dd = String(date.getDate()).padStart(2, "0");
-    const mm = String(date.getMonth() + 1).padStart(2, "0");
-    const yyyy = date.getFullYear();
-    const hh = String(date.getHours()).padStart(2, "0");
-    const min = String(date.getMinutes()).padStart(2, "0");
-    const ss = String(date.getSeconds()).padStart(2, "0");
-    return `${dd}/${mm}/${yyyy} ${hh}:${min}:${ss}`;
-  }
-
+ 
   ngOnInit(): void {
     const response1 = this.stateService.response;
     console.log("Received response in Motor Claim:", response1);
@@ -89,7 +61,7 @@ export class MotorClaimIntimationComponent implements OnInit {
     console.log("hhheheh");
     console.log(this.claimForm.controls);
     console.log("Form Values:", this.claimForm.value);
-    const formattedDate = this.formatDateTime(
+    const formattedDate = formatDateTime(
       this.claimForm.value.AccidentDateTime
     );
 
@@ -106,43 +78,7 @@ export class MotorClaimIntimationComponent implements OnInit {
     if (this.claimForm.valid) {
       console.log("Form Submitted:", formData);
       console.log("The policy no is + " + this.claimForm.value.policyNumber);
-      const chatBotPayload = {
-        RequestHeader: {
-          requestID: "123456",
-          action: "claimIntimation",
-          channel: "SBIG",
-          transactionTimestamp: "20-Jan-2025-16:41:23",
-        },
-        RequestBody: {
-          Claims: {
-            ServiceType: "Intimation",
-            TieUpClaimId: null,
-            InsuranceCompany: "UATAICI",
-            Claim: {
-              PolicyNumber: this.claimForm.value.policyNumber,
-              RegistrationNumber: this.claimForm.value.registrationNumber,
-              ContactName: this.claimForm.value.customerName,
-              ClaimServicingbranch: this.claimForm.value.claimServicingBranch,
-              ContactNumber: this.claimForm.value.customerMobileNumber,
-              emailID: this.claimForm.value.customerEmailId,
-              AccidentDateandtime: formattedDate,
-              AccidentCity: this.claimForm.value.LossCity,
-              VehicleInspectionAddress: this.claimForm.value.workshopName,
-              CityName: this.claimForm.value.LossCity,
-              StateName: this.claimForm.value.LossState,
-              InspectionSpotLocation:
-                this.claimForm.value.SurveyPlaceOrGarageNameAddress,
-              Garage: this.claimForm.value.workshopName,
-              DriverName: this.claimForm.value.DriverName,
-              isInsured: this.claimForm.value.isInsured,
-              ClaimIntimatedBy: "Insured",
-              CauseOfLoss: this.claimForm.value.LossDescription,
-              Others: this.claimForm.value.remarks,
-              EstimatedClaimAmount: this.claimForm.value.EstimatedClaimAmount,
-            },
-          },
-        },
-      };
+      const chatBotPayload = buildChatBotPayload(this.claimForm.value);
       console.log(
         "The chatbot request body is :" + JSON.stringify(chatBotPayload)
       );

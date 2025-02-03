@@ -1,62 +1,50 @@
 import {
   Component,
   EventEmitter,
-  OnDestroy,
+  OnInit,
   Output,
 } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-
 import { LoaderService } from "../../services/loader.service";
-import { DevAPITokenService } from "../../services/DevAPIToken.service";
-import { Router } from "@angular/router";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogAnimationsExampleDialog } from "../custom-modal/custom-modal.component";
-import { TableComponent } from "../table/table.component";
 import { Table2Component } from "../table2/table2.component";
-
+import { CommonModule } from "@angular/common";
+import { PolicyResponse } from "../../model/policyResponse";
+import { policyMembers } from "../../model/policyMembers";
 @Component({
   selector: 'app-main-content',
   templateUrl: './main-content.component.html',
   styleUrls: ['./main-content.component.css'],
-  // Corrected the property name
-  imports: [TableComponent, Table2Component]
+
+  imports: [Table2Component, CommonModule]
 })
-export class MainContentComponent implements OnDestroy {
-  // Component logic here
+export class MainContentComponent implements OnInit {
   policyNumber: string = '';
   lob:string="";
-  private devAPIToken:any;
-  constructor(private http: HttpClient, private loadingService: LoaderService , private DevAPITokenService:DevAPITokenService,private router: Router,    private dialog: MatDialog) {}
+  showTable:boolean = true;
+  ngOnInit(): void {
+      this.showTable = true;
+  }
+  constructor(private http: HttpClient, private loadingService: LoaderService ,private router: Router, private dialog: MatDialog , private route:ActivatedRoute) {
+    this.route.params.subscribe(()=>{
+      this.showTable = true;
+    })
+  }
   @Output() responseSelected = new EventEmitter<PolicyResponse[]>(); 
   @Output() lobSelected = new EventEmitter<string>(); // passing component to parent element
-
-
-
-  ngOnDestroy(): void {
-    if (this.devAPIToken) {
-      clearInterval(this.devAPIToken);
-    }
-  }
-
   searchPolicy() {
     this.loadingService.showSpinner();
-    // this.fetchToken();
-
-    this.devAPIToken = setInterval(() => {
-      // this.fetchToken();
-    }, 150000);
-    
-    
-    this.http
+      this.showTable = false;
+      this.http
       .post<PolicyResponse[]>(
         "https://ansappsuat.sbigen.in/Intimation/getIntimationPolicyDetails",
         this.policyNumber,
         {
           headers: { "Content-Type": "text/plain" },
         }
-      )
-
-      .subscribe(
+      ).subscribe(
         (response:PolicyResponse[]) => {
           console.log('Response ' + response);
           this.lob = response[0].lob;
@@ -99,25 +87,4 @@ export class MainContentComponent implements OnDestroy {
 }
 
 
-export interface PolicyResponse{
-  policyNo:string,
-  customerName:string,
-  emailID:string,
-  mobileNo:string,
-  alternateMobileNo:string,
-  alternateEmailId:string,
-  policyStartDate:string,
-  policyEndDate:string,
-  productName:string,
-  registrationNo:string,
-  drivingLicenseNo:string,
-  engineNo:string,
-  chasisNo:string,
-  lob:string,
-  id:number
-}
-export interface policyMembers {
-  memberId: number;
-  name: string;
-  policyNo: string;
-}
+

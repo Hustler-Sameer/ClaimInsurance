@@ -17,12 +17,12 @@
   <tbody>
     @for (data of tableDataList; track data) {
     <tr>
+      <td>{{ data.intimationNo }}</td>
+      <td>{{ data.policyNo }}</td>
       <td>{{ data.customerName }}</td>
       <td>{{ data.customerMobileNo }}</td>
       <td>{{ data.customerEmailId }}</td>
-      <td>{{ data.policyNo }}</td>
-      <td>{{ data.intimationNo }}</td>
-      <td>{{ data.lob }}</td>
+     <td>{{ data.lob }}</td>
     </tr>
     }
   </tbody>
