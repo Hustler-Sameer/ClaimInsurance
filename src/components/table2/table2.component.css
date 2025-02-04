@@ -7,4 +7,12 @@ table {
 th{
     color: #8e057e;
     font-weight: 450;
-  }
+}
+
+table th {
+  text-align: start;
+}
+
+table td {
+  text-align: start;
+}

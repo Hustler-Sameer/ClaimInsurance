@@ -1,9 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-} from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { LoaderService } from "../../services/loader.service";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
@@ -12,57 +7,82 @@ import { DialogAnimationsExampleDialog } from "../custom-modal/custom-modal.comp
 import { Table2Component } from "../table2/table2.component";
 import { CommonModule } from "@angular/common";
 import { PolicyResponse } from "../../model/policyResponse";
-import { policyMembers } from "../../model/policyMembers";
+import { RequesterIdService } from "../../services/InsuredId.service";
+export type { PolicyResponse } from "../../model/policyResponse";
 @Component({
-  selector: 'app-main-content',
-  templateUrl: './main-content.component.html',
-  styleUrls: ['./main-content.component.css'],
+  selector: "app-main-content",
+  templateUrl: "./main-content.component.html",
+  styleUrls: ["./main-content.component.css"],
 
-  imports: [Table2Component, CommonModule]
+  imports: [Table2Component, CommonModule],
 })
 export class MainContentComponent implements OnInit {
-  policyNumber: string = '';
-  lob:string="";
-  showTable:boolean = true;
+  policyNumber: string = "";
+  lob: string = "";
+  requesterId: string = "";
+  showTable: boolean = true;
   ngOnInit(): void {
-      this.showTable = true;
+    this.showTable = true;
+
+    this.route.queryParams.subscribe((params) => {
+      this.requesterId = params["requestId"];
+      if(this.requesterId){
+        console.log("The request id set is ", this.requesterId);
+      this.requesterId1.emit(this.requesterId);
+      this.requesterIdService.setRequesterId(this.requesterId);
+      }
+      
+
+      
+    });
   }
-  constructor(private http: HttpClient, private loadingService: LoaderService ,private router: Router, private dialog: MatDialog , private route:ActivatedRoute) {
-    this.route.params.subscribe(()=>{
+  
+
+  constructor(
+    private http: HttpClient,
+    private loadingService: LoaderService,
+    private router: Router,
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
+    private requesterIdService : RequesterIdService,
+  ) {
+    this.route.params.subscribe(() => {
       this.showTable = true;
-    })
+    });
   }
-  @Output() responseSelected = new EventEmitter<PolicyResponse[]>(); 
+  @Output() requesterId1 = new EventEmitter<string>();
+  @Output() responseSelected = new EventEmitter<PolicyResponse[]>();
   @Output() lobSelected = new EventEmitter<string>(); // passing component to parent element
   searchPolicy() {
     this.loadingService.showSpinner();
-      this.showTable = false;
-      this.http
+    this.showTable = false;
+    this.http
       .post<PolicyResponse[]>(
         "https://ansappsuat.sbigen.in/Intimation/getIntimationPolicyDetails",
         this.policyNumber,
         {
           headers: { "Content-Type": "text/plain" },
         }
-      ).subscribe(
-        (response:PolicyResponse[]) => {
-          console.log('Response ' + response);
+      )
+      .subscribe(
+        (response: PolicyResponse[]) => {
+          console.log("Response " + response);
           this.lob = response[0].lob;
           console.log("Product Name: ", this.lob);
-          this.responseSelected.emit(response); 
+          this.responseSelected.emit(response);
           this.lobSelected.emit(this.lob); //
           // sending it to parent element
           this.navigateBasedOnLOB(this.lob);
 
           this.loadingService.hideSpinner();
-        },  
+        },
         (error) => {
           console.log(error);
           this.loadingService.hideSpinner();
           this.dialog.open(DialogAnimationsExampleDialog, {
             width: "300px",
             data: {
-              heading:"Error",
+              heading: "Error",
               claimNumber: "",
               remarks: error.error,
             },
@@ -85,6 +105,3 @@ export class MainContentComponent implements OnInit {
     }
   }
 }
-
-
-

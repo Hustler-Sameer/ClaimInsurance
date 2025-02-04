@@ -11,6 +11,7 @@ import { Router } from "@angular/router";
 import { PolicyResponse } from "../../model/policyResponse";
 import { policyMembers } from "../../model/policyMembers";
 import { createHealthClaimFormValidations } from "../../validations/healthValidations";
+import { RequesterIdService } from "../../services/InsuredId.service";
 
 @Component({
   selector: "app-health-claim-intimation",
@@ -24,6 +25,7 @@ export class HealthClaimIntimationComponent implements OnInit {
   claimForm: FormGroup;
   showFirNo: boolean = false;
   isSubmitted:boolean = false;
+  requesterId:string="";
   private base64ToUint8Array(base64: string): Uint8Array {
     const binaryString = atob(base64);
     const length = binaryString.length;
@@ -43,6 +45,7 @@ export class HealthClaimIntimationComponent implements OnInit {
     private dialog: MatDialog,
     private stateService: StateService,
     private router: Router,
+    private requesterIdService : RequesterIdService,
   ) {
     this.claimForm = createHealthClaimFormValidations(this.fb);
   }
@@ -50,6 +53,10 @@ export class HealthClaimIntimationComponent implements OnInit {
   ngOnInit() {
     const policyDetails = this.stateService.response;
     this.policyMembersList = this.stateService.response[1];
+    this.requesterIdService.getRequesterId().subscribe((id: string) => {
+      this.requesterId = id;
+      console.log("Requester ID in other component: ", this.requesterId);
+    });
     console.log("Received Health Claim Response: ", policyDetails);
     console.log("Received Policy member list: ", this.policyMembersList);
     if (policyDetails && policyDetails.length > 0) {
@@ -64,7 +71,7 @@ export class HealthClaimIntimationComponent implements OnInit {
         customerMobileNo: policyDetails[0].mobileNo,
         customerAlternateEmailId: policyDetails[0].alternateEmailId,
         customerAlternateMobileNo: policyDetails[0].alternateMobileNo,
-        patientName: patientNames,
+        // patientName: patientNames,
       });
     }
   }
@@ -131,7 +138,7 @@ export class HealthClaimIntimationComponent implements OnInit {
             remarks:"Remarks : "+ response?.ErrorMessage,
           },
         });
-        this.router.navigate(['']);
+        this.router.navigate([''] , { queryParams: { requestId: this.requesterId }});
       } else {
         console.log("All Required fields are not selected");
       }

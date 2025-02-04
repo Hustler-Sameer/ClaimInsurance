@@ -6,6 +6,6 @@
     <button class="searchButton" (click)="searchPolicy()">Search</button>
   </nav>
   <div class="table" *ngIf="showTable">
-    <app-table2></app-table2>
+    <app-table2 [requesterId]="requesterId"></app-table2>
   </div>
  

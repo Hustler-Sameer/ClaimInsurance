@@ -43,7 +43,7 @@
           <div class="parentElement2">
             <div class="componentDiv1">
               <h6>Date of Accident/Theft<span class="required"> * </span></h6>
-              <input type="datetime-local" formControlName="AccidentDateTime" />
+              <input type="datetime-local" formControlName="AccidentDateTime" [max]="maxDateTime" />
               <div *ngIf="claimForm.controls['AccidentDateTime'].invalid && isSubmitted">
                 <span class="error">Accident Date & Time is required</span>
               </div>

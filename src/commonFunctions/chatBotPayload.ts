@@ -4,7 +4,7 @@ export function buildChatBotPayload(formData: any) {
         requestID: "123458",
         action: "claimIntimation",
         channel: "SBIG",
-        transactionTimestamp: new Date().toISOString(),
+        transactionTimestamp:"20-Jan-2025-16:41:23",
       },
       RequestBody: {
         Claims: {
