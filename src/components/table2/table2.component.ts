@@ -47,6 +47,9 @@ export class Table2Component implements OnInit {
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
+  logRowDetails(data: tableData): void {
+    console.log("Row details:", data);
+  }
 }
 
 export interface tableData {

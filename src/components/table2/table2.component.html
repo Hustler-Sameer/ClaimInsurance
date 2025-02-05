@@ -16,13 +16,13 @@
   </thead>
   <tbody>
     @for (data of tableDataList; track data) {
-    <tr>
+    <tr >
       <td>{{ data.intimationNo }}</td>
       <td>{{ data.policyNo }}</td>
       <td>{{ data.customerName }}</td>
       <td>{{ data.intimationAmount }}</td>
       <td>{{ data.intimationDate }}</td>
-      <td></td>
+      <td><button (click)="logRowDetails(data)">Check Current Status</button></td>
      
     </tr>
     }

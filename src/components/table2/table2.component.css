@@ -16,3 +16,14 @@ table th {
 table td {
   text-align: start;
 }
+
+table tr button{
+  height: 35px;
+  width: 150px;
+  border: 1px solid;
+  border-radius: 7px;
+  color: white;
+  background-color:#8e057e ;
+  cursor: pointer;
+  margin-left: 5px;
+}
