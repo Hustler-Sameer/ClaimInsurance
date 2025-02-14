@@ -13,7 +13,6 @@ import { MotorClaimIntimation } from "../../services/MotorClaimIntimation.servic
 import { MatDialog } from "@angular/material/dialog";
 import { DialogAnimationsExampleDialog } from "../custom-modal/custom-modal.component";
 import { Router } from "@angular/router";
-import { PolicyService } from "../../services/PolicyInformation.service";
 import { StateService } from "../../services/SharedService.service";
 
 @Component({
