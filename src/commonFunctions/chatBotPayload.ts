@@ -1,10 +1,17 @@
-export function buildChatBotPayload(formData: any) {
+export function buildChatBotPayload(formData: any , requestID:String) {
+  const now = new Date();
+  const formatDate = (date: Date) => {
+    const padZero = (num: number) => (num < 10 ? '0' : '') + num;
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    return `${padZero(date.getDate())}-${monthNames[date.getMonth()]}-${date.getFullYear()}-${padZero(date.getHours())}:${padZero(date.getMinutes())}:${padZero(date.getSeconds())}`;
+  }
     return {
       RequestHeader: {
-        requestID: "123458",
+        requestID: requestID,
         action: "claimIntimation",
         channel: "SBIG",
-        transactionTimestamp:"20-Jan-2025-16:41:23",
+        // transactionTimestamp:"20-Jan-2025-16:41:23",
+        transactionTimestamp:formatDate(now)
       },
       RequestBody: {
         Claims: {

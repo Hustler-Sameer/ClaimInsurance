@@ -90,7 +90,7 @@ export class MotorClaimIntimationComponent implements OnInit {
     if (this.claimForm.valid) {
       console.log("Form Submitted:", formData);
       console.log("The policy no is + " + this.claimForm.value.policyNumber);
-      const chatBotPayload = buildChatBotPayload(formData);
+      const chatBotPayload = buildChatBotPayload(formData,this.requesterId);
       console.log(
         "The chatbot request body is :" + JSON.stringify(chatBotPayload)
       );
