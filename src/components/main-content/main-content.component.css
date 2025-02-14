@@ -34,8 +34,8 @@
 }
 
 .name {
-    color: white;
-    background-color: #0d1963;
+    color: var(--headerText);
+    background-color: var(--headerBackground);
     padding: 10px;
 }
 

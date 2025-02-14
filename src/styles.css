@@ -49,10 +49,16 @@
     --category-select-bg: #f3f7fe;
     --border-color-table-dark: #9c9c9c;
     --backgroundColor :#f5f5f5;
+    --headerBackground:#ffffff;
+    --headerText:#333;
 }
 
 .simba-portal{
     --backgroundColor : linear-gradient(rgba(176, 34, 204, 0.2),rgba(13, 154, 189, 0.2));
+    --purple-color: #801c7d;
+    --purple-app-text: #801c7d;
+    --headerBackground:#0d1963;
+    --headerText:white;
 }
 
 
