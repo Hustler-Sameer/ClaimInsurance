@@ -208,3 +208,18 @@ button:hover{
         align-items: flex-start;  /* Align items to the left */
     }
 }
+
+
+.readonly-input {
+    cursor: not-allowed;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+}
+
+.required {
+    color: red;
+}
+ 

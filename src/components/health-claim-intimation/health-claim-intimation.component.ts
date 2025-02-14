@@ -1,18 +1,31 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
-import { PolicyResponse } from "../main-content/main-content.component";
 import { FormGroup } from "@angular/forms";
-import { EncryptDecryptService } from "../../services/EncryptDecrypt.service";
-import { encryptService } from "../../services/Encrypt-util.service";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { LoaderService } from "../../services/loader.service";
+import { MatDialog } from "@angular/material/dialog";
+import { DialogAnimationsExampleDialog } from "../custom-modal/custom-modal.component";
+import { StateService } from "../../services/SharedService.service";
+import { CommonModule } from "@angular/common";
+import { Router } from "@angular/router";
+import { PolicyResponse } from "../../model/policyResponse";
+import { policyMembers } from "../../model/policyMembers";
+import { createHealthClaimFormValidations } from "../../validations/healthValidations";
+import { RequesterIdService } from "../../services/InsuredId.service";
+
 @Component({
   selector: "app-health-claim-intimation",
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: "./health-claim-intimation.component.html",
   styleUrl: "./health-claim-intimation.component.css",
 })
 export class HealthClaimIntimationComponent implements OnInit {
   @Input() getResponse: PolicyResponse[] | null = [];
+  policyMembersList: policyMembers[] | null = [];
   claimForm: FormGroup;
+  showFirNo: boolean = false;
+  isSubmitted:boolean = false;
+  requesterId:string="";
   private base64ToUint8Array(base64: string): Uint8Array {
     const binaryString = atob(base64);
     const length = binaryString.length;
@@ -25,87 +38,121 @@ export class HealthClaimIntimationComponent implements OnInit {
     return bytes;
   }
 
-
-
   constructor(
     private fb: FormBuilder,
-    private encService: EncryptDecryptService,
-    private encryptService : encryptService
+    private http: HttpClient,
+    private loadingService: LoaderService,
+    private dialog: MatDialog,
+    private stateService: StateService,
+    private router: Router,
+    private requesterIdService : RequesterIdService,
   ) {
-    this.claimForm = this.fb.group({
-      customerName: ["", Validators.required],
-      policyNumber: ["", Validators.required],
-      customerEmailId: ["", Validators.required],
-      customerMobileNo: ["", Validators.required],
-      customerAlternateEmailId: ["", Validators.required],
-      customerAlternateMobileNo: ["", Validators.required],
-      memeberId:[""],
-      claimType: [""],
-      patientName: [""],
-      claimAmount: [""],
-      dateOfAdmission: [""],
-      dateOfDischarge: [""],
-      remark: [""],
-      admissionReason: [""],
-      isAccidentCase: [""],
-      FIRNo:[""],
-      hospitalState: [""],
-      hospitalCity: [""],
-      hospitalPinCode: [""],
-      hospitalName: [""],
-      doctorName: [""],
-      roomType: [""],
-    });
+    this.claimForm = createHealthClaimFormValidations(this.fb);
   }
 
   ngOnInit() {
-    console.log("Received Health Claim Response: ", this.getResponse);
-    if (this.getResponse && this.getResponse.length > 0) {
-      const policy = this.getResponse[0];
+    const policyDetails = this.stateService.response;
+    this.policyMembersList = this.stateService.response[1];
+    this.requesterIdService.getRequesterId().subscribe((id: string) => {
+      this.requesterId = id;
+      console.log("Requester ID in other component: ", this.requesterId);
+    });
+    console.log("Received Health Claim Response: ", policyDetails);
+    console.log("Received Policy member list: ", this.policyMembersList);
+    if (policyDetails && policyDetails.length > 0) {
+      const patientNames =
+        this.policyMembersList && this.policyMembersList.length > 0
+          ? this.policyMembersList.map((member) => member.name).join(", ")
+          : "";
       this.claimForm.patchValue({
-        customerName: policy.customerName,
-        policyNumber: policy.policyNo,
-        customerEmailId: policy.emailID,
-        customerMobileNo: policy.mobileNo,
-        customerAlternateEmailId: policy.alternateEmailId,
-        customerAlternateMobileNo: policy.alternateMobileNo,
+        customerName: policyDetails[0].customerName,
+        policyNumber: policyDetails[0].policyNo,
+        customerEmailId: policyDetails[0].emailID,
+        customerMobileNo: policyDetails[0].mobileNo,
+        customerAlternateEmailId: policyDetails[0].alternateEmailId,
+        customerAlternateMobileNo: policyDetails[0].alternateMobileNo,
+        // patientName: patientNames,
       });
     }
   }
 
-  async onSubmit() {
-    try {
-      const formValue = this.claimForm.value;
+  onPatientNameChange(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const selectedName = selectElement.value;
 
-      const healthPayload = {
-        ACCESS_TOKEN:'',
-        MemberId : formValue.memeberId,
-        PatientName : formValue.patientName,
-        PolicyNo : formValue.policyNumber,
-        EmailAddress : formValue.customerEmailId,
-        DateOfAdmission : formValue.dateOfAdmission,
-        HospitalName : formValue.hospitalName,
-        ReasonForHospitalisation : formValue.admissionReason,
-        DoctorName : formValue.doctorName,
-        EstimatedAmount : formValue.claimAmount,
-        RoomType : formValue.roomType
+    if (this.policyMembersList) {
+      const selectedMember = this.policyMembersList.find(
+        (member) => member.name === selectedName
+      );
+      if (selectedMember) {
+        this.claimForm.patchValue({
+          patientName: selectedName,
+          memeberId: selectedMember.memberId,
+        });
       }
-      console.log("Submitted Form : " + JSON.stringify(formValue));
-      // const encryptedData = await this.encService.encryptText(
-      //   formValue,
-      //   "05y/Zh9tsXeFAkRCz93poem27hMLV2iX",
-      //   "VTXb7e2p1iQ="
-      // );
-      const encryptedData1 = await this.encryptService.encryptText(
-        formValue,
-        
-        this.base64ToUint8Array("05y/Zh9tsXeFAkRCz93poem27hMLV2iX"),
-        this.base64ToUint8Array("VTXb7e2p1iQ=")
-        
-      )
-      console.log("Encrypted data : " + encryptedData1);
-    } catch (error) {
-      console.log("Error during encyption : " + error);
+    }
+  }
+
+  onAccidentCaseChange(event: Event) {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    this.showFirNo = selectedValue === "Yes";
+
+    const firNoControl = this.claimForm.get("FIRNo");
+    if (firNoControl) {
+      if (this.showFirNo) {
+        firNoControl.setValidators([Validators.required]);
+      } else {
+        firNoControl.clearValidators();
+      }
+      firNoControl.updateValueAndValidity();
+    }
+  }
+
+  async onSubmit() {
+    const formValue = this.claimForm.value;
+    console.log("Form values : " + JSON.stringify(formValue));
+    this.isSubmitted = true;
+    console.log("Patient name selected : "+this.claimForm.controls['patientName'].valid);
+    try {
+      if (this.claimForm.valid) {
+        this.loadingService.showSpinner();
+        const response = await this.http
+          .post<{
+            IntimationNo: string;
+            ErrorMessage: string;
+          }>(
+            "https://ansappsuat.sbigen.in/Intimation/healthClaimIntimation",
+            formValue,
+            {
+              headers: { "Content-Type": "application/json" },
+            }
+          )
+          .toPromise();
+        this.loadingService.hideSpinner();
+        console.log(response);
+        this.dialog.open(DialogAnimationsExampleDialog, {
+          width: "300px",
+          data: {
+            heading:"Claim Intimation Details",
+            claimNumber:"The intimation no.is : "+ response?.IntimationNo,
+            remarks:"Remarks : "+ response?.ErrorMessage,
+          },
+        });
+        this.router.navigate([''] , { queryParams: { requestId: this.requesterId }});
+      } else {
+        console.log("All Required fields are not selected");
+      }
+    } catch (error:unknown) {
+      this.loadingService.hideSpinner();
+      this.dialog.open(DialogAnimationsExampleDialog, {
+        width: "300px",
+        data: {
+          heading:"Error",
+          claimNumber:"",
+          remarks:"Remarks : "+ (error as HttpErrorResponse).error,
+        },
+      });
+      console.log((error as HttpErrorResponse).error);
     }
   }
 }

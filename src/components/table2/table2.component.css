@@ -1,0 +1,29 @@
+table {
+    width: 100%;
+    background: transparent;
+    
+  }
+
+th{
+    color: #8e057e;
+    font-weight: 450;
+}
+
+table th {
+  text-align: start;
+}
+
+table td {
+  text-align: start;
+}
+
+table tr button{
+  height: 35px;
+  width: 150px;
+  border: 1px solid;
+  border-radius: 7px;
+  color: white;
+  background-color:#8e057e ;
+  cursor: pointer;
+  margin-left: 5px;
+}

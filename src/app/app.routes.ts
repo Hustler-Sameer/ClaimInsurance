@@ -9,7 +9,7 @@ import { MainOuterComponentComponent } from '../components/main-outer-component/
 
 export const routes: Routes = [
     { path: '', component: MainOuterComponentComponent , children : [
-      { path: 'motor-claim', component: MotorClaimIntimationComponent,  },
+      { path: 'motor-claim', component: MotorClaimIntimationComponent },
     { path: 'health-claim', component: HealthClaimIntimationComponent },
     ]}
     
