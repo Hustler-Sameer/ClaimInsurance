@@ -1,7 +1,8 @@
+import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
   DOCUMENT,
   isPlatformBrowser
-} from "./chunk-5YQGLIFT.js";
+} from "./chunk-EZOZDAQE.js";
 import {
   ANIMATION_MODULE_TYPE,
   APP_ID,
@@ -32,6 +33,7 @@ import {
   createComponent,
   inject,
   isSignal,
+  require_operators,
   setClassMetadata,
   ɵɵInputTransformsFeature,
   ɵɵNgOnChangesFeature,
@@ -60,54 +62,15 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate1,
   ɵɵviewQuery
-} from "./chunk-M2MF2DZT.js";
+} from "./chunk-CDYYZWIK.js";
 import {
-  BehaviorSubject,
-  Observable,
-  Subject,
-  Subscription,
+  require_cjs
+} from "./chunk-T4XHMJL2.js";
+import {
   __spreadProps,
   __spreadValues,
-  combineLatest,
-  concat,
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  isObservable,
-  map,
-  of,
-  skip,
-  startWith,
-  take,
-  takeUntil,
-  tap
-} from "./chunk-5TID76VL.js";
-
-// node_modules/@angular/cdk/fesm2022/coercion.mjs
-function coerceBooleanProperty(value) {
-  return value != null && `${value}` !== "false";
-}
-function coerceNumberProperty(value, fallbackValue = 0) {
-  if (_isNumberValue(value)) {
-    return Number(value);
-  }
-  return arguments.length === 2 ? fallbackValue : 0;
-}
-function _isNumberValue(value) {
-  return !isNaN(parseFloat(value)) && !isNaN(Number(value));
-}
-function coerceArray(value) {
-  return Array.isArray(value) ? value : [value];
-}
-function coerceCssPixelValue(value) {
-  if (value == null) {
-    return "";
-  }
-  return typeof value === "string" ? value : `${value}px`;
-}
-function coerceElement(elementOrRef) {
-  return elementOrRef instanceof ElementRef ? elementOrRef.nativeElement : elementOrRef;
-}
+  __toESM
+} from "./chunk-YHCV7DAQ.js";
 
 // node_modules/@angular/cdk/fesm2022/platform.mjs
 var hasV8BreakIterator;
@@ -395,15 +358,48 @@ function hasModifierKey(event, ...modifiers) {
   return event.altKey || event.shiftKey || event.ctrlKey || event.metaKey;
 }
 
+// node_modules/@angular/cdk/fesm2022/coercion.mjs
+function coerceBooleanProperty(value) {
+  return value != null && `${value}` !== "false";
+}
+function coerceNumberProperty(value, fallbackValue = 0) {
+  if (_isNumberValue(value)) {
+    return Number(value);
+  }
+  return arguments.length === 2 ? fallbackValue : 0;
+}
+function _isNumberValue(value) {
+  return !isNaN(parseFloat(value)) && !isNaN(Number(value));
+}
+function coerceArray(value) {
+  return Array.isArray(value) ? value : [value];
+}
+function coerceCssPixelValue(value) {
+  if (value == null) {
+    return "";
+  }
+  return typeof value === "string" ? value : `${value}px`;
+}
+function coerceElement(elementOrRef) {
+  return elementOrRef instanceof ElementRef ? elementOrRef.nativeElement : elementOrRef;
+}
+
+// node_modules/@angular/cdk/fesm2022/a11y.mjs
+var import_rxjs4 = __toESM(require_cjs(), 1);
+var import_operators3 = __toESM(require_operators(), 1);
+
 // node_modules/@angular/cdk/fesm2022/coercion/private.mjs
+var import_rxjs = __toESM(require_cjs(), 1);
 function coerceObservable(data) {
-  if (!isObservable(data)) {
-    return of(data);
+  if (!(0, import_rxjs.isObservable)(data)) {
+    return (0, import_rxjs.of)(data);
   }
   return data;
 }
 
 // node_modules/@angular/cdk/fesm2022/observers.mjs
+var import_rxjs2 = __toESM(require_cjs(), 1);
+var import_operators = __toESM(require_operators(), 1);
 function shouldIgnoreRecord(record) {
   if (record.type === "characterData" && record.target instanceof Comment) {
     return true;
@@ -456,9 +452,9 @@ var ContentObserver = class _ContentObserver {
   }
   observe(elementOrRef) {
     const element = coerceElement(elementOrRef);
-    return new Observable((observer) => {
+    return new import_rxjs2.Observable((observer) => {
       const stream = this._observeElement(element);
-      const subscription = stream.pipe(map((records) => records.filter((record) => !shouldIgnoreRecord(record))), filter((records) => !!records.length)).subscribe((records) => {
+      const subscription = stream.pipe((0, import_operators.map)((records) => records.filter((record) => !shouldIgnoreRecord(record))), (0, import_operators.filter)((records) => !!records.length)).subscribe((records) => {
         this._ngZone.run(() => {
           observer.next(records);
         });
@@ -476,7 +472,7 @@ var ContentObserver = class _ContentObserver {
   _observeElement(element) {
     return this._ngZone.runOutsideAngular(() => {
       if (!this._observedElements.has(element)) {
-        const stream = new Subject();
+        const stream = new import_rxjs2.Subject();
         const observer = this._mutationObserverFactory.create((mutations) => stream.next(mutations));
         if (observer) {
           observer.observe(element, {
@@ -579,7 +575,7 @@ var CdkObserveContent = class _CdkObserveContent {
   _subscribe() {
     this._unsubscribe();
     const stream = this._contentObserver.observe(this._elementRef);
-    this._currentSubscription = (this.debounce ? stream.pipe(debounceTime(this.debounce)) : stream).subscribe(this.event);
+    this._currentSubscription = (this.debounce ? stream.pipe((0, import_operators.debounceTime)(this.debounce)) : stream).subscribe(this.event);
   }
   _unsubscribe() {
     this._currentSubscription?.unsubscribe();
@@ -650,6 +646,8 @@ var ObserversModule = class _ObserversModule {
 })();
 
 // node_modules/@angular/cdk/fesm2022/layout.mjs
+var import_rxjs3 = __toESM(require_cjs(), 1);
+var import_operators2 = __toESM(require_operators(), 1);
 var LayoutModule = class _LayoutModule {
   static ɵfac = function LayoutModule_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _LayoutModule)();
@@ -747,7 +745,7 @@ var BreakpointObserver = class _BreakpointObserver {
   /**  A map of all media queries currently being listened for. */
   _queries = /* @__PURE__ */ new Map();
   /** A subject for all other observables to takeUntil based on. */
-  _destroySubject = new Subject();
+  _destroySubject = new import_rxjs3.Subject();
   constructor() {
   }
   /** Completes the active subject, signalling to all other observables to complete. */
@@ -773,9 +771,9 @@ var BreakpointObserver = class _BreakpointObserver {
   observe(value) {
     const queries = splitQueries(coerceArray(value));
     const observables = queries.map((query) => this._registerQuery(query).observable);
-    let stateObservable = combineLatest(observables);
-    stateObservable = concat(stateObservable.pipe(take(1)), stateObservable.pipe(skip(1), debounceTime(0)));
-    return stateObservable.pipe(map((breakpointStates) => {
+    let stateObservable = (0, import_rxjs3.combineLatest)(observables);
+    stateObservable = (0, import_rxjs3.concat)(stateObservable.pipe((0, import_operators2.take)(1)), stateObservable.pipe((0, import_operators2.skip)(1), (0, import_operators2.debounceTime)(0)));
+    return stateObservable.pipe((0, import_operators2.map)((breakpointStates) => {
       const response = {
         matches: false,
         breakpoints: {}
@@ -796,18 +794,18 @@ var BreakpointObserver = class _BreakpointObserver {
       return this._queries.get(query);
     }
     const mql = this._mediaMatcher.matchMedia(query);
-    const queryObservable = new Observable((observer) => {
+    const queryObservable = new import_rxjs3.Observable((observer) => {
       const handler = (e) => this._zone.run(() => observer.next(e));
       mql.addListener(handler);
       return () => {
         mql.removeListener(handler);
       };
-    }).pipe(startWith(mql), map(({
+    }).pipe((0, import_operators2.startWith)(mql), (0, import_operators2.map)(({
       matches
     }) => ({
       query,
       matches
-    })), takeUntil(this._destroySubject));
+    })), (0, import_operators2.takeUntil)(this._destroySubject));
     const output = {
       observable: queryObservable,
       mql
@@ -1043,13 +1041,13 @@ function setMessageId(element, serviceId) {
 }
 var DEFAULT_TYPEAHEAD_DEBOUNCE_INTERVAL_MS = 200;
 var Typeahead = class {
-  _letterKeyStream = new Subject();
+  _letterKeyStream = new import_rxjs4.Subject();
   _items = [];
   _selectedItemIndex = -1;
   /** Buffer for the letters that the user has pressed */
   _pressedLetters = [];
   _skipPredicateFn;
-  _selectedItem = new Subject();
+  _selectedItem = new import_rxjs4.Subject();
   selectedItem = this._selectedItem;
   constructor(initialItems, config) {
     const typeAheadInterval = typeof config?.debounceInterval === "number" ? config.debounceInterval : DEFAULT_TYPEAHEAD_DEBOUNCE_INTERVAL_MS;
@@ -1090,7 +1088,7 @@ var Typeahead = class {
     this._pressedLetters = [];
   }
   _setupKeyHandler(typeAheadInterval) {
-    this._letterKeyStream.pipe(tap((letter) => this._pressedLetters.push(letter)), debounceTime(typeAheadInterval), filter(() => this._pressedLetters.length > 0), map(() => this._pressedLetters.join("").toLocaleUpperCase())).subscribe((inputString) => {
+    this._letterKeyStream.pipe((0, import_operators3.tap)((letter) => this._pressedLetters.push(letter)), (0, import_operators3.debounceTime)(typeAheadInterval), (0, import_operators3.filter)(() => this._pressedLetters.length > 0), (0, import_operators3.map)(() => this._pressedLetters.join("").toLocaleUpperCase())).subscribe((inputString) => {
       for (let i = 1; i < this._items.length + 1; i++) {
         const index = (this._selectedItemIndex + i) % this._items.length;
         const item = this._items[index];
@@ -1129,7 +1127,7 @@ var TreeKeyManager = class {
   /** Synchronous cache of the items to manage. */
   _items = [];
   _typeahead;
-  _typeaheadSubscription = Subscription.EMPTY;
+  _typeaheadSubscription = import_rxjs4.Subscription.EMPTY;
   _hasInitialFocused = false;
   _initializeFocus() {
     if (this._hasInitialFocused || this._items.length === 0) {
@@ -1171,7 +1169,7 @@ var TreeKeyManager = class {
         this._updateActiveItemIndex(this._items);
         this._initializeFocus();
       });
-    } else if (isObservable(items)) {
+    } else if ((0, import_rxjs4.isObservable)(items)) {
       items.subscribe((newItems) => {
         this._items = newItems;
         this._typeahead?.setItems(newItems);
@@ -1199,7 +1197,7 @@ var TreeKeyManager = class {
     }
   }
   /** Stream that emits any time the focused item changes. */
-  change = new Subject();
+  change = new import_rxjs4.Subject();
   /** Cleans up the key manager. */
   destroy() {
     this._typeaheadSubscription.unsubscribe();
@@ -1358,7 +1356,7 @@ var TreeKeyManager = class {
     if (!this._isCurrentItemExpanded()) {
       this._activeItem.expand();
     } else {
-      coerceObservable(this._activeItem.getChildren()).pipe(take(1)).subscribe((children) => {
+      coerceObservable(this._activeItem.getChildren()).pipe((0, import_operators3.take)(1)).subscribe((children) => {
         const firstChild = children.find((child) => !this._skipPredicateFn(child));
         if (!firstChild) {
           return;
@@ -1384,11 +1382,11 @@ var TreeKeyManager = class {
     const parent = this._activeItem.getParent();
     let itemsToExpand;
     if (!parent) {
-      itemsToExpand = of(this._items.filter((item) => item.getParent() === null));
+      itemsToExpand = (0, import_rxjs4.of)(this._items.filter((item) => item.getParent() === null));
     } else {
       itemsToExpand = coerceObservable(parent.getChildren());
     }
-    itemsToExpand.pipe(take(1)).subscribe((items) => {
+    itemsToExpand.pipe((0, import_operators3.take)(1)).subscribe((items) => {
       for (const item of items) {
         item.expand();
       }
@@ -2134,7 +2132,7 @@ var InputModalityDetector = class _InputModalityDetector {
    */
   _mostRecentTarget = null;
   /** The underlying BehaviorSubject that emits whenever an input modality is detected. */
-  _modality = new BehaviorSubject(null);
+  _modality = new import_rxjs4.BehaviorSubject(null);
   /** Options for this InputModalityDetector. */
   _options;
   /**
@@ -2184,8 +2182,8 @@ var InputModalityDetector = class _InputModalityDetector {
       optional: true
     });
     this._options = __spreadValues(__spreadValues({}, INPUT_MODALITY_DETECTOR_DEFAULT_OPTIONS), options);
-    this.modalityDetected = this._modality.pipe(skip(1));
-    this.modalityChanged = this.modalityDetected.pipe(distinctUntilChanged());
+    this.modalityDetected = this._modality.pipe((0, import_operators3.skip)(1));
+    this.modalityChanged = this.modalityDetected.pipe((0, import_operators3.distinctUntilChanged)());
     if (this._platform.isBrowser) {
       ngZone.runOutsideAngular(() => {
         document2.addEventListener("keydown", this._onKeydown, modalityEventListenerOptions);
@@ -2477,7 +2475,7 @@ var FocusMonitor = class _FocusMonitor {
     optional: true
   });
   /** Subject for stopping our InputModalityDetector subscription. */
-  _stopInputModalityDetector = new Subject();
+  _stopInputModalityDetector = new import_rxjs4.Subject();
   constructor() {
     const options = inject(FOCUS_MONITOR_DEFAULT_OPTIONS, {
       optional: true
@@ -2501,7 +2499,7 @@ var FocusMonitor = class _FocusMonitor {
   monitor(element, checkChildren = false) {
     const nativeElement = coerceElement(element);
     if (!this._platform.isBrowser || nativeElement.nodeType !== 1) {
-      return of();
+      return (0, import_rxjs4.of)();
     }
     const rootNode = _getShadowRoot(nativeElement) || this._getDocument();
     const cachedInfo = this._elementInfo.get(nativeElement);
@@ -2513,7 +2511,7 @@ var FocusMonitor = class _FocusMonitor {
     }
     const info = {
       checkChildren,
-      subject: new Subject(),
+      subject: new import_rxjs4.Subject(),
       rootNode
     };
     this._elementInfo.set(nativeElement, info);
@@ -2660,7 +2658,7 @@ var FocusMonitor = class _FocusMonitor {
         const window2 = this._getWindow();
         window2.addEventListener("focus", this._windowFocusListener);
       });
-      this._inputModalityDetector.modalityDetected.pipe(takeUntil(this._stopInputModalityDetector)).subscribe((modality) => {
+      this._inputModalityDetector.modalityDetected.pipe((0, import_operators3.takeUntil)(this._stopInputModalityDetector)).subscribe((modality) => {
         this._setOrigin(
           modality,
           true
@@ -3095,6 +3093,8 @@ var BidiModule = class _BidiModule {
 })();
 
 // node_modules/@angular/material/fesm2022/core.mjs
+var import_rxjs5 = __toESM(require_cjs(), 1);
+var import_operators4 = __toESM(require_operators(), 1);
 var _c0 = ["*", [["mat-option"], ["ng-container"]]];
 var _c1 = ["*", "mat-option, ng-container"];
 var _c2 = ["text"];
@@ -3173,7 +3173,7 @@ var NOT_IMPLEMENTED = "Method not implemented";
 var DateAdapter = class {
   /** The locale to use for all dates. */
   locale;
-  _localeChanges = new Subject();
+  _localeChanges = new import_rxjs5.Subject();
   /** A stream that emits when the locale changes. */
   localeChanges = this._localeChanges;
   /**
@@ -4648,7 +4648,7 @@ var MatOption = class _MatOption {
   /** Element containing the option's text. */
   _text;
   /** Emits when the state of the option changes and any parents have to be notified. */
-  _stateChanges = new Subject();
+  _stateChanges = new import_rxjs5.Subject();
   constructor() {
     inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
     inject(_CdkPrivateStyleLoader).load(_VisuallyHiddenLoader);
@@ -5159,11 +5159,6 @@ var _MatInternalFormField = class __MatInternalFormField {
 })();
 
 export {
-  coerceBooleanProperty,
-  coerceNumberProperty,
-  coerceArray,
-  coerceCssPixelValue,
-  coerceElement,
   Platform,
   RtlScrollAxisType,
   supportsScrollBehavior,
@@ -5174,6 +5169,11 @@ export {
   _CdkPrivateStyleLoader,
   ESCAPE,
   hasModifierKey,
+  coerceBooleanProperty,
+  coerceNumberProperty,
+  coerceArray,
+  coerceCssPixelValue,
+  coerceElement,
   InteractivityChecker,
   FocusTrapFactory,
   FocusMonitor,
@@ -5186,4 +5186,4 @@ export {
   MatRippleModule,
   MatRippleLoader
 };
-//# sourceMappingURL=chunk-AYQZVUXD.js.map
+//# sourceMappingURL=chunk-LGNGNXNM.js.map

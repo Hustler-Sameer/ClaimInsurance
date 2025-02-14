@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output, Renderer2 } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { LoaderService } from "../../services/loader.service";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
@@ -20,12 +20,23 @@ export class MainContentComponent implements OnInit {
   policyNumber: string = "";
   lob: string = "";
   requesterId: string = "";
+
   showTable: boolean = true;
   ngOnInit(): void {
     this.showTable = true;
 
     this.route.queryParams.subscribe((params) => {
       this.requesterId = params["requestId"];
+      const theme = params["source"]
+      if(theme == "Simba"){
+        this.renderer.addClass(document.body, 'simba-portal');
+        this.renderer.removeClass(document.body, 'customer-portal');
+      }
+      else if(theme == "CustomerPortal"){
+        this.renderer.addClass(document.body, 'customer-portal');
+        this.renderer.removeClass(document.body, 'simba-portal');
+
+      }
       if(this.requesterId){
         console.log("The request id set is ", this.requesterId);
       this.requesterId1.emit(this.requesterId);
@@ -45,6 +56,7 @@ export class MainContentComponent implements OnInit {
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private requesterIdService : RequesterIdService,
+    private renderer: Renderer2
   ) {
     this.route.params.subscribe(() => {
       this.showTable = true;

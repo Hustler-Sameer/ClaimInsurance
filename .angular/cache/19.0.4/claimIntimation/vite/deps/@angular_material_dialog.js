@@ -21,7 +21,7 @@ import {
   getRtlScrollAxisType,
   hasModifierKey,
   supportsScrollBehavior
-} from "./chunk-AYQZVUXD.js";
+} from "./chunk-HM633BOT.js";
 import {
   DOCUMENT,
   Location

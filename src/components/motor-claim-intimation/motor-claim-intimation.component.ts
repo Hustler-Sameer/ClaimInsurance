@@ -45,6 +45,7 @@ export class MotorClaimIntimationComponent implements OnInit {
     console.log("Received response in Motor Claim:", response1);
     this.claimForm = createMotorClaimFormValidations(this.fb);
   }
+  
  
   ngOnInit(): void {
     const now = new Date();
