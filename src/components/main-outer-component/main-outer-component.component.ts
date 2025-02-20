@@ -13,6 +13,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogAnimationsExampleDialog } from '../custom-modal/custom-modal.component';
 import { StateService } from '../../services/SharedService.service';
 
+
 @Component({
   selector: 'app-main-outer-component',
   imports: [  RouterOutlet,
@@ -40,7 +41,7 @@ title = 'claimIntimation2';
   constructor(
     private loaderService: LoaderService,
     private router: Router,
-    private stateService: StateService
+    private stateService: StateService,
   ) {
     this.loaderService.spinner$.subscribe((data: boolean) => {
       this.isLoading = data;
