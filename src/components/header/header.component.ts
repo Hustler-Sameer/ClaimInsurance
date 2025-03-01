@@ -20,9 +20,9 @@ export class HeaderComponent implements OnInit {
   }
   ngOnInit(): void {
     this.sourceService.getSource().subscribe((source: string) => {
-      this.sourceName = source;
+      this.sourceName = source.toLowerCase();
       console.log("source in other component: ", this.sourceName);
-      if(this.sourceName == "Simba") {
+      if(this.sourceName == "simba") {
         this.isSimba = true;
       }
     });

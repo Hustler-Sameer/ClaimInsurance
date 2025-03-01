@@ -60,7 +60,7 @@ title = 'claimIntimation2';
     } else if (lob.startsWith('Health')) {
       this.productName = 'Health';
       this.stateService.response = this.response;
-      this.router.navigate(['/health-claim'], { state: { response: this.response } });
+      this.router.navigate(['/health-claim-submit'], { state: { response: this.response } });
     } else {
       this.productName = '';
       this.router.navigate(['/']); // Default route

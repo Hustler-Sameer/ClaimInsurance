@@ -7,8 +7,10 @@ import { DialogAnimationsExampleDialog } from "../custom-modal/custom-modal.comp
 import { Table2Component } from "../table2/table2.component";
 import { CommonModule } from "@angular/common";
 import { PolicyResponse } from "../../model/policyResponse";
-import { RequesterIdService } from "../../services/InsuredId.service";
+import { RequesterIdService } from "../../services/RequesterId.service";
 import { SourceService } from "../../services/Source.service";
+import { PolicyNumberService } from "../../services/PolicyNumber.service";
+
 export type { PolicyResponse } from "../../model/policyResponse";
 @Component({
   selector: "app-main-content",
@@ -28,13 +30,13 @@ export class MainContentComponent implements OnInit {
 
     this.route.queryParams.subscribe((params) => {
       this.requesterId = params["requestId"];
-      const theme = params["source"]
+      const theme = params["source"].toLowerCase();
       this.sourceService.setSource(theme);
-      if(theme == "Simba"){
+      if(theme == "simba"){
         this.renderer.addClass(document.body, 'simba-portal');
         this.renderer.removeClass(document.body, 'customer-portal');
       }
-      else if(theme == "CustomerPortal"){
+      else if(theme == "customerportal"){
         this.renderer.addClass(document.body, 'customer-portal');
         this.renderer.removeClass(document.body, 'simba-portal');
 
@@ -59,7 +61,8 @@ export class MainContentComponent implements OnInit {
     private route: ActivatedRoute,
     private requesterIdService : RequesterIdService,
     private renderer: Renderer2,
-    private sourceService: SourceService
+    private sourceService: SourceService,
+    private policyNumberService: PolicyNumberService
   ) {
     this.route.params.subscribe(() => {
       this.showTable = true;
@@ -69,6 +72,9 @@ export class MainContentComponent implements OnInit {
   @Output() responseSelected = new EventEmitter<PolicyResponse[]>();
   @Output() lobSelected = new EventEmitter<string>(); // passing component to parent element
   searchPolicy() {
+    this.policyNumberService.getPolicyNumber().subscribe((policyNumber:string) => {
+      this.policyNumber = policyNumber;
+    })
     this.loadingService.showSpinner();
     this.showTable = false;
     this.http
@@ -107,14 +113,15 @@ export class MainContentComponent implements OnInit {
   }
 
   setPolicyNumber(e: any) {
-    this.policyNumber = e.target.value;
+    // this.policyNumber = e.target.value;
+    this.policyNumberService.setPolicyNumber(e.target.value);
   }
 
   navigateBasedOnLOB(lob: string) {
     if (lob.startsWith("Motor")) {
       this.router.navigate(["/motor-claim"]);
     } else if (lob.startsWith("Health")) {
-      this.router.navigate(["/health-claim"]);
+      this.router.navigate(["/health-claim-submit"]);
     } else {
       console.warn("LOB not recognized:", lob);
     }

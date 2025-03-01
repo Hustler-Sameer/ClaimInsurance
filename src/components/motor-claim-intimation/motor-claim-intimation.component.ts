@@ -16,7 +16,8 @@ import { PolicyResponse } from "../../model/policyResponse";
 import { createMotorClaimFormValidations } from "../../validations/motorClaimFormValidations";
 import { formatDateTime } from "../../commonFunctions/formatDateTime";
 import { buildChatBotPayload } from "../../commonFunctions/chatBotPayload";
-import {RequesterIdService } from "../../services/InsuredId.service";
+import {RequesterIdService } from "../../services/RequesterId.service";
+import { SourceService } from "../../services/Source.service";
 
 @Component({
   selector: "app-motor-claim-intimation",
@@ -28,9 +29,10 @@ export class MotorClaimIntimationComponent implements OnInit {
   @Input() getResponse: PolicyResponse[] | null = [];
   claimForm: FormGroup;
   policy!: any;
-  requesterId: string;
+  requestId: string;
   maxDateTime: string;
   isSubmitted:boolean = false;
+  source:string="";
 
   constructor(
     private fb: FormBuilder,
@@ -40,6 +42,7 @@ export class MotorClaimIntimationComponent implements OnInit {
     private stateService: StateService,
     private router: Router,
     private requesterIdService : RequesterIdService,
+    private sourceService:SourceService
   ) {
     const response1 = this.stateService.response;
     console.log("Received response in Motor Claim:", response1);
@@ -51,8 +54,12 @@ export class MotorClaimIntimationComponent implements OnInit {
     const now = new Date();
     this.maxDateTime = now.toISOString().slice(0, 16); // Format as 'YYYY-MM-DDTHH:MM'
     this.requesterIdService.getRequesterId().subscribe((id: string) => {
-      this.requesterId = id;
-      console.log("Requester ID in other component: ", this.requesterId);
+      this.requestId = id;
+      console.log("Requester ID in other component: ", this.requestId);
+    });
+
+    this.sourceService.getSource().subscribe((id: string) => {
+      this.source = id;
     });
   
     const response1 = this.stateService.response;
@@ -91,7 +98,7 @@ export class MotorClaimIntimationComponent implements OnInit {
     if (this.claimForm.valid) {
       console.log("Form Submitted:", formData);
       console.log("The policy no is + " + this.claimForm.value.policyNumber);
-      const chatBotPayload = buildChatBotPayload(formData,this.requesterId);
+      const chatBotPayload = buildChatBotPayload(formData,this.requestId);
       console.log(
         "The chatbot request body is :" + JSON.stringify(chatBotPayload)
       );
@@ -121,7 +128,9 @@ export class MotorClaimIntimationComponent implements OnInit {
             remarks: "Remarks : " + response?.statusMessage,
           },
         });
-        this.router.navigate([""],{ queryParams: { requestId: this.requesterId } });
+        this.router.navigate([""], {
+          queryParams: { requestId: this.requestId, source: this.source },
+        });
       } catch (error: unknown) {
         this.loadingService.hideSpinner();
         this.dialog.open(DialogAnimationsExampleDialog, {

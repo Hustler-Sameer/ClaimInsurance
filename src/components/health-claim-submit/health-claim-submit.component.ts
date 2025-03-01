@@ -15,19 +15,19 @@ import { RequesterIdService } from "../../services/RequesterId.service";
 import { SourceService } from "../../services/Source.service";
 
 @Component({
-  selector: "app-health-claim-intimation",
+  selector: "app-health-claim-submit",
   imports: [ReactiveFormsModule, CommonModule],
-  templateUrl: "./health-claim-intimation.component.html",
-  styleUrl: "./health-claim-intimation.component.css",
+  templateUrl: "./health-claim-submit.component.html",
+  styleUrl: "./health-claim-submit.component.css",
 })
-export class HealthClaimIntimationComponent implements OnInit {
+export class HealthClaimSubmitComponent implements OnInit {
   @Input() getResponse: PolicyResponse[] | null = [];
   policyMembersList: policyMembers[] | null = [];
   claimForm: FormGroup;
   showFirNo: boolean = false;
-  isSubmitted:boolean = false;
-  requesterId:string="";
-  source:string="";
+  isSubmitted: boolean = false;
+  requesterId: string = "";
+  source: string = "";
   private base64ToUint8Array(base64: string): Uint8Array {
     const binaryString = atob(base64);
     const length = binaryString.length;
@@ -47,8 +47,8 @@ export class HealthClaimIntimationComponent implements OnInit {
     private dialog: MatDialog,
     private stateService: StateService,
     private router: Router,
-    private requesterIdService : RequesterIdService,
-    private sourceService : SourceService
+    private requesterIdService: RequesterIdService,
+    private sourceService: SourceService
   ) {
     this.claimForm = createHealthClaimFormValidations(this.fb);
   }
@@ -61,8 +61,8 @@ export class HealthClaimIntimationComponent implements OnInit {
       console.log("Requester ID in other component: ", this.requesterId);
     });
 
-    this.sourceService.getSource().subscribe((id:string) => {
-        this.source = id;
+    this.sourceService.getSource().subscribe((id: string) => {
+      this.source = id;
     });
 
     console.log("Received Health Claim Response: ", policyDetails);
@@ -79,7 +79,7 @@ export class HealthClaimIntimationComponent implements OnInit {
         customerMobileNo: policyDetails[0].mobileNo,
         customerAlternateEmailId: policyDetails[0].alternateEmailId,
         customerAlternateMobileNo: policyDetails[0].alternateMobileNo,
-        requestId:this.requesterId
+        requestId: this.requesterId,
         // patientName: patientNames,
       });
     }
@@ -94,9 +94,12 @@ export class HealthClaimIntimationComponent implements OnInit {
         (member) => member.name === selectedName
       );
       if (selectedMember) {
+        const formattedMemberId = selectedMember.memberId
+          .toString()
+          .padStart(16, "0");
         this.claimForm.patchValue({
           patientName: selectedName,
-          memeberId: selectedMember.memberId,
+          memeberId: formattedMemberId,
         });
       }
     }
@@ -121,16 +124,19 @@ export class HealthClaimIntimationComponent implements OnInit {
     const formValue = this.claimForm.value;
     console.log("Form values : " + JSON.stringify(formValue));
     this.isSubmitted = true;
-    console.log("Patient name selected : "+this.claimForm.controls['patientName'].valid);
+    console.log(
+      "Patient name selected : " + this.claimForm.controls["patientName"].valid
+    );
     try {
       if (this.claimForm.valid) {
         this.loadingService.showSpinner();
         const response = await this.http
           .post<{
-            IntimationNo: string;
+            ClaimReferenceNo: string;
             ErrorMessage: string;
           }>(
-            "https://ansappsuat.sbigen.in/Intimation/healthClaimIntimation",
+            // "https://ansappsuat.sbigen.in/Intimation/healthClaimIntimation",
+            "http://localhost:7002/Intimation/healthClaimSubmit",
             formValue,
             {
               headers: { "Content-Type": "application/json" },
@@ -142,23 +148,25 @@ export class HealthClaimIntimationComponent implements OnInit {
         this.dialog.open(DialogAnimationsExampleDialog, {
           width: "300px",
           data: {
-            heading:"Claim Intimation Details",
-            claimNumber:"The intimation no.is : "+ response?.IntimationNo,
-            remarks:"Remarks : "+ response?.ErrorMessage,
+            heading: "Claim Intimation Details",
+            claimNumber: "The intimation no.is : " + response?.ClaimReferenceNo,
+            remarks: "Remarks : " + response?.ErrorMessage,
           },
         });
-        this.router.navigate([''] , { queryParams: { requestId: this.requesterId , source: this.source }});
+        this.router.navigate([""], {
+          queryParams: { requestId: this.requesterId, source: this.source },
+        });
       } else {
         console.log("All Required fields are not selected");
       }
-    } catch (error:unknown) {
+    } catch (error: unknown) {
       this.loadingService.hideSpinner();
       this.dialog.open(DialogAnimationsExampleDialog, {
         width: "300px",
         data: {
-          heading:"Error",
-          claimNumber:"",
-          remarks:"Remarks : "+ (error as HttpErrorResponse).error,
+          heading: "Error",
+          claimNumber: "",
+          remarks: "Remarks : " + (error as HttpErrorResponse).error,
         },
       });
       console.log((error as HttpErrorResponse).error);
