@@ -1,0 +1,6 @@
+<div class="loadingContainer" *ngIf="isLoading">
+  <mat-spinner [diameter]="50"></mat-spinner>
+</div>
+  <app-header></app-header>
+  <app-main-content (lobSelected)="onLobSelected($event)" (responseSelected)="onResponseSelected($event)"></app-main-content> 
+  <router-outlet></router-outlet>
