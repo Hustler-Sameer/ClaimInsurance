@@ -6,13 +6,14 @@ import { MotorClaimIntimationComponent } from '../components/motor-claim-intimat
 import { HealthClaimIntimationComponent } from '../components/health-claim-intimation/health-claim-intimation.component';
 import { HealthClaimSubmitComponent } from '../components/health-claim-submit/health-claim-submit.component';
 import { MainOuterComponentComponent } from '../components/main-outer-component/main-outer-component.component';
+import { RedirectGuard } from './guards/RedirectGuard';
 
 
 export const routes: Routes = [
     { path: '', component: MainOuterComponentComponent , children : [
-      { path: 'motor-claim', component: MotorClaimIntimationComponent },
-    { path: 'health-claim', component: HealthClaimIntimationComponent },
-    { path: 'health-claim-submit', component: HealthClaimSubmitComponent },
+      { path: 'motor-claim', component: MotorClaimIntimationComponent , canActivate:[RedirectGuard] },
+    { path: 'health-claim', component: HealthClaimIntimationComponent , canActivate:[RedirectGuard] },
+    { path: 'health-claim-submit', component: HealthClaimSubmitComponent , canActivate:[RedirectGuard]},
     ]}
     
   ];

@@ -32,6 +32,7 @@ export class MainContentComponent implements OnInit {
       this.requesterId = params["requestId"];
       const theme = params["source"].toLowerCase();
       this.sourceService.setSource(theme);
+      console.log("Source has been set");
       if(theme == "simba"){
         this.renderer.addClass(document.body, 'simba-portal');
         this.renderer.removeClass(document.body, 'customer-portal');
@@ -43,8 +44,9 @@ export class MainContentComponent implements OnInit {
       }
       if(this.requesterId){
         console.log("The request id set is ", this.requesterId);
-      this.requesterId1.emit(this.requesterId);
-      this.requesterIdService.setRequesterId(this.requesterId);
+        this.requesterId1.emit(this.requesterId);
+        this.requesterIdService.setRequesterId(this.requesterId);
+        console.log("Request id has been set");
       }
       
 
@@ -93,7 +95,7 @@ export class MainContentComponent implements OnInit {
           this.responseSelected.emit(response);
           this.lobSelected.emit(this.lob); //
           // sending it to parent element
-          this.navigateBasedOnLOB(this.lob);
+          // this.navigateBasedOnLOB(this.lob);
 
           this.loadingService.hideSpinner();
         },

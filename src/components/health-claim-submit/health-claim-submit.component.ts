@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { FormGroup } from "@angular/forms";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
@@ -20,7 +20,7 @@ import { SourceService } from "../../services/Source.service";
   templateUrl: "./health-claim-submit.component.html",
   styleUrl: "./health-claim-submit.component.css",
 })
-export class HealthClaimSubmitComponent implements OnInit {
+export class HealthClaimSubmitComponent implements OnInit , OnDestroy {
   @Input() getResponse: PolicyResponse[] | null = [];
   policyMembersList: policyMembers[] | null = [];
   claimForm: FormGroup;
@@ -136,7 +136,7 @@ export class HealthClaimSubmitComponent implements OnInit {
             ErrorMessage: string;
           }>(
             // "https://ansappsuat.sbigen.in/Intimation/healthClaimIntimation",
-            "http://localhost:7002/Intimation/healthClaimSubmit",
+            "https://ansappsuat.sbigen.in/Intimation/healthClaimSubmit",
             formValue,
             {
               headers: { "Content-Type": "application/json" },
@@ -172,4 +172,9 @@ export class HealthClaimSubmitComponent implements OnInit {
       console.log((error as HttpErrorResponse).error);
     }
   }
+
+  ngOnDestroy(): void {
+      console.log("Health component is destroyed");
+  }
+
 }

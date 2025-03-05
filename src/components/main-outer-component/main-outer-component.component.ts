@@ -49,6 +49,7 @@ title = 'claimIntimation2';
   }
   onLobSelected(lob: string) {
     console.log("I am from app component ts " +lob);
+    console.log("lob is : "+lob);
     
     if (lob.startsWith('Motor')) {
       this.productName = 'Motor';

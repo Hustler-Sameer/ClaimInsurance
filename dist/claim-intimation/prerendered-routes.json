@@ -1,7 +1,8 @@
 {
   "routes": {
-    "/": {},
-    "/health-claim": {},
-    "/motor-claim": {}
+    "/ClaimIntimation": {},
+    "/ClaimIntimation/health-claim": {},
+    "/ClaimIntimation/health-claim-submit": {},
+    "/ClaimIntimation/motor-claim": {}
   }
 }

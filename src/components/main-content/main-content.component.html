@@ -1,10 +1,12 @@
 <div class="name"><h3>Claim Management System</h3></div>
 <nav class="heading">
-    <h3>Enter Policy Number</h3>
-    <input (change)="setPolicyNumber($event)" placeholder="Please enter policy number" />
-    <button class="searchButton" (click)="searchPolicy()">Search</button>
-  </nav>
-  <div class="table" *ngIf="showTable">
-    <app-table2 [requesterId]="requesterId"></app-table2>
-  </div>
- 
+  <h3>Enter Policy Number</h3>
+  <input
+    (change)="setPolicyNumber($event)"
+    placeholder="Please enter policy number"
+  />
+  <button class="searchButton" (click)="searchPolicy()">Search</button>
+</nav>
+<div class="table" *ngIf="showTable">
+  <app-table2 [requesterId]="requesterId"></app-table2>
+</div>

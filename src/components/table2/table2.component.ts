@@ -66,6 +66,7 @@ export class Table2Component implements OnInit {
         Vehicle_Registration_Number: "",
         requestID: this.requesterId,
       };
+
       try {
         this.loadingService.showSpinner();
         this.http
@@ -76,6 +77,7 @@ export class Table2Component implements OnInit {
           .subscribe(
             (response) => {
               const claim = response[0][0];
+              console.log("Response : "+response);
               console.log("The claim obj is", claim);
 
               // Directly assign the properties to avoid unnecessary JSON.stringify
@@ -107,15 +109,68 @@ export class Table2Component implements OnInit {
       }
     }
     else if (data.lob == "Health" ){
-      
-      this.dialog.open(DialogAnimationsExampleDialog, {
-        width: "300px",
-        data: {
-          heading: "Sorry the service is down",
-          claimNumber: "",
-          remarks: "",
-        },
-      });
+      try {
+        const checkHealthClaimStatusObj: checkHealthClaimStatus = {
+          requestId:this.requesterId,
+          claimRefNo:data.intimationNo
+        }
+        this.loadingService.showSpinner();
+        this.http
+          .post<any>(
+            "https://ansappsuat.sbigen.in/Intimation/checkHealthStatus",
+            checkHealthClaimStatusObj
+          )
+          .subscribe(
+            (response) => {
+              console.log("Response : "+response[0]);
+              const claim = response;
+              this.claimStatus = claim.statusMessage;
+              console.log("Status from health claim status :"+this.claimStatus);
+              // console.log("The claim obj is", claim);
+
+              // Directly assign the properties to avoid unnecessary JSON.stringify
+              // this.claimStatus = claim.ClaimStatus;
+              // this.claimStatusDescription = claim.Claim_Status_Description;
+
+              // console.log(this.claimStatus, "This is claimStatuss");
+              // console.log("Claim Description", this.claimStatusDescription);
+
+              this.loadingService.hideSpinner();
+
+              this.dialog.open(DialogAnimationsExampleDialog, {
+                width: "300px",
+                data: {
+                  heading: "Claim Status Details",
+                  claimNumber: "Status : " + this.claimStatus,
+                  remarks: "Remarks : ",
+                },
+              });
+            },
+            (error) => {
+              console.error("API error:", error);
+              this.loadingService.hideSpinner();
+              this.dialog.open(DialogAnimationsExampleDialog, {
+                width: "300px",
+                data: {
+                  heading: "Claim Status Details",
+                  claimNumber: "Error Occured",
+                  remarks: ""
+                },
+              });
+            }
+          );
+        
+      } catch (error:unknown) {
+        this.loadingService.hideSpinner();
+        this.dialog.open(DialogAnimationsExampleDialog, {
+          width: "300px",
+          data: {
+            heading: "Claim Status Details",
+            claimNumber: "",
+            remarks: "Remarks : " + (error as HttpErrorResponse).error,
+          },
+        });
+      }
 
     }
   }
@@ -128,6 +183,12 @@ export interface checkMotorClaimStatus {
   Vehicle_Registration_Number: string;
   requestID: string;
 }
+
+export interface checkHealthClaimStatus {
+  requestId:string,
+  claimRefNo:string
+}
+
 export interface tableData {
   policyNo: string;
   intimationNo: string;

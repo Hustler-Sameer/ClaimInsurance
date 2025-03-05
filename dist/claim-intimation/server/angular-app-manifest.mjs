@@ -7,23 +7,28 @@ export default {
   routes: [
   {
     "renderMode": 2,
-    "route": "/"
+    "route": "/ClaimIntimation"
   },
   {
     "renderMode": 2,
-    "route": "/motor-claim"
+    "route": "/ClaimIntimation/motor-claim"
   },
   {
     "renderMode": 2,
-    "route": "/health-claim"
+    "route": "/ClaimIntimation/health-claim"
+  },
+  {
+    "renderMode": 2,
+    "route": "/ClaimIntimation/health-claim-submit"
   }
 ],
   assets: {
-    'index.csr.html': {size: 24243, hash: '9106cf57438e86e1542f5ddf8c943452cba7796a49f108e154cc4fb9aa2f0168', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
-    'index.server.html': {size: 17187, hash: 'ef0ae4b403832eb181a7cbb36853bc70d199c1ea72522c0af103ba49cfe8d9e4', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
-    'index.html': {size: 36209, hash: 'a7b93b96cee212a55e987fb2f3785060ff3d560fdd785dad6475aa6688e0f7bd', text: () => import('./assets-chunks/index_html.mjs').then(m => m.default)},
-    'motor-claim/index.html': {size: 47269, hash: '4327284ce6a513c50549457a879fa3bc0e23b114b657d36d4e6c6a1010504a11', text: () => import('./assets-chunks/motor-claim_index_html.mjs').then(m => m.default)},
-    'health-claim/index.html': {size: 41128, hash: '801f0f324de8e0c1c93c1af5130b878f43a4d4d142161c1c12bc0dfb1686b694', text: () => import('./assets-chunks/health-claim_index_html.mjs').then(m => m.default)},
-    'styles-73PKIQUE.css': {size: 33095, hash: 'alAr0KQgkGk', text: () => import('./assets-chunks/styles-73PKIQUE_css.mjs').then(m => m.default)}
+    'index.csr.html': {size: 24244, hash: '169e1d1ffd5abf23fc8aa47eded0e1bb2a8a7ab89b1bae302e3ae78e86ff4269', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
+    'index.server.html': {size: 17202, hash: 'e30d2a95d9e46e60e98fd305ceac75171bf72fd7a483ebf4f6c9013e6c6e0969', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
+    'ClaimIntimation/motor-claim/index.html': {size: 24808, hash: 'ed524eecf69f39f953da86e25966b6e8694ea762a0e8a72a4ca39a8c1e89780f', text: () => import('./assets-chunks/ClaimIntimation_motor-claim_index_html.mjs').then(m => m.default)},
+    'ClaimIntimation/index.html': {size: 36050, hash: '0871e3fb82fded8ecebf28372cea21c21790103e7eee2ec3e579157a9cd45f1b', text: () => import('./assets-chunks/ClaimIntimation_index_html.mjs').then(m => m.default)},
+    'ClaimIntimation/health-claim-submit/index.html': {size: 24808, hash: 'ed524eecf69f39f953da86e25966b6e8694ea762a0e8a72a4ca39a8c1e89780f', text: () => import('./assets-chunks/ClaimIntimation_health-claim-submit_index_html.mjs').then(m => m.default)},
+    'ClaimIntimation/health-claim/index.html': {size: 24808, hash: 'ed524eecf69f39f953da86e25966b6e8694ea762a0e8a72a4ca39a8c1e89780f', text: () => import('./assets-chunks/ClaimIntimation_health-claim_index_html.mjs').then(m => m.default)},
+    'styles-NSRP7YVH.css': {size: 34662, hash: 'I2btByf3sM8', text: () => import('./assets-chunks/styles-NSRP7YVH_css.mjs').then(m => m.default)}
   },
 };
