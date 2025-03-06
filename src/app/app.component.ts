@@ -78,6 +78,7 @@ import { HealthClaimIntimationComponent } from '../components/health-claim-intim
 import { DevAPITokenService } from '../services/DevAPIToken.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogAnimationsExampleDialog } from '../components/custom-modal/custom-modal.component';
+import { DummyPageComponent } from '../components/dummy-page/dummy-page.component';
 
 @Component({
   selector: 'app-root',
@@ -86,6 +87,7 @@ import { DialogAnimationsExampleDialog } from '../components/custom-modal/custom
     MotorClaimIntimationComponent,
     HeaderComponent,
     MainContentComponent,
+    DummyPageComponent,
     HttpClientModule,
     FormsModule,
     HealthClaimIntimationComponent,

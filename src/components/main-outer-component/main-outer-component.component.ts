@@ -13,6 +13,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogAnimationsExampleDialog } from '../custom-modal/custom-modal.component';
 import { StateService } from '../../services/SharedService.service';
 
+
 @Component({
   selector: 'app-main-outer-component',
   imports: [  RouterOutlet,
@@ -40,7 +41,7 @@ title = 'claimIntimation2';
   constructor(
     private loaderService: LoaderService,
     private router: Router,
-    private stateService: StateService
+    private stateService: StateService,
   ) {
     this.loaderService.spinner$.subscribe((data: boolean) => {
       this.isLoading = data;
@@ -48,6 +49,7 @@ title = 'claimIntimation2';
   }
   onLobSelected(lob: string) {
     console.log("I am from app component ts " +lob);
+    console.log("lob is : "+lob);
     
     if (lob.startsWith('Motor')) {
       this.productName = 'Motor';
@@ -58,7 +60,8 @@ title = 'claimIntimation2';
       this.router.navigate(['/motor-claim']);
     } else if (lob.startsWith('Health')) {
       this.productName = 'Health';
-      this.router.navigate(['/health-claim'], { state: { response: this.response } });
+      this.stateService.response = this.response;
+      this.router.navigate(['/health-claim-submit'], { state: { response: this.response } });
     } else {
       this.productName = '';
       this.router.navigate(['/']); // Default route

@@ -1,7 +1,7 @@
-<h2 mat-dialog-title>Intimation Details</h2>
+<h2 mat-dialog-title>{{ data.heading }}</h2>
 <mat-dialog-content>
-  <p>The claim Number is: <strong>{{ data.claimNumber }}</strong></p>
-  <p>Remarks: <strong>{{ data.remarks }}</strong></p>
+  <p><strong>{{ data.claimNumber }}</strong></p>
+  <p><strong>{{ data.remarks }}</strong></p>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close cdkFocusInitial (click)="onOkClick()">Ok</button>

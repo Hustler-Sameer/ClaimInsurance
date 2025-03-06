@@ -5,17 +5,17 @@
         <div class="parentElement">
           <div class="componentDiv1">
             <h6>Customer Name</h6>
-            <input type="text" formControlName="customerName" />
+            <input type="text" formControlName="customerName" readonly />
           </div>
 
           <div class="componentDiv1">
             <h6>Policy Number</h6>
-            <input type="text" formControlName="policyNumber" />
+            <input type="text" formControlName="policyNumber"  readonly/>
           </div>
 
           <div class="componentDiv1">
             <h6>Registration Number</h6>
-            <input type="text" formControlName="registrationNumber" />
+            <input type="text" formControlName="registrationNumber" readonly />
           </div>
 
           <!-- <div class="componentDiv1">
@@ -30,20 +30,23 @@
 
           <div class="componentDiv1">
             <h6>Customer Email id</h6>
-            <input type="text" formControlName="customerEmailId" />
+            <input type="text" formControlName="customerEmailId" readonly/>
           </div>
 
           <div class="componentDiv1">
             <h6>Mobile Number</h6>
-            <input type="text" formControlName="customerMobileNumber" />
+            <input type="text" formControlName="customerMobileNumber" readonly />
           </div>
         </div>
 
         <div class="mainDiv2">
           <div class="parentElement2">
             <div class="componentDiv1">
-              <h6>Date of Accident/Theft</h6>
-              <input type="datetime-local" formControlName="AccidentDateTime" />
+              <h6>Date of Accident/Theft<span class="required"> * </span></h6>
+              <input type="datetime-local" formControlName="AccidentDateTime" [max]="maxDateTime" />
+              <div *ngIf="claimForm.controls['AccidentDateTime'].invalid && isSubmitted">
+                <span class="error">Accident Date & Time is required</span>
+              </div>
             </div>
 
             <!-- <div class="componentDiv1">
@@ -65,19 +68,27 @@
               <input type="file" class="file-upload" formControlName="fileUpload" />
             </div> -->
             <div class="componentDiv1">
-              <h6>Loss Description</h6>
+              <h6>Loss Description<span class="required"> * </span></h6>
               <input type="text" formControlName="LossDescription" placeholder="Please describe loss" />
+              <div *ngIf="claimForm.controls['LossDescription'].invalid && isSubmitted">
+                <span class="error">Loss description is required</span>
+              </div>
             </div>
             <div class="componentDiv1">
-              <h6>Loss City</h6>
+              <h6>Loss City<span class="required"> * </span></h6>
               <input type="text" formControlName="LossCity" placeholder="Please enter loss city" />
+              <div *ngIf="claimForm.controls['LossCity'].invalid && isSubmitted">
+                <span class="error">Loss city is required</span>
+              </div>
             </div>
             <div class="componentDiv1">
-              <h6>Loss State</h6>
+              <h6>Loss State<span class="required"> * </span></h6>
               <select formControlName="LossState">
                 <option value="Maharashtra">Maharashtra</option>
                 <option value="Gujrat">Gujrat</option>
-                
+                <div *ngIf="claimForm.controls['LossState'].invalid && isSubmitted">
+                  <span class="error">Loss State is required</span>
+                </div>
               </select>
             </div>
           
@@ -88,20 +99,33 @@
               <input type="text" formControlName="locationOfAccident" placeholder="Yes/No" />
             </div> -->
             <div class="componentDiv1">
-              <h6>Driver Name</h6>
+              <h6>Driver Name<span class="required"> * </span></h6>
               <input type="text" formControlName="DriverName" placeholder="Please enter driver name" />
+              <div *ngIf="claimForm.controls['DriverName'].invalid && isSubmitted">
+                <span class="error">Driver's name is required</span>
+              </div>
+           
             </div>
             <div class="componentDiv1">
-              <h6>Driving License Number</h6>
+              <h6>Driving License Number<span class="required"> * </span></h6>
               <input type="text" formControlName="DrivingLicenseNumber" placeholder="Please enter driver name" />
+              <div *ngIf="claimForm.controls['DrivingLicenseNumber'].invalid && isSubmitted">
+                <span class="error">Driving License number is required</span>
+              </div>
             </div>
             <div class="componentDiv1">
-              <h6>Garage Name</h6>
+              <h6>Garage Name<span class="required"> * </span></h6>
               <input type="text" formControlName="workshopName" placeholder="Please enter workshop name" />
+              <div *ngIf="claimForm.controls['workshopName'].invalid && isSubmitted">
+                <span class="error">Workshop name is required</span>
+              </div>
             </div>
             <div class="componentDiv1">
-              <h6>Garage Address</h6>
+              <h6>Garage Address<span class="required"> * </span></h6>
               <input type="text" formControlName="SurveyPlaceOrGarageNameAddress" placeholder="Enter garage details" />
+              <div *ngIf="claimForm.controls['SurveyPlaceOrGarageNameAddress'].invalid && isSubmitted">
+                <span class="error">Survey place or Garage Address is required</span>
+              </div>
             </div>
             <!-- <div class="componentDiv1">
               <h6>Nature of Loss</h6>
@@ -112,32 +136,47 @@
         
          
             <div class="componentDiv1">
-              <h6>Claim Servicing Branch</h6>
+              <h6>Claim Servicing Branch<span class="required"> * </span></h6>
               <input type="text" formControlName="claimServicingBranch" placeholder="Enter Claim Servicing Branch Name">
+              <div *ngIf="claimForm.controls['claimServicingBranch'].invalid && isSubmitted">
+                <span class="error">Claim Servicing branch is required</span>
+              </div>
             </div>
             <div class="componentDiv1">
-              <h6>Is Insured?</h6>
+              <h6>Is Insured?<span class="required"> * </span></h6>
               <select formControlName="isInsured">
                 <option value="Y">Yes</option>
                 <option value="N">No</option>
                 
               </select>
+              <div *ngIf="claimForm.controls['isInsured'].invalid && isSubmitted">
+                <span class="error">Insured Details are required</span>
+              </div>
             </div>
 
 
             <div class="componentDiv1" id="lossDetails">
-              <h6>Estimated Claim Amount</h6>
+              <h6>Estimated Claim Amount<span class="required"> * </span></h6>
               <input type="text" formControlName="EstimatedClaimAmount" placeholder="Please enter estimated claim amount" />
+              <div *ngIf="claimForm.controls['EstimatedClaimAmount'].invalid && isSubmitted">
+                <span class="error">Estimated claim amount is required</span>
+              </div>
             </div>
 
             <div class="componentDiv1">
-              <h6>Remarks</h6>
+              <h6>Remarks<span class="required"> * </span></h6>
               <input type="text" formControlName="remarks" placeholder="Please enter remarks" />
+              <div *ngIf="claimForm.controls['remarks'].invalid && isSubmitted">
+                <span class="error">Remarks are required</span>
+              </div>
             </div>
 
             <div class="componentDiv1" id="declaration">
               <input type="checkbox" formControlName="declaration" />
-              <h5>I hereby confirm that the details provided by me are correct and I authorize SBI General Insurance to proceed further for claim process based on the information provided by me</h5>
+              <h5>I hereby confirm that the details provided by me are correct and I authorize SBI General Insurance to proceed further for claim process based on the information provided by me<span class="required"> * </span></h5>
+              <div *ngIf="claimForm.controls['declaration'].invalid && isSubmitted">
+                <span class="error">Declaration is required</span>
+              </div>
             </div>
 
             <div class="componentDiv1">

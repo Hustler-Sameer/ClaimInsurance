@@ -10,9 +10,11 @@
 .headerMainDiv h3 {
     margin-right: 10px;
 }
-h6{
+h5{
     margin: 0;
     padding: 0;
+    font-weight: 600;
+    letter-spacing: 1px;
 }
  
 .headerSearchBarDiv {
@@ -64,7 +66,7 @@ h6{
     justify-content: center;
     background: white;
     padding: 10px;
-    height: 210px;
+    height: 260px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     gap: 15px;
     margin-bottom:5px ;
@@ -77,7 +79,7 @@ h6{
     justify-content: center;
     background: white;
     padding: 10px;
-    height: 150px;
+    height: 200px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     gap: 15px;
 }
@@ -183,6 +185,19 @@ h6{
     display: flex;
     justify-content: flex-end;
     align-items: center;
+}
+
+.readonly-input {
+    cursor: not-allowed;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+}
+
+.required {
+    color: red;
 }
  
  

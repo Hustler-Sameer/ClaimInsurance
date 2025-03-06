@@ -43,7 +43,7 @@ export class CustomModalComponent {
 })
 export class DialogAnimationsExampleDialog {
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { claimNumber: string, remarks: string },
+    @Inject(MAT_DIALOG_DATA) public data: {heading: string, claimNumber: string, remarks: string },
     private dialogRef: MatDialogRef<DialogAnimationsExampleDialog>
   ) {}
   onOkClick() : void {

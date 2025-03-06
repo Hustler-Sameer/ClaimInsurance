@@ -1,0 +1,258 @@
+<div id="mainClaimDiv">
+  <!-- <div class="headerMainDiv">
+          <h3>Claim Registration</h3>
+          <div class="headerSearchBarDiv">
+              <input type="text" id="headerSearchBar" placeholder="search policy details">
+              <mat-icon id="searchIcon">search</mat-icon>
+          </div>
+      </div> -->
+
+  <form [formGroup]="claimForm" action="" (ngSubmit)="onSubmit()">
+    <div id="customerDetails">
+      <span style="font-weight: 500">Customer Details</span>
+      <div id="customerDetailsFields">
+        <div class="inputDiv">
+          <h5 for="">Customer Name</h5>
+          <input type="text" formControlName="customerName" readonly />
+        </div>
+        <div class="inputDiv">
+          <h5 for="">Policy No.</h5>
+          <input type="text" formControlName="policyNumber" readonly />
+        </div>
+        <div class="inputDiv">
+          <h5 for="">Email Id</h5>
+          <input type="text" formControlName="customerEmailId" readonly />
+        </div>
+        <div class="inputDiv">
+          <h5 for="">Mobile No.</h5>
+          <input type="text" formControlName="customerMobileNo" readonly />
+        </div>
+        <div class="inputDiv">
+          <h5 for="">Alternate Email Id</h5>
+          <input
+            type="text"
+            formControlName="customerAlternateEmailId"
+            readonly
+          />
+        </div>
+        <div class="inputDiv">
+          <h5 for="">Alternate Mobile No.</h5>
+          <input
+            type="text"
+            formControlName="customerAlternateMobileNo"
+            readonly
+          />
+        </div>
+      </div>
+    </div>
+
+    <div id="claimDetails">
+      <span style="font-weight: 500">Claim Details</span>
+      <div id="claimDetailsFields">
+        
+        <!-- <div class="inputDiv">
+            <h5 for="">Patient Name</h5>
+            <input type="text" formControlName="patientName" />
+          </div> -->
+        <div class="inputDiv">
+          <h5 for="">Patient Name<span class="required"> * </span></h5>
+          <select
+            formControlName="patientName"
+            (change)="onPatientNameChange($event)"
+          >
+            <option value="" disabled selected>select</option>
+            <option
+              *ngFor="let member of policyMembersList"
+              [value]="member.name"
+            >
+              {{ member.name }}
+            </option>
+          </select>
+          <div *ngIf="claimForm.controls['patientName'].invalid && isSubmitted">
+            <span class="error">Patient name is required</span>
+          </div>
+        </div>
+
+        <div class="inputDiv">
+          <h5>Member Id<span class="required"> * </span></h5>
+          <input type="text" formControlName="memeberId" readonly />
+          <div *ngIf="claimForm.controls['memeberId'].invalid && isSubmitted">
+            <span class="error">Member Id is required</span>
+          </div>
+        </div>
+
+        
+        <div class="inputDiv">
+          <h5 for="">Date of Admission<span class="required"> * </span></h5>
+          <input type="date" formControlName="dateOfAdmission" />
+          <div
+            *ngIf="claimForm.controls['dateOfAdmission'].invalid && isSubmitted"
+          >
+            <span class="error">Date of admission is required</span>
+          </div>
+        </div>
+        <div class="inputDiv">
+          <h5 for="">Date of Discharge<span class="required"> * </span></h5>
+          <input type="date" formControlName="dateOfDischarge" />
+          <div
+            *ngIf="claimForm.controls['dateOfDischarge'].invalid && isSubmitted"
+          >
+            <span class="error">Date of discharge is required</span>
+          </div>
+        </div>
+        <!-- <div class="inputDiv">
+            <h5 for="">Date of Discharge</h5>
+            <input type="date" formControlName="dateOfDischarge" />
+          </div> -->
+       
+        <div class="inputDiv">
+          <h5 for="">
+            Reason for hospitalization<span class="required"> * </span>
+          </h5>
+          <input type="text" formControlName="admissionReason" />
+          <div
+            *ngIf="claimForm.controls['admissionReason'].invalid && isSubmitted"
+          >
+            <span class="error">Admission reason is required</span>
+          </div>
+          <!-- <select formControlName="admissionReason">
+              <option value="">Illness</option>
+              <option value="">Accident</option>
+              <option value="">Not Applicable</option>
+            </select> -->
+        </div>
+        <!-- <div class="inputDiv">
+          <h5 for="">
+            In case of accident (Any police comlaint / FIR is involved)
+            <span class="required"> * </span>
+          </h5>
+          <select
+            formControlName="isAccidentCase"
+            (change)="onAccidentCaseChange($event)"
+          >
+            <option value="" disabled selected>select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+          <div
+            *ngIf="claimForm.controls['isAccidentCase'].invalid && isSubmitted"
+          >
+            <span class="error">Selection is required</span>
+          </div>
+        </div> -->
+        <!-- <div class="inputDiv" *ngIf="showFirNo">
+          <h5>Fir No<span class="required"> * </span></h5>
+          <input type="text" formControlName="FIRNo" />
+          <div *ngIf="claimForm.controls['FIRNo'].invalid && isSubmitted">
+            <span class="error">FIR no. is required</span>
+          </div>
+        </div> -->
+        <div class="inputDiv">
+          <h5 for="">Disease<span class="required"> * </span></h5>
+          <input type="text" formControlName="disease" />
+          <div
+            *ngIf="claimForm.controls['disease'].invalid && isSubmitted"
+          >
+            <span class="error">Disease is required</span>
+          </div>
+        </div>
+
+        <div class="inputDiv">
+          <h5 for="">Approx Claim Amount<span class="required"> * </span></h5>
+          <input type="text" formControlName="claimAmount" />
+          <div *ngIf="claimForm.controls['claimAmount'].invalid && isSubmitted">
+            <span class="error">Claim amount is required</span>
+          </div>
+        </div>
+
+        <div class="inputDiv">
+          <h5 for="">Type of Claim<span class="required"> * </span></h5>
+          <input type="text" formControlName="claimType" />
+          <div *ngIf="claimForm.controls['claimAmount'].invalid && isSubmitted">
+            <span class="error">Claim type is required</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="hospitalDetails">
+      <span style="font-weight: 500">Hospital Details</span>
+      <div id="hospitalDetailsFields">
+        <div class="inputDiv">
+          <h5 for="">Hospital States<span class="required"> * </span></h5>
+          <input type="text" formControlName="hospitalState" />
+          <div
+            *ngIf="claimForm.controls['hospitalState'].invalid && isSubmitted"
+          >
+            <span class="error">Hospital state is required</span>
+          </div>
+        </div>
+        <div class="inputDiv">
+          <h5 for="">Hospital City<span class="required"> * </span></h5>
+          <input type="text" formControlName="hospitalCity" />
+          <div
+            *ngIf="claimForm.controls['hospitalCity'].invalid && isSubmitted"
+          >
+            <span class="error">Hospital city is required</span>
+          </div>
+        </div>
+        <!-- <div class="inputDiv">
+          <h5 for="">Hospital Pin Code<span class="required"> * </span></h5>
+          <input type="text" formControlName="hospitalPinCode" />
+          <div
+            *ngIf="claimForm.controls['hospitalPinCode'].invalid && isSubmitted"
+          >
+            <span class="error">Hospital pincode is required</span>
+          </div>
+        </div> -->
+        <div class="inputDiv">
+          <h5 for="">Hospital Name<span class="required"> * </span></h5>
+          <input type="text" formControlName="hospitalName" />
+          <div
+            *ngIf="claimForm.controls['hospitalName'].invalid && isSubmitted"
+          >
+            <span class="error">Hospital name is required</span>
+          </div>
+        </div>
+
+        <div class="inputDiv">
+          <h5 for="">Hospital Address<span class="required"> * </span></h5>
+          <input type="text" formControlName="hospitalAddress" />
+          <div
+            *ngIf="claimForm.controls['hospitalAddress'].invalid && isSubmitted"
+          >
+            <span class="error">Hospital address is required</span>
+          </div>
+        </div>
+
+        <div class="inputDiv">
+          <h5 for="">Hospital Id</h5>
+          <input type="text" formControlName="hospitalId" />
+          <!-- <div *ngIf="claimForm.controls['hospitalId'].invalid && isSubmitted">
+            <span class="error">Hospital id is required</span>
+          </div> -->
+        </div>
+
+        <div class="inputDiv">
+          <h5>Doctor Name<span class="required"> * </span></h5>
+          <input type="text" formControlName="doctorName" />
+          <div *ngIf="claimForm.controls['doctorName'].invalid && isSubmitted">
+            <span class="error">Doctor name is required</span>
+          </div>
+        </div>
+
+        <!-- <div class="inputDiv">
+          <h5>Room Type<span class="required"> * </span></h5>
+          <input type="text" formControlName="roomType" />
+          <div *ngIf="claimForm.controls['roomType'].invalid && isSubmitted">
+            <span class="error">Room type is required</span>
+          </div>
+        </div> -->
+      </div>
+    </div>
+
+    <div id="btnDiv">
+      <button class="nextBtn" role="submit">Submit</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,77 @@
+<main class="main" [formGroup]="form">
+  <div>
+    <div class="sourceDiv">
+      <div class="sourceDivchild">
+        <div class="sourceDivGrandChild">
+          <input
+            type="radio"
+            id="Simba"
+            formControlName="source"
+            value="Simba"
+            (change)="onSourceChange('Simba')"
+          />
+          <label for="Simba">Simba</label>
+        </div>
+        <div class="sourceDivGrandChild">
+          <input
+            type="radio"
+            id="customerPortal"
+            formControlName="source"
+            value="Customer Portal"
+            (change)="onSourceChange('Customer Portal')"
+          />
+          <label for="customerPortal">Customer Portal</label>
+        </div>
+      </div>
+    </div>
+    <div class="sourceDependentDiv">
+      <div class="sourceDependentDivChild">
+        <div>
+          
+        </div>
+        <input
+          *ngIf="showClaimIntimation"
+          type="radio"
+          id="claimIntimation"
+          formControlName="claimType"
+          value="Claim Intimation"
+        />
+        <label *ngIf="showClaimIntimation" for="claimIntimation"
+          >Claim Intimation</label
+        >
+        <input
+          *ngIf="showClaimMis"
+          type="radio"
+          id="claimMis"
+          formControlName="claimType"
+          value="Claim MIS"
+        />
+        <label *ngIf="showClaimMis" for="claimMis">Claim MIS</label>
+        <input
+          *ngIf="showViewClaimStatus"
+          type="radio"
+          id="viewClaimStatus"
+          formControlName="claimType"
+          value="View Claim Status"
+        />
+        <label *ngIf="showViewClaimStatus" for="viewClaimStatus"
+          >View Claim Status</label
+        >
+      </div>
+    </div>
+
+    <div>
+      <label for="clientId">Enter Client ID</label>
+      <input type="text" id="clientId" formControlName="clientId" />
+      <label for="userId">Enter User Id</label>
+      <input type="text" id="userId" formControlName="userId" />
+    </div>
+    <div>
+      <div>
+        <label for="policyNo">Enter Policy Number</label>
+        <input type="text" id="policyNo" formControlName="policyNo" />
+        <button (click)="onSubmit()">Search</button>
+      </div>
+    </div>
+  </div>
+</main>
