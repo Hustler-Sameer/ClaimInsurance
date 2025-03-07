@@ -100,6 +100,7 @@ import { DummyPageComponent } from '../components/dummy-page/dummy-page.componen
   providers: [DevAPITokenService],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
+  standalone:true
 })
 export class AppComponent {
   title = 'claimIntimation';

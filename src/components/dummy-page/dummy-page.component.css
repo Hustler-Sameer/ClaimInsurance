@@ -6,10 +6,102 @@
   height: 100%;
   display: grid;
   place-items: center;
+  /* background-color: rgb(235, 235, 235); */
+  background: linear-gradient(to bottom, rgba(176, 34, 204, 0.2), rgba(13, 154, 189, 0.2));
   
+}
+.parentDiv{
+  background-color:whitesmoke;
+  height: 400px;
+  width: 900px;
+  padding: 50px;
+  border-radius: 20px;
+  display: grid;
+  place-items: center;
 }
 
 .sourceDiv{
-    display: flex;
+    /* display: flex; */
 
 }
+.sourceDivchild{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+}
+
+.cliendIdDiv {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.clientIdDivChild {
+  display: flex;
+  flex-direction: column;
+}
+
+.clientIdDivChild input {
+    border: 1px solid rgb(127, 127, 127);
+    border-radius: 4px;
+    height: 30px;
+    width: 250px;
+}
+
+.sourceDependentDiv {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.sourceDependentDivChild {
+  display: flex;
+  flex-direction: column;
+}
+
+.PolicyInformationChildDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.PolicyInformationChildDiv input {
+  border: 1px solid rgb(127, 127, 127);
+  border-radius: 4px;
+  height: 30px;
+  width: 250px;
+}
+
+.sourceDependentDivChild select {
+  border: 1px solid rgb(127, 127, 127);
+  border-radius: 4px;
+  height: 30px;
+  width: 250px;
+}
+
+.searchBtn {
+  background-color: #811e7d;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  height: 30px;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100px;
+}
+
+
