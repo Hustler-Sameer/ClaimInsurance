@@ -10,6 +10,7 @@ import { PolicyResponse } from "../../model/policyResponse";
 import { RequesterIdService } from "../../services/RequesterId.service";
 import { SourceService } from "../../services/Source.service";
 import { PolicyNumberService } from "../../services/PolicyNumber.service";
+import { RedirectionService } from "../../services/Redirection.service";
 
 export type { PolicyResponse } from "../../model/policyResponse";
 @Component({
@@ -23,6 +24,7 @@ export class MainContentComponent implements OnInit {
   policyNumber: string = "";
   lob: string = "";
   requesterId: string = "";
+  token:string="";
 
   showTable: boolean = true;
   ngOnInit(): void {
@@ -64,7 +66,8 @@ export class MainContentComponent implements OnInit {
     private requesterIdService : RequesterIdService,
     private renderer: Renderer2,
     private sourceService: SourceService,
-    private policyNumberService: PolicyNumberService
+    private policyNumberService: PolicyNumberService,
+    private redirectionServvice:RedirectionService
   ) {
     this.route.params.subscribe(() => {
       this.showTable = true;
@@ -77,6 +80,11 @@ export class MainContentComponent implements OnInit {
     this.policyNumberService.getPolicyNumber().subscribe((policyNumber:string) => {
       this.policyNumber = policyNumber;
     })
+
+    this.redirectionServvice.getToken().subscribe((token:string) => {
+        this.token = token;
+    })
+
     this.loadingService.showSpinner();
     this.showTable = false;
     this.http
@@ -84,7 +92,10 @@ export class MainContentComponent implements OnInit {
         "https://ansappsuat.sbigen.in/Intimation/getIntimationPolicyDetails",
         this.policyNumber,
         {
-          headers: { "Content-Type": "text/plain" },
+          headers: { 
+            "Content-Type": "text/plain" ,
+            "Authorization":`Bearer ${this.token}`
+          },
         }
       )
       .subscribe(

@@ -38,6 +38,7 @@
       <div class="sourceDependentDivChild">
         <label for="claimType"> Select Claim Type</label>
         <select formControlName="claimType">
+          <option *ngIf="showClaimIntimation">Select Value</option>
           <option *ngIf="showClaimIntimation" value="Claim Intimation">
             Claim Intimation
           </option>

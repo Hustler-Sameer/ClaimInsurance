@@ -7,17 +7,17 @@ import {
   NoopAnimationDriver,
   WebAnimationsDriver,
   WebAnimationsStyleNormalizer
-} from "./chunk-3SCXHURB.js";
+} from "./chunk-JSKC6SDS.js";
 import {
   BrowserDomAdapter,
   BrowserModule,
   DomRendererFactory2,
   EVENT_MANAGER_PLUGINS,
   EventManagerPlugin
-} from "./chunk-3JJO6PDS.js";
+} from "./chunk-YKX4SDGC.js";
 import {
   HTTP_ROOT_INTERCEPTOR_FNS
-} from "./chunk-VYQ556OJ.js";
+} from "./chunk-RLW24BDQ.js";
 import {
   DOCUMENT,
   NullViewportScroller,
@@ -27,7 +27,7 @@ import {
   XhrFactory,
   getDOM,
   setRootDomAdapter
-} from "./chunk-DC5IT7NX.js";
+} from "./chunk-XHG3O23E.js";
 import {
   ALLOW_MULTIPLE_PLATFORMS,
   ANIMATION_MODULE_TYPE,
@@ -64,7 +64,7 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-PPX7WED5.js";
+} from "./chunk-HLLJHCVG.js";
 import {
   require_cjs
 } from "./chunk-TDK5NIWS.js";
@@ -17112,4 +17112,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-KNNB6N45.js.map
+//# sourceMappingURL=chunk-AD7JLZFN.js.map
