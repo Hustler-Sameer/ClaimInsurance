@@ -13,6 +13,7 @@ import { policyMembers } from "../../model/policyMembers";
 import { createHealthClaimFormValidations } from "../../validations/healthValidations";
 import { RequesterIdService } from "../../services/RequesterId.service";
 import { SourceService } from "../../services/Source.service";
+import { RedirectionService } from "../../services/Redirection.service";
 
 @Component({
   selector: "app-health-claim-submit",
@@ -20,14 +21,18 @@ import { SourceService } from "../../services/Source.service";
   templateUrl: "./health-claim-submit.component.html",
   styleUrl: "./health-claim-submit.component.css",
 })
-export class HealthClaimSubmitComponent implements OnInit , OnDestroy {
-  @Input() getResponse: PolicyResponse[] | null = [];
+export class HealthClaimSubmitComponent implements OnInit, OnDestroy {
+  // @Input() getResponse: PolicyResponse[] | null = [];
   policyMembersList: policyMembers[] | null = [];
   claimForm: FormGroup;
   showFirNo: boolean = false;
   isSubmitted: boolean = false;
   requesterId: string = "";
   source: string = "";
+  token: string = "";
+  policyNumber: string = "";
+  lob: string = "";
+
   private base64ToUint8Array(base64: string): Uint8Array {
     const binaryString = atob(base64);
     const length = binaryString.length;
@@ -48,41 +53,108 @@ export class HealthClaimSubmitComponent implements OnInit , OnDestroy {
     private stateService: StateService,
     private router: Router,
     private requesterIdService: RequesterIdService,
-    private sourceService: SourceService
+    private sourceService: SourceService,
+    private redirectionService: RedirectionService
   ) {
     this.claimForm = createHealthClaimFormValidations(this.fb);
   }
 
   ngOnInit() {
-    const policyDetails = this.stateService.response;
-    this.policyMembersList = this.stateService.response[1];
-    this.requesterIdService.getRequesterId().subscribe((id: string) => {
-      this.requesterId = id;
-      console.log("Requester ID in other component: ", this.requesterId);
+    this.redirectionService.getToken().subscribe((token: string) => {
+      this.token = token;
     });
 
-    this.sourceService.getSource().subscribe((id: string) => {
-      this.source = id;
+    this.redirectionService.getPolicyNo().subscribe((policyNumber: string) => {
+      this.policyNumber = policyNumber;
     });
 
-    console.log("Received Health Claim Response: ", policyDetails);
-    console.log("Received Policy member list: ", this.policyMembersList);
-    if (policyDetails && policyDetails.length > 0) {
-      const patientNames =
-        this.policyMembersList && this.policyMembersList.length > 0
-          ? this.policyMembersList.map((member) => member.name).join(", ")
-          : "";
-      this.claimForm.patchValue({
-        customerName: policyDetails[0].customerName,
-        policyNumber: policyDetails[0].policyNo,
-        customerEmailId: policyDetails[0].emailID,
-        customerMobileNo: policyDetails[0].mobileNo,
-        customerAlternateEmailId: policyDetails[0].alternateEmailId,
-        customerAlternateMobileNo: policyDetails[0].alternateMobileNo,
-        requestId: this.requesterId,
-        // patientName: patientNames,
-      });
-    }
+    this.http
+      .post<PolicyResponse[]>(
+        "https://ansappsuat.sbigen.in/Intimation/getIntimationPolicyDetails",
+        this.policyNumber,
+        {
+          headers: {
+            "Content-Type": "text/plain",
+            Authorization: `Bearer ${this.token}`,
+          },
+        }
+      )
+      .subscribe(
+        (response: PolicyResponse[]) => {
+          console.log("Response " + response);
+          this.lob = response[0].lob;
+          console.log("Product Name: ", this.lob);
+          // this.responseSelected.emit(response);
+          // this.lobSelected.emit(this.lob);
+          // sending it to parent element
+          // this.navigateBasedOnLOB(this.lob);
+          
+
+          const policyDetails = this.stateService.response;
+          this.policyMembersList = this.stateService.response[1];
+
+          if (policyDetails && policyDetails.length > 0) {
+            const patientNames =
+              this.policyMembersList && this.policyMembersList.length > 0
+                ? this.policyMembersList.map((member) => member.name).join(", ")
+                : "";
+            this.claimForm.patchValue({
+              customerName: policyDetails[0].customerName,
+              policyNumber: policyDetails[0].policyNo,
+              customerEmailId: policyDetails[0].emailID,
+              customerMobileNo: policyDetails[0].mobileNo,
+              customerAlternateEmailId: policyDetails[0].alternateEmailId,
+              customerAlternateMobileNo: policyDetails[0].alternateMobileNo,
+              requestId: this.requesterId,
+              // patientName: patientNames,
+            });
+          }
+
+          this.loadingService.hideSpinner();
+        },
+        (error) => {
+          console.log(error);
+          this.loadingService.hideSpinner();
+          this.dialog.open(DialogAnimationsExampleDialog, {
+            width: "300px",
+            data: {
+              heading: "Error",
+              claimNumber: "",
+              remarks: error.error,
+            },
+          });
+        }
+      );
+
+    // const policyDetails = this.stateService.response;
+    // this.policyMembersList = this.stateService.response[1];
+    // this.requesterIdService.getRequesterId().subscribe((id: string) => {
+    //   this.requesterId = id;
+    //   console.log("Requester ID in other component: ", this.requesterId);
+    // });
+
+    // this.sourceService.getSource().subscribe((id: string) => {
+    //   this.source = id;
+    // });
+
+    // console.log("Received Health Claim Response: ", policyDetails);
+    // console.log("Received Policy member list: ", this.policyMembersList);
+    // if (policyDetails && policyDetails.length > 0) {
+    //   const patientNames =
+    //     this.policyMembersList && this.policyMembersList.length > 0
+    //       ? this.policyMembersList.map((member) => member.name).join(", ")
+    //       : "";
+    //   this.claimForm.patchValue({
+    //     customerName: policyDetails[0].customerName,
+    //     policyNumber: policyDetails[0].policyNo,
+    //     customerEmailId: policyDetails[0].emailID,
+    //     customerMobileNo: policyDetails[0].mobileNo,
+    //     customerAlternateEmailId: policyDetails[0].alternateEmailId,
+    //     customerAlternateMobileNo: policyDetails[0].alternateMobileNo,
+    //     requestId: this.requesterId,
+    //     // patientName: patientNames,
+    //   });
+    // }
   }
 
   onPatientNameChange(event: Event) {
@@ -128,6 +200,10 @@ export class HealthClaimSubmitComponent implements OnInit , OnDestroy {
       "Patient name selected : " + this.claimForm.controls["patientName"].valid
     );
     try {
+      this.redirectionService.getToken().subscribe((token: string) => {
+        this.token = token;
+      });
+
       if (this.claimForm.valid) {
         this.loadingService.showSpinner();
         const response = await this.http
@@ -139,7 +215,10 @@ export class HealthClaimSubmitComponent implements OnInit , OnDestroy {
             "https://ansappsuat.sbigen.in/Intimation/healthClaimSubmit",
             formValue,
             {
-              headers: { "Content-Type": "application/json" },
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${this.token}`,
+              },
             }
           )
           .toPromise();
@@ -174,7 +253,6 @@ export class HealthClaimSubmitComponent implements OnInit , OnDestroy {
   }
 
   ngOnDestroy(): void {
-      console.log("Health component is destroyed");
+    console.log("Health component is destroyed");
   }
-
 }

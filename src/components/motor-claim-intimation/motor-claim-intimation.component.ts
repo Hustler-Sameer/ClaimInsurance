@@ -18,6 +18,7 @@ import { formatDateTime } from "../../commonFunctions/formatDateTime";
 import { buildChatBotPayload } from "../../commonFunctions/chatBotPayload";
 import {RequesterIdService } from "../../services/RequesterId.service";
 import { SourceService } from "../../services/Source.service";
+import { RedirectionService } from "../../services/Redirection.service";
 
 @Component({
   selector: "app-motor-claim-intimation",
@@ -42,7 +43,8 @@ export class MotorClaimIntimationComponent implements OnInit {
     private stateService: StateService,
     private router: Router,
     private requesterIdService : RequesterIdService,
-    private sourceService:SourceService
+    private sourceService:SourceService,
+    private redirectionService : RedirectionService
   ) {
     const response1 = this.stateService.response;
     console.log("Received response in Motor Claim:", response1);

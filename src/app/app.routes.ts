@@ -11,13 +11,12 @@ import { DummyPageComponent } from '../components/dummy-page/dummy-page.componen
 
 
 export const routes: Routes = [
-    { path: '', component: MainOuterComponentComponent , children : [
-      { path: 'motor-claim', component: MotorClaimIntimationComponent , canActivate:[RedirectGuard] },
+    // { path: '', component: MainOuterComponentComponent},
+    { path: '', component: DummyPageComponent,canActivate:[RedirectGuard]},
+    { path: 'dummy-page', component: DummyPageComponent , canActivate:[RedirectGuard]},
+    { path: 'motor-claim', component: MotorClaimIntimationComponent , canActivate:[RedirectGuard] },
     { path: 'health-claim', component: HealthClaimIntimationComponent , canActivate:[RedirectGuard] },
     { path: 'health-claim-submit', component: HealthClaimSubmitComponent , canActivate:[RedirectGuard]},
-   
-    ]},
-    { path: 'dummy-page', component: DummyPageComponent , canActivate:[RedirectGuard]},
     
   ];
 

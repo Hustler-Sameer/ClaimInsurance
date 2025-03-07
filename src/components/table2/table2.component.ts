@@ -7,6 +7,7 @@ import { DataTablesModule } from "angular-datatables";
 import { LoaderService } from "../../services/loader.service";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogAnimationsExampleDialog } from "../custom-modal/custom-modal.component";
+import { RedirectionService } from "../../services/Redirection.service";
 
 @Component({
   selector: "app-table2",
@@ -21,10 +22,12 @@ export class Table2Component implements OnInit {
   dtOptions: Config = {};
   dtTrigger: Subject<any> = new Subject<any>();
   tableDataList!: tableData[];
+  token:string="";
   constructor(
     private http: HttpClient,
     private loadingService: LoaderService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private redirectionServvice:RedirectionService
   ) {}
   ngOnInit(): void {
     this.dtOptions = {
@@ -32,12 +35,19 @@ export class Table2Component implements OnInit {
       pageLength: 5,
     };
     try {
+      this.redirectionServvice.getToken().subscribe((token:string) => {
+        this.token = token;
+      })
       this.loadingService.showSpinner();
       this.http
         .post<tableData[]>(
-          "https://ansappsuat.sbigen.in/Intimation/getPolicyIntimationsByRequestId",
+          "http://localhost:7002/Intimation/getPolicyIntimationsByRequestId",
           this.requesterId,
-          { headers: { "Content-Type": "application/json" } }
+          { headers: {
+             "Content-Type": "application/json" ,
+             "Authorization":`Bearer ${this.token}`
+            } 
+          }
         )
         .subscribe((response: tableData[]) => {
           this.loadingService.hideSpinner();
@@ -72,7 +82,12 @@ export class Table2Component implements OnInit {
         this.http
           .post<any>(
             "https://ansappsuat.sbigen.in/Intimation/checkMotorStatus",
-            checkMotorClaimStatusObj
+            checkMotorClaimStatusObj,
+            { headers: {
+              "Content-Type": "application/json" ,
+              "Authorization":`Bearer ${this.token}`
+             } 
+           }
           )
           .subscribe(
             (response) => {
@@ -118,7 +133,12 @@ export class Table2Component implements OnInit {
         this.http
           .post<any>(
             "https://ansappsuat.sbigen.in/Intimation/checkHealthStatus",
-            checkHealthClaimStatusObj
+            checkHealthClaimStatusObj,
+            { headers: {
+              "Content-Type": "application/json" ,
+              "Authorization":`Bearer ${this.token}`
+             } 
+            }
           )
           .subscribe(
             (response) => {
