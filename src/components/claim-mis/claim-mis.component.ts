@@ -8,6 +8,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatDialogModule } from "@angular/material/dialog";
 import { DialogAnimationsExampleDialog } from "../custom-modal/custom-modal.component";
 import { RedirectionService } from "../../services/Redirection.service";
+import { Table2Component } from "../table2/table2.component";
 
 @Component({
   selector: "app-claim-mis",
@@ -19,6 +20,7 @@ import { RedirectionService } from "../../services/Redirection.service";
     DialogAnimationsExampleDialog,
     HeaderComponent,
     RouterOutlet,
+    Table2Component
   ],
   templateUrl: "./claim-mis.component.html",
   styleUrl: "./claim-mis.component.css",
@@ -26,6 +28,7 @@ import { RedirectionService } from "../../services/Redirection.service";
 export class ClaimMisComponent implements OnInit{
   isLoading = false;
   theme : string ="";
+  agentId: string = "";
   constructor(
     private redirectionService : RedirectionService,
     private renderer: Renderer2,
@@ -40,7 +43,9 @@ export class ClaimMisComponent implements OnInit{
       this.redirectionService.getSource().subscribe((source:string) => {
         this.theme = source;
       });
- 
+       this.redirectionService.getAgentId().subscribe((source:string)=>{
+        this.agentId= source;
+      })
       if(this.theme.toLocaleLowerCase() == "simba") {
         this.renderer.addClass(document.body, 'simba-portal');
         this.renderer.removeClass(document.body, 'customer-portal');

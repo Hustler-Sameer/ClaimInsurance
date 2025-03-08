@@ -41,7 +41,7 @@ export class Table2Component implements OnInit {
       this.loadingService.showSpinner();
       this.http
         .post<tableData[]>(
-          "http://localhost:7002/Intimation/getPolicyIntimationsByRequestId",
+          "https://ansappsuat.sbigen.in/Intimation/getPolicyIntimationsByRequestId",
           this.requesterId,
           { headers: {
              "Content-Type": "application/json" ,
@@ -146,15 +146,6 @@ export class Table2Component implements OnInit {
               const claim = response;
               this.claimStatus = claim.statusMessage;
               console.log("Status from health claim status :"+this.claimStatus);
-              // console.log("The claim obj is", claim);
-
-              // Directly assign the properties to avoid unnecessary JSON.stringify
-              // this.claimStatus = claim.ClaimStatus;
-              // this.claimStatusDescription = claim.Claim_Status_Description;
-
-              // console.log(this.claimStatus, "This is claimStatuss");
-              // console.log("Claim Description", this.claimStatusDescription);
-
               this.loadingService.hideSpinner();
 
               this.dialog.open(DialogAnimationsExampleDialog, {
@@ -212,13 +203,7 @@ export interface checkHealthClaimStatus {
 export interface tableData {
   policyNo: string;
   intimationNo: string;
-
   intimationAmount: number;
   intimationDate: string;
   customerName: string;
-  // customerMobileNo: string;
-  // customerEmailId: string;
-
-  // intimationNo: string;
-  // lob: string;
 }
