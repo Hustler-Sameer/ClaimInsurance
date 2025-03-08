@@ -11,12 +11,8 @@ import { ClaimMisComponent } from '../components/claim-mis/claim-mis.component';
 
 
 export const routes: Routes = [
-    // { path: '', component: MainOuterComponentComponent},
     { path: '', component: DummyPageComponent,canActivate:[RedirectGuard]},
-    // { path: 'dummy-page', component: DummyPageComponent , canActivate:[RedirectGuard]},
-    // { path: 'motor-claim', component: MotorClaimIntimationComponent , canActivate:[RedirectGuard] },
     { path: 'health-claim', component: HealthClaimIntimationComponent , canActivate:[RedirectGuard] },
-    // { path: 'health-claim-submit', component: HealthClaimSubmitComponent , canActivate:[RedirectGuard]},
     { path: 'intimation' , component:IntimationComponentComponent,children:[
         {
           path:'health-claim-submit',

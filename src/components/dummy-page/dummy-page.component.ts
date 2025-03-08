@@ -99,9 +99,10 @@ export class DummyPageComponent implements OnInit {
 
     console.log(requestBody);
     this.loaderService.showSpinner();
-
+    
     try {
       // Fetch token
+      if(formData.source != "Customer Portal"){
       const tokenResponse: any = await this.http
         .post("https://ansappsuat.sbigen.in/Intimation/getToken", requestBody)
         .toPromise();
@@ -150,6 +151,28 @@ export class DummyPageComponent implements OnInit {
       //   console.log("Redirect to claim Intimation age");
       //   this.router.navigate(["/claim-mis-test"]);
       // }
+  }
+  else{
+    const policyResponse: PolicyResponse[] = await this.http
+        .post<PolicyResponse[]>(
+          "https://ansappsuat.sbigen.in/Intimation/getPolicyDetailCustomerPortal",
+          policyNo1,
+          {
+            headers: {
+              "Content-Type": "text/plain",
+             
+            },
+          }
+        )
+        .toPromise();
+
+      this.stateService.response = policyResponse;
+      console.log("Policy Response:", policyResponse);
+      this.lob = policyResponse[0].lob;
+      console.log("This is lob here:", this.lob);
+
+      this.navigateBasedOnLOB(this.lob, formData.claimType);
+  }
     } catch (error) {
       console.error("Error:", error);
       
@@ -161,6 +184,7 @@ export class DummyPageComponent implements OnInit {
           remarks: error.error,
         },
       });
+    
     } finally {
       this.loaderService.hideSpinner();
     }
