@@ -4,6 +4,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 import { CommonModule } from "@angular/common";
 import { SourceService } from '../../services/Source.service';
+import { RedirectionService } from '../../services/Redirection.service';
 
 @Component({
   selector: 'app-header',
@@ -15,11 +16,14 @@ export class HeaderComponent implements OnInit {
   sourceName:any = "";
   isSimba:boolean = false;
 
-  constructor(private sourceService: SourceService){
+  constructor(
+    private sourceService: SourceService,
+    private redirectionService:RedirectionService
+  ){
 
   }
   ngOnInit(): void {
-    this.sourceService.getSource().subscribe((source: string) => {
+    this.redirectionService.getSource().subscribe((source: string) => {
       this.sourceName = source.toLowerCase();
       console.log("source in other component: ", this.sourceName);
       if(this.sourceName == "simba") {

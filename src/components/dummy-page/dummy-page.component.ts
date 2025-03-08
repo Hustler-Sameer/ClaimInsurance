@@ -142,13 +142,13 @@ export class DummyPageComponent implements OnInit {
   
     try {
       // Fetch token
-      const tokenResponse: any = await this.http.post('http://localhost:7002/Intimation/getToken', requestBody).toPromise();
+      const tokenResponse: any = await this.http.post('https://ansappsuat.sbigen.in/Intimation/getToken', requestBody).toPromise();
       console.log('Token Response:', tokenResponse);
       const token = tokenResponse.token;
       this.handleResponse(tokenResponse,formData)
       
       const policyResponse: PolicyResponse[] = await this.http.post<PolicyResponse[]>(
-        "http://localhost:7002/Intimation/getIntimationPolicyDetails",
+        "https://ansappsuat.sbigen.in/Intimation/getIntimationPolicyDetails",
         policyNo1 ,
         {
           headers: {
@@ -186,12 +186,11 @@ export class DummyPageComponent implements OnInit {
     }
   };
   
-
   navigateBasedOnLOB(lob: string) {
     if (lob.startsWith("Motor")) {
-      this.router.navigate(["/motor-claim"]);
+      this.router.navigate(["/intimation/motor-claim"]);
     } else if (lob.startsWith("Health")) {
-      this.router.navigate(["/health-claim-submit"]);
+      this.router.navigate(["/intimation/health-claim-submit"]);
     } else {
       console.warn("LOB not recognized:", lob);
     }

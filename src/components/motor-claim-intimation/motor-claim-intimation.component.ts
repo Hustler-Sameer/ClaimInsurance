@@ -34,6 +34,7 @@ export class MotorClaimIntimationComponent implements OnInit {
   maxDateTime: string;
   isSubmitted:boolean = false;
   source:string="";
+  token:string="";
 
   constructor(
     private fb: FormBuilder,
@@ -55,14 +56,21 @@ export class MotorClaimIntimationComponent implements OnInit {
   ngOnInit(): void {
     const now = new Date();
     this.maxDateTime = now.toISOString().slice(0, 16); // Format as 'YYYY-MM-DDTHH:MM'
-    this.requesterIdService.getRequesterId().subscribe((id: string) => {
+    // this.requesterIdService.getRequesterId().subscribe((id: string) => {
+    //   this.requestId = id;
+    // });
+    this.redirectionService.getAgentId().subscribe((id:string) => {
       this.requestId = id;
-      console.log("Requester ID in other component: ", this.requestId);
+        console.log("Requester ID in other component: ", this.requestId);
     });
 
-    this.sourceService.getSource().subscribe((id: string) => {
-      this.source = id;
+    this.redirectionService.getToken().subscribe((token: string) => {
+      this.token = token;
     });
+
+    // this.sourceService.getSource().subscribe((id: string) => {
+    //   this.source = id;
+    // });
   
     const response1 = this.stateService.response;
     console.log("Received response in Motor Claim:", response1);
@@ -116,7 +124,11 @@ export class MotorClaimIntimationComponent implements OnInit {
             chatBotPayload,
 
             {
-              headers: { "Content-Type": "application/json" },
+              headers: { 
+                "Content-Type": "application/json" ,
+                Authorization: `Bearer ${this.token}`,
+              },
+        
             }
           )
           .toPromise();
@@ -130,8 +142,8 @@ export class MotorClaimIntimationComponent implements OnInit {
             remarks: "Remarks : " + response?.statusMessage,
           },
         });
-        this.router.navigate([""], {
-          queryParams: { requestId: this.requestId, source: this.source },
+        this.router.navigate(["/dummy-page"], {
+          // queryParams: { requestId: this.requestId, source: this.source },
         });
       } catch (error: unknown) {
         this.loadingService.hideSpinner();
@@ -147,6 +159,14 @@ export class MotorClaimIntimationComponent implements OnInit {
       }
     } else {
       console.log("Form is invalid");
+      this.dialog.open(DialogAnimationsExampleDialog, {
+        width: "300px",
+        data: {
+          heading: "All required fields are not selected",
+          claimNumber: "",
+          remarks: "",
+        },
+      });
     }
   }
 }

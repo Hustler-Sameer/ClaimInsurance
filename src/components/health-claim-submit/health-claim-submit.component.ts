@@ -68,66 +68,70 @@ export class HealthClaimSubmitComponent implements OnInit, OnDestroy {
       this.policyNumber = policyNumber;
     });
 
-    this.http
-      .post<PolicyResponse[]>(
-        "https://ansappsuat.sbigen.in/Intimation/getIntimationPolicyDetails",
-        this.policyNumber,
-        {
-          headers: {
-            "Content-Type": "text/plain",
-            Authorization: `Bearer ${this.token}`,
-          },
-        }
-      )
-      .subscribe(
-        (response: PolicyResponse[]) => {
-          console.log("Response " + response);
-          this.lob = response[0].lob;
-          console.log("Product Name: ", this.lob);
-          // this.responseSelected.emit(response);
-          // this.lobSelected.emit(this.lob);
-          // sending it to parent element
-          // this.navigateBasedOnLOB(this.lob);
+    this.redirectionService.getAgentId().subscribe((id:string) => {
+      this.requesterId = id;
+    });
+
+    // this.http
+    //   .post<PolicyResponse[]>(
+    //     "https://ansappsuat.sbigen.in/Intimation/getIntimationPolicyDetails",
+    //     this.policyNumber,
+    //     {
+    //       headers: {
+    //         "Content-Type": "text/plain",
+    //         Authorization: `Bearer ${this.token}`,
+    //       },
+    //     }
+    //   )
+    //   .subscribe(
+    //     (response: PolicyResponse[]) => {
+    //       console.log("Response " + response);
+    //       this.lob = response[0].lob;
+    //       console.log("Product Name: ", this.lob);
+    //       // this.responseSelected.emit(response);
+    //       // this.lobSelected.emit(this.lob);
+    //       // sending it to parent element
+    //       // this.navigateBasedOnLOB(this.lob);
           
 
-          const policyDetails = this.stateService.response;
-          this.policyMembersList = this.stateService.response[1];
+    //       const policyDetails = this.stateService.response;
+    //       this.policyMembersList = this.stateService.response[1];
 
-          if (policyDetails && policyDetails.length > 0) {
-            const patientNames =
-              this.policyMembersList && this.policyMembersList.length > 0
-                ? this.policyMembersList.map((member) => member.name).join(", ")
-                : "";
-            this.claimForm.patchValue({
-              customerName: policyDetails[0].customerName,
-              policyNumber: policyDetails[0].policyNo,
-              customerEmailId: policyDetails[0].emailID,
-              customerMobileNo: policyDetails[0].mobileNo,
-              customerAlternateEmailId: policyDetails[0].alternateEmailId,
-              customerAlternateMobileNo: policyDetails[0].alternateMobileNo,
-              requestId: this.requesterId,
-              // patientName: patientNames,
-            });
-          }
+    //       if (policyDetails && policyDetails.length > 0) {
+    //         const patientNames =
+    //           this.policyMembersList && this.policyMembersList.length > 0
+    //             ? this.policyMembersList.map((member) => member.name).join(", ")
+    //             : "";
+    //         this.claimForm.patchValue({
+    //           customerName: policyDetails[0].customerName,
+    //           policyNumber: policyDetails[0].policyNo,
+    //           customerEmailId: policyDetails[0].emailID,
+    //           customerMobileNo: policyDetails[0].mobileNo,
+    //           customerAlternateEmailId: policyDetails[0].alternateEmailId,
+    //           customerAlternateMobileNo: policyDetails[0].alternateMobileNo,
+    //           requestId: this.requesterId,
+    //           // patientName: patientNames,
+    //         });
+    //       }
 
-          this.loadingService.hideSpinner();
-        },
-        (error) => {
-          console.log(error);
-          this.loadingService.hideSpinner();
-          this.dialog.open(DialogAnimationsExampleDialog, {
-            width: "300px",
-            data: {
-              heading: "Error",
-              claimNumber: "",
-              remarks: error.error,
-            },
-          });
-        }
-      );
+    //       this.loadingService.hideSpinner();
+    //     },
+    //     (error) => {
+    //       console.log(error);
+    //       this.loadingService.hideSpinner();
+    //       this.dialog.open(DialogAnimationsExampleDialog, {
+    //         width: "300px",
+    //         data: {
+    //           heading: "Error",
+    //           claimNumber: "",
+    //           remarks: error.error,
+    //         },
+    //       });
+    //     }
+    //   );
 
-    // const policyDetails = this.stateService.response;
-    // this.policyMembersList = this.stateService.response[1];
+    const policyDetails = this.stateService.response;
+    this.policyMembersList = this.stateService.response[1];
     // this.requesterIdService.getRequesterId().subscribe((id: string) => {
     //   this.requesterId = id;
     //   console.log("Requester ID in other component: ", this.requesterId);
@@ -137,24 +141,24 @@ export class HealthClaimSubmitComponent implements OnInit, OnDestroy {
     //   this.source = id;
     // });
 
-    // console.log("Received Health Claim Response: ", policyDetails);
-    // console.log("Received Policy member list: ", this.policyMembersList);
-    // if (policyDetails && policyDetails.length > 0) {
-    //   const patientNames =
-    //     this.policyMembersList && this.policyMembersList.length > 0
-    //       ? this.policyMembersList.map((member) => member.name).join(", ")
-    //       : "";
-    //   this.claimForm.patchValue({
-    //     customerName: policyDetails[0].customerName,
-    //     policyNumber: policyDetails[0].policyNo,
-    //     customerEmailId: policyDetails[0].emailID,
-    //     customerMobileNo: policyDetails[0].mobileNo,
-    //     customerAlternateEmailId: policyDetails[0].alternateEmailId,
-    //     customerAlternateMobileNo: policyDetails[0].alternateMobileNo,
-    //     requestId: this.requesterId,
-    //     // patientName: patientNames,
-    //   });
-    // }
+    console.log("Received Health Claim Response: ", policyDetails);
+    console.log("Received Policy member list: ", this.policyMembersList);
+    if (policyDetails && policyDetails.length > 0) {
+      const patientNames =
+        this.policyMembersList && this.policyMembersList.length > 0
+          ? this.policyMembersList.map((member) => member.name).join(", ")
+          : "";
+      this.claimForm.patchValue({
+        customerName: policyDetails[0].customerName,
+        policyNumber: policyDetails[0].policyNo,
+        customerEmailId: policyDetails[0].emailID,
+        customerMobileNo: policyDetails[0].mobileNo,
+        customerAlternateEmailId: policyDetails[0].alternateEmailId,
+        customerAlternateMobileNo: policyDetails[0].alternateMobileNo,
+        requestId: this.requesterId,
+        // patientName: patientNames,
+      });
+    }
   }
 
   onPatientNameChange(event: Event) {
@@ -232,11 +236,19 @@ export class HealthClaimSubmitComponent implements OnInit, OnDestroy {
             remarks: "Remarks : " + response?.ErrorMessage,
           },
         });
-        this.router.navigate([""], {
-          queryParams: { requestId: this.requesterId, source: this.source },
+        this.router.navigate(["/dummy-page"], {
+          // queryParams: { requestId: this.requesterId, source: this.source },
         });
       } else {
         console.log("All Required fields are not selected");
+        this.dialog.open(DialogAnimationsExampleDialog, {
+          width: "300px",
+          data: {
+            heading: "All required fields are not selected",
+            claimNumber: "",
+            remarks: "",
+          },
+        });
       }
     } catch (error: unknown) {
       this.loadingService.hideSpinner();
