@@ -1,8 +1,8 @@
 import {
   MatCommonModule,
   coerceBooleanProperty
-} from "./chunk-LJOKBYRI.js";
-import "./chunk-MWBCMSO3.js";
+} from "./chunk-45PUHWQV.js";
+import "./chunk-E25CMTE7.js";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -15,10 +15,10 @@ import {
   ɵɵdefineComponent,
   ɵɵdefineInjector,
   ɵɵdefineNgModule
-} from "./chunk-WKAXLBS3.js";
-import "./chunk-WSXI74FV.js";
-import "./chunk-LBBSG2YE.js";
-import "./chunk-NGNUV6BG.js";
+} from "./chunk-VRF5QMWF.js";
+import "./chunk-PLK54YS6.js";
+import "./chunk-DDIGPSH4.js";
+import "./chunk-476AYJTT.js";
 
 // node_modules/@angular/material/fesm2022/divider.mjs
 var MatDivider = class _MatDivider {

@@ -1,0 +1,14 @@
+Policy Details for specific agreement code and client id
+1.
+
+	Client id : c3b0202a-acaf-4d9b-b9fd-138e581b6c7b	
+	Agent Code : 123458
+	Motor Policy : 0000000000381364
+	Health Policy : 0000000000381325
+
+
+2.
+	Client id :d44ea81a-5af5-4f93-b420-b42d303fb886 
+	Agent Code : 123456
+	Motor Policy:0000000000381007
+	Health Policy: 0000000000381352

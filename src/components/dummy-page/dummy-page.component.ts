@@ -4,16 +4,19 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { LoaderService } from "../../services/loader.service";
 import { RedirectionService } from "../../services/Redirection.service";
-import { Router } from "@angular/router";
-import { PolicyResponse } from "../main-content/main-content.component";
+import { Router,RouterOutlet } from "@angular/router";
+// import { PolicyResponse } from "../main-content/main-content.component";
 import { DialogAnimationsExampleDialog } from "../custom-modal/custom-modal.component";
 import { MatDialog } from "@angular/material/dialog";
 import { StateService } from "../../services/SharedService.service";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatDialogModule } from "@angular/material/dialog";
+import { NgxIndexedDBService } from "ngx-indexed-db";
+import { PolicyResponse } from "../../model/policyResponse";
 @Component({
   selector: "app-dummy-page",
   imports: [
+    RouterOutlet,
     ReactiveFormsModule,
     HttpClientModule,
     CommonModule,
@@ -40,7 +43,8 @@ export class DummyPageComponent implements OnInit {
     private redirectionService: RedirectionService,
     private router: Router,
     private dialog: MatDialog,
-    private stateService: StateService
+    private stateService: StateService,
+    private dbService: NgxIndexedDBService
   ) {
     this.loaderService.spinner$.subscribe((data: boolean) => {
       this.isLoading = data;
@@ -105,6 +109,22 @@ export class DummyPageComponent implements OnInit {
       const token = tokenResponse.token;
       this.handleResponse(tokenResponse, formData);
 
+      const dataToStore = {
+     
+        token: tokenResponse.token,
+        clientId: tokenResponse.clientId,
+        agentId: tokenResponse.agentId,
+        source: tokenResponse.source,
+        policyNo: tokenResponse.policyNo
+      };
+      this.dbService.add('tokenApiData', dataToStore).subscribe(
+        () => {
+          console.log('Data stored successfully');
+        },
+        error => {
+          console.error('Error storing data', error);
+        }
+      );
       if(formData.claimType != ("Claim MIS")){
       const policyResponse: PolicyResponse[] = await this.http
         .post<PolicyResponse[]>(
@@ -126,12 +146,13 @@ export class DummyPageComponent implements OnInit {
 
       this.navigateBasedOnLOB(this.lob, formData.claimType);
     }
-      if (formData.claimType == "Claim Intimation") {
-        console.log("Redirect to claim Intimation age");
-        this.router.navigate(["/claim-mis-test"]);
-      }
+      // if (formData.claimType == "Claim Intimation") {
+      //   console.log("Redirect to claim Intimation age");
+      //   this.router.navigate(["/claim-mis-test"]);
+      // }
     } catch (error) {
       console.error("Error:", error);
+      
       this.dialog.open(DialogAnimationsExampleDialog, {
         width: "300px",
         data: {

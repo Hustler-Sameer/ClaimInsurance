@@ -8,6 +8,7 @@ import { LoaderService } from "../../services/loader.service";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogAnimationsExampleDialog } from "../custom-modal/custom-modal.component";
 import { RedirectionService } from "../../services/Redirection.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-table2",
@@ -22,12 +23,13 @@ export class Table2Component implements OnInit {
   dtOptions: Config = {};
   dtTrigger: Subject<any> = new Subject<any>();
   tableDataList!: tableData[];
-  token:string="";
+  token: string = "";
   constructor(
     private http: HttpClient,
     private loadingService: LoaderService,
     private dialog: MatDialog,
-    private redirectionServvice:RedirectionService
+    private redirectionServvice: RedirectionService,
+    private route: Router
   ) {}
   ngOnInit(): void {
     this.dtOptions = {
@@ -35,18 +37,19 @@ export class Table2Component implements OnInit {
       pageLength: 5,
     };
     try {
-      this.redirectionServvice.getToken().subscribe((token:string) => {
+      this.redirectionServvice.getToken().subscribe((token: string) => {
         this.token = token;
-      })
+      });
       this.loadingService.showSpinner();
       this.http
         .post<tableData[]>(
           "https://ansappsuat.sbigen.in/Intimation/getPolicyIntimationsByRequestId",
           this.requesterId,
-          { headers: {
-             "Content-Type": "application/json" ,
-             "Authorization":`Bearer ${this.token}`
-            } 
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${this.token}`,
+            },
           }
         )
         .subscribe((response: tableData[]) => {
@@ -83,16 +86,17 @@ export class Table2Component implements OnInit {
           .post<any>(
             "https://ansappsuat.sbigen.in/Intimation/checkMotorStatus",
             checkMotorClaimStatusObj,
-            { headers: {
-              "Content-Type": "application/json" ,
-              "Authorization":`Bearer ${this.token}`
-             } 
-           }
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${this.token}`,
+              },
+            }
           )
           .subscribe(
             (response) => {
               const claim = response[0][0];
-              console.log("Response : "+response);
+              console.log("Response : " + response);
               console.log("The claim obj is", claim);
 
               // Directly assign the properties to avoid unnecessary JSON.stringify
@@ -113,39 +117,55 @@ export class Table2Component implements OnInit {
                 },
               });
             },
-            (error) => {
-              console.error("API error:", error);
-              this.loadingService.hideSpinner();
+            (error: unknown) => {
+              console.error("API error:", (error as HttpErrorResponse).status);
+              const statusCode = (error as HttpErrorResponse).status;
+              if (statusCode == 401) {
+                this.route.navigate(["/"]);
+                this.loadingService.hideSpinner();
+              } else {
+                this.loadingService.hideSpinner();
+                this.dialog.open(DialogAnimationsExampleDialog, {
+                  width: "300px",
+                  data: {
+                    heading: "Claim Status Details",
+                    claimNumber: "Error Occured",
+                    remarks: "",
+                  },
+                });
+              }
             }
           );
       } catch (error) {
         console.error("Error occurred:", error);
         this.loadingService.hideSpinner();
       }
-    }
-    else if (data.lob == "Health" ){
+    } else if (data.lob == "Health") {
       try {
         const checkHealthClaimStatusObj: checkHealthClaimStatus = {
-          requestId:this.requesterId,
-          claimRefNo:data.intimationNo
-        }
+          requestId: this.requesterId,
+          claimRefNo: data.intimationNo,
+        };
         this.loadingService.showSpinner();
         this.http
           .post<any>(
             "https://ansappsuat.sbigen.in/Intimation/checkHealthStatus",
             checkHealthClaimStatusObj,
-            { headers: {
-              "Content-Type": "application/json" ,
-              "Authorization":`Bearer ${this.token}`
-             } 
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${this.token}`,
+              },
             }
           )
           .subscribe(
             (response) => {
-              console.log("Response : "+response[0]);
+              console.log("Response : " + response[0]);
               const claim = response;
               this.claimStatus = claim.statusMessage;
-              console.log("Status from health claim status :"+this.claimStatus);
+              console.log(
+                "Status from health claim status :" + this.claimStatus
+              );
               this.loadingService.hideSpinner();
 
               this.dialog.open(DialogAnimationsExampleDialog, {
@@ -157,21 +177,26 @@ export class Table2Component implements OnInit {
                 },
               });
             },
-            (error) => {
-              console.error("API error:", error);
-              this.loadingService.hideSpinner();
-              this.dialog.open(DialogAnimationsExampleDialog, {
-                width: "300px",
-                data: {
-                  heading: "Claim Status Details",
-                  claimNumber: "Error Occured",
-                  remarks: ""
-                },
-              });
+            (error: unknown) => {
+              console.error("API error:", (error as HttpErrorResponse).status);
+              const statusCode = (error as HttpErrorResponse).status;
+              if (statusCode == 401) {
+                this.route.navigate(["/"]);
+                this.loadingService.hideSpinner();
+              } else {
+                this.loadingService.hideSpinner();
+                this.dialog.open(DialogAnimationsExampleDialog, {
+                  width: "300px",
+                  data: {
+                    heading: "Claim Status Details",
+                    claimNumber: "Error Occured",
+                    remarks: "",
+                  },
+                });
+              }
             }
           );
-        
-      } catch (error:unknown) {
+      } catch (error: unknown) {
         this.loadingService.hideSpinner();
         this.dialog.open(DialogAnimationsExampleDialog, {
           width: "300px",
@@ -182,7 +207,6 @@ export class Table2Component implements OnInit {
           },
         });
       }
-
     }
   }
 }
@@ -196,8 +220,8 @@ export interface checkMotorClaimStatus {
 }
 
 export interface checkHealthClaimStatus {
-  requestId:string,
-  claimRefNo:string
+  requestId: string;
+  claimRefNo: string;
 }
 
 export interface tableData {

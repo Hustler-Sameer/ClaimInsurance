@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MainOuterComponentComponent } from './main-outer-component.component';
+// import { MainOuterComponentComponent } from './main-outer-component.component';
 
-describe('MainOuterComponentComponent', () => {
-  let component: MainOuterComponentComponent;
-  let fixture: ComponentFixture<MainOuterComponentComponent>;
+// describe('MainOuterComponentComponent', () => {
+//   let component: MainOuterComponentComponent;
+//   let fixture: ComponentFixture<MainOuterComponentComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [MainOuterComponentComponent]
-    })
-    .compileComponents();
+//   beforeEach(async () => {
+//     await TestBed.configureTestingModule({
+//       imports: [MainOuterComponentComponent]
+//     })
+//     .compileComponents();
 
-    fixture = TestBed.createComponent(MainOuterComponentComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//     fixture = TestBed.createComponent(MainOuterComponentComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

@@ -68,78 +68,11 @@ export class HealthClaimSubmitComponent implements OnInit, OnDestroy {
       this.policyNumber = policyNumber;
     });
 
-    this.redirectionService.getAgentId().subscribe((id:string) => {
+    this.redirectionService.getAgentId().subscribe((id: string) => {
       this.requesterId = id;
     });
-
-    // this.http
-    //   .post<PolicyResponse[]>(
-    //     "https://ansappsuat.sbigen.in/Intimation/getIntimationPolicyDetails",
-    //     this.policyNumber,
-    //     {
-    //       headers: {
-    //         "Content-Type": "text/plain",
-    //         Authorization: `Bearer ${this.token}`,
-    //       },
-    //     }
-    //   )
-    //   .subscribe(
-    //     (response: PolicyResponse[]) => {
-    //       console.log("Response " + response);
-    //       this.lob = response[0].lob;
-    //       console.log("Product Name: ", this.lob);
-    //       // this.responseSelected.emit(response);
-    //       // this.lobSelected.emit(this.lob);
-    //       // sending it to parent element
-    //       // this.navigateBasedOnLOB(this.lob);
-          
-
-    //       const policyDetails = this.stateService.response;
-    //       this.policyMembersList = this.stateService.response[1];
-
-    //       if (policyDetails && policyDetails.length > 0) {
-    //         const patientNames =
-    //           this.policyMembersList && this.policyMembersList.length > 0
-    //             ? this.policyMembersList.map((member) => member.name).join(", ")
-    //             : "";
-    //         this.claimForm.patchValue({
-    //           customerName: policyDetails[0].customerName,
-    //           policyNumber: policyDetails[0].policyNo,
-    //           customerEmailId: policyDetails[0].emailID,
-    //           customerMobileNo: policyDetails[0].mobileNo,
-    //           customerAlternateEmailId: policyDetails[0].alternateEmailId,
-    //           customerAlternateMobileNo: policyDetails[0].alternateMobileNo,
-    //           requestId: this.requesterId,
-    //           // patientName: patientNames,
-    //         });
-    //       }
-
-    //       this.loadingService.hideSpinner();
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //       this.loadingService.hideSpinner();
-    //       this.dialog.open(DialogAnimationsExampleDialog, {
-    //         width: "300px",
-    //         data: {
-    //           heading: "Error",
-    //           claimNumber: "",
-    //           remarks: error.error,
-    //         },
-    //       });
-    //     }
-    //   );
-
     const policyDetails = this.stateService.response;
     this.policyMembersList = this.stateService.response[1];
-    // this.requesterIdService.getRequesterId().subscribe((id: string) => {
-    //   this.requesterId = id;
-    //   console.log("Requester ID in other component: ", this.requesterId);
-    // });
-
-    // this.sourceService.getSource().subscribe((id: string) => {
-    //   this.source = id;
-    // });
 
     console.log("Received Health Claim Response: ", policyDetails);
     console.log("Received Policy member list: ", this.policyMembersList);
@@ -236,7 +169,7 @@ export class HealthClaimSubmitComponent implements OnInit, OnDestroy {
             remarks: "Remarks : " + response?.ErrorMessage,
           },
         });
-        this.router.navigate(["/dummy-page"], {
+        this.router.navigate(["/"], {
           // queryParams: { requestId: this.requesterId, source: this.source },
         });
       } else {
@@ -252,15 +185,22 @@ export class HealthClaimSubmitComponent implements OnInit, OnDestroy {
       }
     } catch (error: unknown) {
       this.loadingService.hideSpinner();
-      this.dialog.open(DialogAnimationsExampleDialog, {
-        width: "300px",
-        data: {
-          heading: "Error",
-          claimNumber: "",
-          remarks: "Remarks : " + (error as HttpErrorResponse).error,
-        },
-      });
-      console.log((error as HttpErrorResponse).error);
+      console.error("API error:", (error as HttpErrorResponse).status);
+      const statusCode = (error as HttpErrorResponse).status;
+      if (statusCode == 401) {
+        this.router.navigate(["/"]);
+        this.loadingService.hideSpinner();
+      } else {
+        this.dialog.open(DialogAnimationsExampleDialog, {
+          width: "300px",
+          data: {
+            heading: "Error",
+            claimNumber: "",
+            remarks: "Remarks : " + (error as HttpErrorResponse).error,
+          },
+        });
+        console.log((error as HttpErrorResponse).error);
+      }
     }
   }
 

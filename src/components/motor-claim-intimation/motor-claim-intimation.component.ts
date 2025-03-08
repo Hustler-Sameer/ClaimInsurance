@@ -6,7 +6,11 @@ import {
   Validators,
 } from "@angular/forms";
 import { CommonModule, Location } from "@angular/common";
-import { HttpClient, HttpClientModule,HttpErrorResponse } from "@angular/common/http";
+import {
+  HttpClient,
+  HttpClientModule,
+  HttpErrorResponse,
+} from "@angular/common/http";
 import { LoaderService } from "../../services/loader.service";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogAnimationsExampleDialog } from "../custom-modal/custom-modal.component";
@@ -16,7 +20,7 @@ import { PolicyResponse } from "../../model/policyResponse";
 import { createMotorClaimFormValidations } from "../../validations/motorClaimFormValidations";
 import { formatDateTime } from "../../commonFunctions/formatDateTime";
 import { buildChatBotPayload } from "../../commonFunctions/chatBotPayload";
-import {RequesterIdService } from "../../services/RequesterId.service";
+import { RequesterIdService } from "../../services/RequesterId.service";
 import { SourceService } from "../../services/Source.service";
 import { RedirectionService } from "../../services/Redirection.service";
 
@@ -32,9 +36,9 @@ export class MotorClaimIntimationComponent implements OnInit {
   policy!: any;
   requestId: string;
   maxDateTime: string;
-  isSubmitted:boolean = false;
-  source:string="";
-  token:string="";
+  isSubmitted: boolean = false;
+  source: string = "";
+  token: string = "";
 
   constructor(
     private fb: FormBuilder,
@@ -43,25 +47,24 @@ export class MotorClaimIntimationComponent implements OnInit {
     private dialog: MatDialog,
     private stateService: StateService,
     private router: Router,
-    private requesterIdService : RequesterIdService,
-    private sourceService:SourceService,
-    private redirectionService : RedirectionService
+    private requesterIdService: RequesterIdService,
+    private sourceService: SourceService,
+    private redirectionService: RedirectionService
   ) {
     const response1 = this.stateService.response;
     console.log("Received response in Motor Claim:", response1);
     this.claimForm = createMotorClaimFormValidations(this.fb);
   }
-  
- 
+
   ngOnInit(): void {
     const now = new Date();
     this.maxDateTime = now.toISOString().slice(0, 16); // Format as 'YYYY-MM-DDTHH:MM'
     // this.requesterIdService.getRequesterId().subscribe((id: string) => {
     //   this.requestId = id;
     // });
-    this.redirectionService.getAgentId().subscribe((id:string) => {
+    this.redirectionService.getAgentId().subscribe((id: string) => {
       this.requestId = id;
-        console.log("Requester ID in other component: ", this.requestId);
+      console.log("Requester ID in other component: ", this.requestId);
     });
 
     this.redirectionService.getToken().subscribe((token: string) => {
@@ -71,7 +74,7 @@ export class MotorClaimIntimationComponent implements OnInit {
     // this.sourceService.getSource().subscribe((id: string) => {
     //   this.source = id;
     // });
-  
+
     const response1 = this.stateService.response;
     console.log("Received response in Motor Claim:", response1);
     if (response1) {
@@ -90,10 +93,8 @@ export class MotorClaimIntimationComponent implements OnInit {
     console.log("hhheheh");
     console.log(this.claimForm.controls);
     console.log("Form Values:", this.claimForm.value);
-    console.log("The date selected is " ,this.claimForm.value.AccidentDateTime );
-    const formattedDate = formatDateTime(
-      this.claimForm.value.AccidentDateTime
-    );
+    console.log("The date selected is ", this.claimForm.value.AccidentDateTime);
+    const formattedDate = formatDateTime(this.claimForm.value.AccidentDateTime);
 
     const formData = {
       ...this.claimForm.value,
@@ -108,7 +109,7 @@ export class MotorClaimIntimationComponent implements OnInit {
     if (this.claimForm.valid) {
       console.log("Form Submitted:", formData);
       console.log("The policy no is + " + this.claimForm.value.policyNumber);
-      const chatBotPayload = buildChatBotPayload(formData,this.requestId);
+      const chatBotPayload = buildChatBotPayload(formData, this.requestId);
       console.log(
         "The chatbot request body is :" + JSON.stringify(chatBotPayload)
       );
@@ -124,11 +125,10 @@ export class MotorClaimIntimationComponent implements OnInit {
             chatBotPayload,
 
             {
-              headers: { 
-                "Content-Type": "application/json" ,
+              headers: {
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${this.token}`,
               },
-        
             }
           )
           .toPromise();
@@ -142,20 +142,26 @@ export class MotorClaimIntimationComponent implements OnInit {
             remarks: "Remarks : " + response?.statusMessage,
           },
         });
-        this.router.navigate(["/dummy-page"], {
+        this.router.navigate(["/"], {
           // queryParams: { requestId: this.requestId, source: this.source },
         });
       } catch (error: unknown) {
         this.loadingService.hideSpinner();
-        this.dialog.open(DialogAnimationsExampleDialog, {
-          width: "300px",
-          data: {
-            heading: "Error",
-            claimNumber: "",
-            remarks: "Remarks : " + (error as HttpErrorResponse).error,
-          },
-        });
-        console.log((error as HttpErrorResponse).error);
+        const statusCode = (error as HttpErrorResponse).status;
+        if (statusCode == 401) {
+          this.router.navigate(["/"]);
+          this.loadingService.hideSpinner();
+        } else {
+          this.dialog.open(DialogAnimationsExampleDialog, {
+            width: "300px",
+            data: {
+              heading: "Error",
+              claimNumber: "",
+              remarks: "Remarks : " + (error as HttpErrorResponse).error,
+            },
+          });
+          console.log((error as HttpErrorResponse).error);
+        }
       }
     } else {
       console.log("Form is invalid");

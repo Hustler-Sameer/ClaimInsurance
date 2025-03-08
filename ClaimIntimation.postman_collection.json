@@ -1,0 +1,866 @@
+{
+	"info": {
+		"_postman_id": "bfab2101-4a00-4381-9c2d-594b6b768fb6",
+		"name": "ClaimIntimation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36989078"
+	},
+	"item": [
+		{
+			"name": "Motor",
+			"item": [
+				{
+					"name": "chatbot/claimsearch (devapi)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-IBM-Client-Id",
+								"value": "458b817795bad480c5c59e6c424fd285",
+								"type": "text"
+							},
+							{
+								"key": "X-IBM-Client-Secret",
+								"value": "51d9ae9279382a4fa6f1becd4c41ca84",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI0NThiODE3Nzk1YmFkNDgwYzVjNTllNmM0MjRmZDI4NSIsImF1ZCI6IjUxZDlhZTkyNzkzODJhNGZhNmYxYmVjZDRjNDFjYTg0IiwiZXhwIjoxNzM5NTE0NDY1LCJpYXQiOjE3Mzk1MTQyODV9.if1smEEn3pf4vM55bPSrEi2QmAxnMjDJCwsjplOQWYM",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"RequestHeader\": {\r\n        \"requestID\": \"123458\",\r\n        \"action\": \"chatbotClaimSearch\",\r\n        \"channel\": \"SBIGIC\",\r\n        \"transactionTimestamp\": \"14-Feb-2025-11:54:14\"\r\n    },\r\n    \"RequestBody\": {\r\n        \"Policy_no\": \"0000000000381007\",\r\n        \"Vehicle_Registration_Number\": \"\",\r\n        \"Claim_no\": \"MVO412081\",\r\n        \"Alternate_Policy_no\": \"\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://devapi.sbigeneral.in/customers/v1/chatbot/claimsearch",
+							"protocol": "https",
+							"host": [
+								"devapi",
+								"sbigeneral",
+								"in"
+							],
+							"path": [
+								"customers",
+								"v1",
+								"chatbot",
+								"claimsearch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Motor claim status api(devapi)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-IBM-Client-Id",
+								"value": "458b817795bad480c5c59e6c424fd285",
+								"type": "text"
+							},
+							{
+								"key": "X-IBM-Client-Secret",
+								"value": "51d9ae9279382a4fa6f1becd4c41ca84",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI0NThiODE3Nzk1YmFkNDgwYzVjNTllNmM0MjRmZDI4NSIsImF1ZCI6IjUxZDlhZTkyNzkzODJhNGZhNmYxYmVjZDRjNDFjYTg0IiwiZXhwIjoxNzM4NjQ5Njc1LCJpYXQiOjE3Mzg2NDk0OTV9.nmws2nooilPbJNL-LLyu1kN3IuX6ErO1uSQB3sptyOc",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"claimRequestHeader\": {\r\n        \"requestID\": \"123234\",\r\n        \"action\": \"claimStatus\",\r\n        \"channel\": \"SBIGIC\",\r\n        \"transactionTimestamp\": \"01-Feb-2018-01:02:03\"\r\n    },\r\n    \"claimRequestBody\": {\r\n        \"payload\": {\r\n            \"policyNumber\": \"0000000000381007\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://devapi.sbigeneral.in/customers/v1/claims/status",
+							"protocol": "https",
+							"host": [
+								"devapi",
+								"sbigeneral",
+								"in"
+							],
+							"path": [
+								"customers",
+								"v1",
+								"claims",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "intimateMotorClaim",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"RequestHeader\": {\r\n        \"requestID\": \"123456\",\r\n        \"action\": \"claimIntimation\",\r\n        \"channel\": \"SBIG\",\r\n        \"transactionTimestamp\": \"20-Jan-2025-16:41:23\"\r\n    },\r\n    \"RequestBody\": {\r\n        \"Claims\": {\r\n            \"ServiceType\": \"Intimation\",\r\n            \"TieUpClaimId\": null,\r\n            \"InsuranceCompany\": \"UATAICI\",\r\n            \"Claim\": {\r\n                \"PolicyNumber\": \"0000000000381007\",\r\n                \"RegistrationNumber\": \"MH 05 AX 3353\",\r\n                \"ContactName\": \"Sushant Reddy\",\r\n                \"ClaimServicingbranch\": \"Mumbai\",\r\n                \"ContactNumber\": \"+91-9145153399\",\r\n                \"emailID\": \"omireddy.aqm@gmail.com\",\r\n                \"AccidentDateandtime\": \"22/01/2025 16:54:00\",\r\n                \"AccidentCity\": \"Thane\",\r\n                \"VehicleInspectionAddress\": \"Jha Automobiles\",\r\n                \"CityName\": \"Thane\",\r\n                \"StateName\": \"Maharashtra\",\r\n                \"InspectionSpotLocation\": \"Thane\",\r\n                \"Garage\": \"Jha Automobiles\",\r\n                \"DriverName\": \"JJ\",\r\n                \"isInsured\": \"Y\",\r\n                \"ClaimIntimatedBy\": \"Insured\",\r\n                \"CauseOfLoss\": \"In parking\",\r\n                \"Others\": \"Testing\",\r\n                \"EstimatedClaimAmount\": \"70000\"\r\n            }\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ansappsuat.sbigen.in/Intimation/intimateMotorClaim",
+							"protocol": "https",
+							"host": [
+								"ansappsuat",
+								"sbigen",
+								"in"
+							],
+							"path": [
+								"Intimation",
+								"intimateMotorClaim"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Common",
+			"item": [
+				{
+					"name": "get jwt Token(devapi)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-IBM-Client-Id",
+								"value": "458b817795bad480c5c59e6c424fd285",
+								"type": "text"
+							},
+							{
+								"key": "X-IBM-Client-Secret",
+								"value": "51d9ae9279382a4fa6f1becd4c41ca84",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://devapi.sbigeneral.in/v1/tokens",
+							"protocol": "https",
+							"host": [
+								"devapi",
+								"sbigeneral",
+								"in"
+							],
+							"path": [
+								"v1",
+								"tokens"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logoutUser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"clientId\":\"d44ea81a-5af5-4f93-b420-b42d303fb886\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ansappsuat.sbigen.in/Intimation/logoutUser",
+							"protocol": "https",
+							"host": [
+								"ansappsuat",
+								"sbigen",
+								"in"
+							],
+							"path": [
+								"Intimation",
+								"logoutUser"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'http://localhost:7002/Intimation/logoutUser' \\\n--header 'Content-Type: application/json' \\\n--data '{\n    \"clientId\":\"d44ea81a-5af5-4f93-b420-b42d303fb886\"\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "/getToken",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"clientId\":\"d44ea81a-5af5-4f93-b420-b42d303fb886\",\n    \"agentId\":\"123456\",\n    \"source\":\"simba\",\n    \"policyNo\":\"0000000000381196\"\n}\n ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ansappsuat.sbigen.in/Intimation/getToken",
+							"protocol": "https",
+							"host": [
+								"ansappsuat",
+								"sbigen",
+								"in"
+							],
+							"path": [
+								"Intimation",
+								"getToken"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'http://localhost:7002/Intimation/getToken' \\\n--header 'Content-Type: application/json' \\\n--data '{\n    \"clientId\":\"d44ea81a-5af5-4f93-b420-b42d303fb886\",\n    \"agentId\":\"123456\",\n    \"source\":\"simba\",\n    \"policyNo\":\"0000000000381325\"\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "getIntimationPolicyDetails",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer asdhkjasdhjdaskjhjadskjdashkdsakjjadshkjasdhadshkjadshkjadshdskjhdaskjhdsakhdaskjhdsadashkjhdas",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "0000000000381364",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ansappsuat.sbigen.in/Intimation/getIntimationPolicyDetails",
+							"protocol": "https",
+							"host": [
+								"ansappsuat",
+								"sbigen",
+								"in"
+							],
+							"path": [
+								"Intimation",
+								"getIntimationPolicyDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Table list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://ansappsuat.sbigen.in/Intimation/getPolicyIntimations",
+							"protocol": "https",
+							"host": [
+								"ansappsuat",
+								"sbigen",
+								"in"
+							],
+							"path": [
+								"Intimation",
+								"getPolicyIntimations"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://ansappsuat.sbigen.in/Intimation/getPolicyIntimations'"
+					},
+					"response": []
+				},
+				{
+					"name": "getPolicyIntimationsByRequestId",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer hdskjhdskjadskjdshsdakjhsdkjhsdhasdjksdahhsdkjhsdhsdakjhdskjshdkjsadhkjsadhkjdashjsdakhjdaskhsadkjhdskaj",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "123456",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ansappsuat.sbigen.in/Intimation/getPolicyIntimationsByRequestId",
+							"protocol": "https",
+							"host": [
+								"ansappsuat",
+								"sbigen",
+								"in"
+							],
+							"path": [
+								"Intimation",
+								"getPolicyIntimationsByRequestId"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://ansappsuat.sbigen.in/Intimation/getPolicyIntimationsByRequestId' \\\n--header 'Content-Type: application/json' \\\n--data '123456'"
+					},
+					"response": []
+				},
+				{
+					"name": "Generate client id",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"agentId\":\"123459\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ansappsuat.sbigen.in/Intimation/getClientId",
+							"protocol": "https",
+							"host": [
+								"ansappsuat",
+								"sbigen",
+								"in"
+							],
+							"path": [
+								"Intimation",
+								"getClientId"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://ansappsuat.sbigen.in/Intimation/getClientId' \\\n--header 'Content-Type: application/json' \\\n--data '{\n    \"agentId\":\"123459\"\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "encryptAES-256-CBC",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n \n \n \n \n \n \n \n \n \n \n \n \n \n{\n\r\n    \"RequestHeader\": {\n\r\n        \"requestID\": \"XaMybZgHGX\",\n\r\n        \"action\": \"MobileApp_ClaimDetails_Meddi\",\n\r\n        \"channel\": \"SBIG\",\n\r\n        \"transactionTimestamp\": \"01-Feb-2018-01:02:02\"\n\r\n    },\n\r\n    \"RequestBody\": {\n\r\n        \"ACCESS_TOKEN\": \"EP5ZbOcuEQ\",\n\r\n        \"PolicyNo\": \"0000000000381196\",\n\r\n        \"MemberID\": \"0000000000055288\",\n\r\n        \"MobileNo\": \"9807324571\",\n\r\n        \"EmailId\": \"PRADYUMNA99@GMAIL.COM\",\n\r\n        \"ClaimDateOfAdmission\": \"2025-01-10\",\n\r\n        \"ClaimDateOfDischarge\": \"2025-01-12\",\n\r\n        \"HospName\": \"ABC\",\n\r\n        \"HospAddress\": \"Bengaluru\",\n\r\n        \"HospID\": null,\n\r\n        \"ReasonForHospitalization\": \"Fever\",\n\r\n        \"Disease\": \"Fever\",\n\r\n        \"ClaimAmount\": 40000,\n\r\n        \"ClaimType\": \"HOSPITALIZATION\",\n\r\n        \"InsurerClaimNo\": null,\n\r\n        \"MainClaimNo\": 0,\n\r\n        \"ClaimSubmissionAttachments\": [\n\r\n            {\n\r\n                \"FileName\": \"Test.Pdf\",\n\r\n                \"FilePath\": \"https://morth.nic.in/sites/default/files/dd12-13_0.pdf\",\n\r\n                \"FileTags\": null\n\r\n            }\n\r\n        ]\n\r\n    }\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ansappsuat.sbigen.in/Intimation/encryptAES-256-CBC",
+							"protocol": "https",
+							"host": [
+								"ansappsuat",
+								"sbigen",
+								"in"
+							],
+							"path": [
+								"Intimation",
+								"encryptAES-256-CBC"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://ansappsuat.sbigen.in/Intimation/encryptAES-256-CBC' \\\n\r\n--header 'Content-Type: application/json' \\\n\r\n--data-raw '\n \n \n \n \n \n \n \n \n \n \n \n \n \n{\n\r\n    \"RequestHeader\": {\n\r\n        \"requestID\": \"XaMybZgHGX\",\n\r\n        \"action\": \"MobileApp_ClaimDetails_Meddi\",\n\r\n        \"channel\": \"SBIG\",\n\r\n        \"transactionTimestamp\": \"01-Feb-2018-01:02:02\"\n\r\n    },\n\r\n    \"RequestBody\": {\n\r\n        \"ACCESS_TOKEN\": \"EP5ZbOcuEQ\",\n\r\n        \"PolicyNo\": \"0000000000381196\",\n\r\n        \"MemberID\": \"0000000000055288\",\n\r\n        \"MobileNo\": \"9807324571\",\n\r\n        \"EmailId\": \"PRADYUMNA99@GMAIL.COM\",\n\r\n        \"ClaimDateOfAdmission\": \"2025-01-10\",\n\r\n        \"ClaimDateOfDischarge\": \"2025-01-12\",\n\r\n        \"HospName\": \"ABC\",\n\r\n        \"HospAddress\": \"Bengaluru\",\n\r\n        \"HospID\": null,\n\r\n        \"ReasonForHospitalization\": \"Fever\",\n\r\n        \"Disease\": \"Fever\",\n\r\n        \"ClaimAmount\": 40000,\n\r\n        \"ClaimType\": \"HOSPITALIZATION\",\n\r\n        \"InsurerClaimNo\": null,\n\r\n        \"MainClaimNo\": 0,\n\r\n        \"ClaimSubmissionAttachments\": [\n\r\n            {\n\r\n                \"FileName\": \"Test.Pdf\",\n\r\n                \"FilePath\": \"https://morth.nic.in/sites/default/files/dd12-13_0.pdf\",\n\r\n                \"FileTags\": null\n\r\n            }\n\r\n        ]\n\r\n    }\n\r\n}'\n "
+					},
+					"response": []
+				},
+				{
+					"name": "decryptAES-256-CBC",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/plain"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "2F52B7EB7C17996AimY0HTGuwPeO6yebbVT02ORjhRLhK5CnHbOSOWlcCU2KXP421soiureEBbzzkquE4KvbaaFAiQXzk7e1IIc7O0ei6nvDFtd/EBYXMMacKoxnEmjm6ai/Q+fA6GsouQhy",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ansappsuat.sbigen.in/Intimation/decryptAES-256-CBC",
+							"protocol": "https",
+							"host": [
+								"ansappsuat",
+								"sbigen",
+								"in"
+							],
+							"path": [
+								"Intimation",
+								"decryptAES-256-CBC"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://ansappsuat.sbigen.in/Intimation/decryptAES-256-CBC' \\\n--header 'Content-Type: text/plain' \\\n--data '2F52B7EB7C17996AimY0HTGuwPeO6yebbVT02ORjhRLhK5CnHbOSOWlcCU2KXP421soiureEBbzzkquE4KvbaaFAiQXzk7e1IIc7O0ei6nvDFtd/EBYXMMacKoxnEmjm6ai/Q+fA6GsouQhy'"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health",
+			"item": [
+				{
+					"name": "Get Meditoken (devapi)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-IBM-Client-Id",
+								"value": "458b817795bad480c5c59e6c424fd285"
+							},
+							{
+								"key": "X-IBM-Client-Secret",
+								"value": "51d9ae9279382a4fa6f1becd4c41ca84"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI0NThiODE3Nzk1YmFkNDgwYzVjNTllNmM0MjRmZDI4NSIsImF1ZCI6IjUxZDlhZTkyNzkzODJhNGZhNmYxYmVjZDRjNDFjYTg0IiwiZXhwIjoxNzM2NDk3NDQxLCJpYXQiOjE3MzY0OTcyNjF9.ADl2pX7O8Sk7JgIQtTIYu-JSx2UFxsZEtqQNvm5CoQ0"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"EncryptedPayload\": \"Q0khVHD9Fr4mThd5XTHZuJGdoOogNg8yRHcMTj0f1+0kxJLICjhwg0d0vKnPUXJ/bd4HRlUI5noFkZEBXh57hBjk2Ffya97uwHbG3V0fF+99hkiRk2cnW+gNDDOJjs1giv4+xPUbOYiTXJ4AIyllXPoIig2TijQEXbulRbTMtt/RtR3m27tNfQ0U/srd5njiiFCgR9/AAWQ/7BGMZyRxz8oH/rd3NTrEasyRh1guJU06iUWlpl7uUtQFMlizYRF7hn/McjK0YEHYZerLc2zdGA==\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://devapi.sbigeneral.in/ept/mediToken",
+							"protocol": "https",
+							"host": [
+								"devapi",
+								"sbigeneral",
+								"in"
+							],
+							"path": [
+								"ept",
+								"mediToken"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://devapi.sbigeneral.in/ept/mediToken' \\\n--header 'X-IBM-Client-Id: 458b817795bad480c5c59e6c424fd285' \\\n--header 'X-IBM-Client-Secret: 51d9ae9279382a4fa6f1becd4c41ca84' \\\n--header 'Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI0NThiODE3Nzk1YmFkNDgwYzVjNTllNmM0MjRmZDI4NSIsImF1ZCI6IjUxZDlhZTkyNzkzODJhNGZhNmYxYmVjZDRjNDFjYTg0IiwiZXhwIjoxNzM2NDk3NDQxLCJpYXQiOjE3MzY0OTcyNjF9.ADl2pX7O8Sk7JgIQtTIYu-JSx2UFxsZEtqQNvm5CoQ0' \\\n--header 'Content-Type: application/json' \\\n--data '{\n    \"EncryptedPayload\": \"Q0khVHD9Fr4mThd5XTHZuJGdoOogNg8yRHcMTj0f1+0kxJLICjhwg0d0vKnPUXJ/bd4HRlUI5noFkZEBXh57hBjk2Ffya97uwHbG3V0fF+99hkiRk2cnW+gNDDOJjs1giv4+xPUbOYiTXJ4AIyllXPoIig2TijQEXbulRbTMtt/RtR3m27tNfQ0U/srd5njiiFCgR9/AAWQ/7BGMZyRxz8oH/rd3NTrEasyRh1guJU06iUWlpl7uUtQFMlizYRF7hn/McjK0YEHYZerLc2zdGA==\"\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "Health Claim Submit(devapi)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-IBM-Client-Id",
+								"value": "458b817795bad480c5c59e6c424fd285"
+							},
+							{
+								"key": "X-IBM-Client-Secret",
+								"value": "51d9ae9279382a4fa6f1becd4c41ca84"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI0NThiODE3Nzk1YmFkNDgwYzVjNTllNmM0MjRmZDI4NSIsImF1ZCI6IjUxZDlhZTkyNzkzODJhNGZhNmYxYmVjZDRjNDFjYTg0IiwiZXhwIjoxNzQwNDg3NzQ5LCJpYXQiOjE3NDA0ODc1Njl9.sWdHjQmum6fsNYVeUVhKqi-tacAQoVVI5XlwVgP7Zqk"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"EncryptedPayload\": \"Q0khVHD9Fr4mThd5XTHZuJGdoOogNg8yRHcMTj0f1+0kxJLICjhwg0d0vKnPUXJ/bd4HRlUI5noFkZEBXh57hBjk2Ffya97uwHbG3V0fF+99hkiRk2cnW+gNDDOJjs1giv4+xPUbOYiTXJ4AIyllXPoIig2TijQEXbulRbTMtt/RtR3m27tNfQ0U/srd5nji7mthZkx6COY46BtAV5K6WXQYvZ6AHrZru0YpzCRuZw6paXb3xU4EPTz7rwAfRnu0+GMkO/uofAQw3a60JCUrTLdXMPAcGG4CIB0HAvofS6f+flItxcEynw3X3MyfjeW9hnKtVRGtH9nlT6XEj2x6afpp+YxbL8LVSZ77HjxIssfERHUVDcUt5ChjBIgZrkXMsP246Jgt8rrZHnjtJHlIGwGoNxiBNr2XGAN5W5MB9kLCxbRCBlGNNh+HF89hqkREu92M/AR5cmf0aQwVTXwHfgp/DO6m9dTGdJPLq7+5ecFvXC1UAl7bycj+luaxEZwiknlYmsT/HgJRNdoft52yE/jyl8FyTvuLIg3HHm8m/J72nacHMvKngTdniLrO4v6IkQw+vz8M7gYim7mWpJ4oJQl0zs8PWl25UsehKO1h48ffC7QLESVd6LrB5C8K7FX+sNWnMyuoLBkXnMESAtNvXqREuG02CS2HQ5ryszAoRCfXboVnN3TSYCWqh3l6LCq88Aw2irt3JFjSbrpsf6iS0PNt7YrNcCZ5pYkzmdqTMnQnKxxtmNxCWILnvrDou8/uKR8sYICw+5yYeUIs9/MasjxX92YJyZ+uuIwrIggJL744t5G57Ccqy+qrUu0LPyPNMRpTw8e4UXOER1neDbYqY5Pxrh26Z/UjnfIMbctJESuqkrzpFAUVg9NZI8i1NI4eAUgNgj9dWDPRA3XuxI6PtoFv9HpL9cILbdPJyjP5Zjze4rLbTOxiRAsekRzVnKyAWQQd2eILnxWumb8lgWu89Q==\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://devapi.sbigeneral.in/ept/claimsubmitreq",
+							"protocol": "https",
+							"host": [
+								"devapi",
+								"sbigeneral",
+								"in"
+							],
+							"path": [
+								"ept",
+								"claimsubmitreq"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://devapi.sbigeneral.in/ept/claimsubmitreq' \\\n--header 'X-IBM-Client-Id: 458b817795bad480c5c59e6c424fd285' \\\n--header 'X-IBM-Client-Secret: 51d9ae9279382a4fa6f1becd4c41ca84' \\\n--header 'Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI0NThiODE3Nzk1YmFkNDgwYzVjNTllNmM0MjRmZDI4NSIsImF1ZCI6IjUxZDlhZTkyNzkzODJhNGZhNmYxYmVjZDRjNDFjYTg0IiwiZXhwIjoxNzQwNDg3NzQ5LCJpYXQiOjE3NDA0ODc1Njl9.sWdHjQmum6fsNYVeUVhKqi-tacAQoVVI5XlwVgP7Zqk' \\\n--header 'Content-Type: application/json' \\\n--data '{\n    \"EncryptedPayload\": \"Q0khVHD9Fr4mThd5XTHZuJGdoOogNg8yRHcMTj0f1+0kxJLICjhwg0d0vKnPUXJ/bd4HRlUI5noFkZEBXh57hBjk2Ffya97uwHbG3V0fF+99hkiRk2cnW+gNDDOJjs1giv4+xPUbOYiTXJ4AIyllXPoIig2TijQEXbulRbTMtt/RtR3m27tNfQ0U/srd5nji7mthZkx6COY46BtAV5K6WXQYvZ6AHrZru0YpzCRuZw6paXb3xU4EPTz7rwAfRnu0+GMkO/uofAQw3a60JCUrTLdXMPAcGG4CIB0HAvofS6f+flItxcEynw3X3MyfjeW9hnKtVRGtH9nlT6XEj2x6afpp+YxbL8LVSZ77HjxIssfERHUVDcUt5ChjBIgZrkXMsP246Jgt8rrZHnjtJHlIGwGoNxiBNr2XGAN5W5MB9kLCxbRCBlGNNh+HF89hqkREu92M/AR5cmf0aQwVTXwHfgp/DO6m9dTGdJPLq7+5ecFvXC1UAl7bycj+luaxEZwiknlYmsT/HgJRNdoft52yE/jyl8FyTvuLIg3HHm8m/J72nacHMvKngTdniLrO4v6IkQw+vz8M7gYim7mWpJ4oJQl0zs8PWl25UsehKO1h48ffC7QLESVd6LrB5C8K7FX+sNWnMyuoLBkXnMESAtNvXqREuG02CS2HQ5ryszAoRCfXboVnN3TSYCWqh3l6LCq88Aw2irt3JFjSbrpsf6iS0PNt7YrNcCZ5pYkzmdqTMnQnKxxtmNxCWILnvrDou8/uKR8sYICw+5yYeUIs9/MasjxX92YJyZ+uuIwrIggJL744t5G57Ccqy+qrUu0LPyPNMRpTw8e4UXOER1neDbYqY5Pxrh26Z/UjnfIMbctJESuqkrzpFAUVg9NZI8i1NI4eAUgNgj9dWDPRA3XuxI6PtoFv9HpL9cILbdPJyjP5Zjze4rLbTOxiRAsekRzVnKyAWQQd2eILnxWumb8lgWu89Q==\"\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "Health Claim Status (devapi)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-IBM-Client-Id",
+								"value": "458b817795bad480c5c59e6c424fd285"
+							},
+							{
+								"key": "X-IBM-Client-Secret",
+								"value": "51d9ae9279382a4fa6f1becd4c41ca84"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI0NThiODE3Nzk1YmFkNDgwYzVjNTllNmM0MjRmZDI4NSIsImF1ZCI6IjUxZDlhZTkyNzkzODJhNGZhNmYxYmVjZDRjNDFjYTg0IiwiZXhwIjoxNzQwNjU1NDcyLCJpYXQiOjE3NDA2NTUyOTJ9.xZ5-NAmc1vs8JKOqy5oUjXcTJIRlvkHP6-S4FDwWu6Q"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"EncryptedPayload\": \"Q0khVHD9Fr4mThd5XTHZuJGdoOogNg8yRHcMTj0f1+0kxJLICjhwg0d0vKnPUXJ/bd4HRlUI5noFkZEBXh57hBjk2Ffya97uwHbG3V0fF+99hkiRk2cnW+gNDDOJjs1giv4+xPUbOYiTXJ4AIyllXPoIig2TijQEXbulRbTMtt/RtR3m27tNfQ0U/srd5nji7mthZkx6COY46BtAV5K6WZ3Tha9w4OdlH6uG44LhsZSR0aJWpPvnuKpTiPj+IrjYsbahGGnigpmNwmaMT9VQzAYkWPpy9y/z9H4ALb4+H0c=\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://devapi.sbigeneral.in/ept/claimdetails",
+							"protocol": "https",
+							"host": [
+								"devapi",
+								"sbigeneral",
+								"in"
+							],
+							"path": [
+								"ept",
+								"claimdetails"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://devapi.sbigeneral.in/ept/claimdetails' \\\n--header 'X-IBM-Client-Id: 458b817795bad480c5c59e6c424fd285' \\\n--header 'X-IBM-Client-Secret: 51d9ae9279382a4fa6f1becd4c41ca84' \\\n--header 'Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI0NThiODE3Nzk1YmFkNDgwYzVjNTllNmM0MjRmZDI4NSIsImF1ZCI6IjUxZDlhZTkyNzkzODJhNGZhNmYxYmVjZDRjNDFjYTg0IiwiZXhwIjoxNzQwNjU1NDcyLCJpYXQiOjE3NDA2NTUyOTJ9.xZ5-NAmc1vs8JKOqy5oUjXcTJIRlvkHP6-S4FDwWu6Q' \\\n--header 'Content-Type: application/json' \\\n--data '{\n    \"EncryptedPayload\": \"Q0khVHD9Fr4mThd5XTHZuJGdoOogNg8yRHcMTj0f1+0kxJLICjhwg0d0vKnPUXJ/bd4HRlUI5noFkZEBXh57hBjk2Ffya97uwHbG3V0fF+99hkiRk2cnW+gNDDOJjs1giv4+xPUbOYiTXJ4AIyllXPoIig2TijQEXbulRbTMtt/RtR3m27tNfQ0U/srd5nji7mthZkx6COY46BtAV5K6WZ3Tha9w4OdlH6uG44LhsZSR0aJWpPvnuKpTiPj+IrjYsbahGGnigpmNwmaMT9VQzAYkWPpy9y/z9H4ALb4+H0c=\"\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "Health Claim Submit",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customerName\": \"Jay Ashok Dongrekar\",\n  \"policyNumber\": \"0000000000381196\",\n  \"customerEmailId\": \"PRADYUMNA99@GMAIL.COM\",\n  \"customerMobileNo\": \"9807324571\",\n  \"customerAlternateEmailId\": \"jayr@gmail.com\",\n  \"customerAlternateMobileNo\": \"9011123112\",\n  \"memeberId\": \"0000000000055288\",\n  \"claimType\": \"hospitalization\",\n  \"patientName\": \"Adult One\",\n  \"claimAmount\": 2000,\n  \"dateOfAdmission\": \"2025-02-28\",\n  \"dateOfDischarge\": \"2025-03-01\",\n  \"remark\": \"\",\n  \"admissionReason\": \"fever\",\n  \"disease\": \"fever\",\n  \"isAccidentCase\": \"\",\n  \"FIRNo\": \"\",\n  \"hospitalState\": \"maha\",\n  \"hospitalCity\": \"mumbai\",\n  \"hospitalPinCode\": \"\",\n  \"hospitalAddress\": \"testAdd\",\n  \"hospitalId\": \"\",\n  \"hospitalName\": \"testHosp\",\n  \"doctorName\": \"testDoctor\",\n  \"roomType\": \"\",\n  \"requestId\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ansappsuat.sbigen.in/Intimation/healthClaimSubmit",
+							"protocol": "https",
+							"host": [
+								"ansappsuat",
+								"sbigen",
+								"in"
+							],
+							"path": [
+								"Intimation",
+								"healthClaimSubmit"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://ansappsuat.sbigen.in/Intimation/healthClaimSubmit' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n  \"customerName\": \"Jay Ashok Dongrekar\",\n  \"policyNumber\": \"0000000000381196\",\n  \"customerEmailId\": \"PRADYUMNA99@GMAIL.COM\",\n  \"customerMobileNo\": \"9807324571\",\n  \"customerAlternateEmailId\": \"jayr@gmail.com\",\n  \"customerAlternateMobileNo\": \"9011123112\",\n  \"memeberId\": \"0000000000055288\",\n  \"claimType\": \"hospitalization\",\n  \"patientName\": \"Adult One\",\n  \"claimAmount\": 2000,\n  \"dateOfAdmission\": \"2025-02-28\",\n  \"dateOfDischarge\": \"2025-03-01\",\n  \"remark\": \"\",\n  \"admissionReason\": \"fever\",\n  \"disease\": \"fever\",\n  \"isAccidentCase\": \"\",\n  \"FIRNo\": \"\",\n  \"hospitalState\": \"maha\",\n  \"hospitalCity\": \"mumbai\",\n  \"hospitalPinCode\": \"\",\n  \"hospitalAddress\": \"testAdd\",\n  \"hospitalId\": \"\",\n  \"hospitalName\": \"testHosp\",\n  \"doctorName\": \"testDoctor\",\n  \"roomType\": \"\",\n  \"requestId\": \"123456\"\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "Health Claim Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkNDRlYTgxYS01YWY1LTRmOTMtYjQyMC1iNDJkMzAzZmI4ODYiLCJleHAiOjE3NDEyNzI5NjEsImlhdCI6MTc0MTI1OTQ2MX0.Eb8cIQ8pfbvuKgkKxuX8NMhLKimM30BMz0xhtbMVm3qiensqVKimQ3xVvRg-NHb9raFYv_OyPDxhnARyyNhHVQ"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"requestId\":\"123456\",\n    \"claimRefNo\":\"H17411118472391\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ansappsuat.sbigen.in/Intimation/checkHealthStatus",
+							"protocol": "https",
+							"host": [
+								"ansappsuat",
+								"sbigen",
+								"in"
+							],
+							"path": [
+								"Intimation",
+								"checkHealthStatus"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'http://localhost:7002/Intimation/checkHealthStatus' \\\n--header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkNDRlYTgxYS01YWY1LTRmOTMtYjQyMC1iNDJkMzAzZmI4ODYiLCJleHAiOjE3NDEyNzI5NjEsImlhdCI6MTc0MTI1OTQ2MX0.Eb8cIQ8pfbvuKgkKxuX8NMhLKimM30BMz0xhtbMVm3qiensqVKimQ3xVvRg-NHb9raFYv_OyPDxhnARyyNhHVQ' \\\n--header 'Content-Type: application/json' \\\n--data '{\n    \"requestId\":\"123456\",\n    \"claimRefNo\":\"H17411118472391\"\n}'"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Unused apis",
+			"item": [
+				{
+					"name": "OemLink",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-IBM-Client-Id",
+								"value": "458b817795bad480c5c59e6c424fd285",
+								"type": "text"
+							},
+							{
+								"key": "X-IBM-Client-Secret",
+								"value": "51d9ae9279382a4fa6f1becd4c41ca84",
+								"type": "text"
+							},
+							{
+								"key": "KEY",
+								"value": "05y/Zh9tsXeFAkRCz93poem27hMLV2iX",
+								"type": "text"
+							},
+							{
+								"key": "IV",
+								"value": "VTXb7e2p1iQ=",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI0NThiODE3Nzk1YmFkNDgwYzVjNTllNmM0MjRmZDI4NSIsImF1ZCI6IjUxZDlhZTkyNzkzODJhNGZhNmYxYmVjZDRjNDFjYTg0IiwiZXhwIjoxNzM0NjA3NDY3LCJpYXQiOjE3MzQ2MDcyODd9.lwRM8M1b6agxxYZ34TLGR7rQ7DrQHZNV7tr79JXmHHY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ciphertext\": \"FVQOLcsAEx2GcNP8i7d8uGEziyZAnCKduEv0pHV6FBCrvjU4YG8BeIUjFf8ta+7cFrCUPP/c7gu5x1eaK/hvhGraU1Z38bPqhyCR3gIajeUCoc1jUr6J1LZcSujaOQ4EaCJQOJWzI0SOWlzp9SHXwEZbSoTfQP12dFZ4xNEFHL+wq5Gm518DcpVJZ1+Svlc8hhbgCLgvSfukH13L9yM9O9B0GP4p8a3NXpw1uSKkY4eypR6cdfRJ0FDrPankyp3zMuhBL1ibib364KEx4tXEfrCXwD64W33Bm3gvBPMuefyS89veM2iLSd78xbmuB1yRb4UAyIy89jlbgbCZytQVF1G1PDc3kFkSm6mzFob1u/ykCrhbbdP4edpFIOSUecwNQmpDpd8/vH4YKiQ/T1MvBSd/ll7zvroqBxhgmqdzz1e5aXZGlAMfRxvIZK/YUWHECAXfCYly6Xj1ETOISwDfypehI4zxdBOMnWq8cbkVIzkBh7qUIvKeQKbFVz0hQETR39qH1SuGgm6tSOvIc2/JWB8Acb+Eu/+Fj7sa4LIS/0Nk3jJG3DQuPNMzaIFUM6o8I+MM5T/3GRPkMroqqQgxkG5Xl7DlkodOvsxxUR0WIOJMbwUY9gFSwM/bs8aAkFf38uig2PWsUmypvQjNcy0TLjp/t3PDq8L0e8AASgzdihzfgkKza8YBkVoSKNypQ6zDiixzipZ5oMyDIA/8ec50cod4v9vSPTsM2iGPfCRDvw9NKQKvrm2Nzn2+qfGnIzGOfwkktd6oEgNRAQp46VIbu5ZHXo40GPIQwa1+cm6s0Iv/GRAunfTIEbTfEdBqinwjw5zu2OjmtICcXVJ2xF5diYpEu8IRWLAv212HY3WPB+SfWWrL12feVkXwS/d27qQs3Q2zAd5pwKNH1Fy6MQ==\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://devapi.sbigeneral.in/v1/Motoveys/API1/ICIntimation",
+							"protocol": "https",
+							"host": [
+								"devapi",
+								"sbigeneral",
+								"in"
+							],
+							"path": [
+								"v1",
+								"Motoveys",
+								"API1",
+								"ICIntimation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Health Claim intimation(devapi)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-IBM-Client-Id",
+								"value": "458b817795bad480c5c59e6c424fd285"
+							},
+							{
+								"key": "X-IBM-Client-Secret",
+								"value": "51d9ae9279382a4fa6f1becd4c41ca84"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI0NThiODE3Nzk1YmFkNDgwYzVjNTllNmM0MjRmZDI4NSIsImF1ZCI6IjUxZDlhZTkyNzkzODJhNGZhNmYxYmVjZDRjNDFjYTg0IiwiZXhwIjoxNzM2NDIzMjQxLCJpYXQiOjE3MzY0MjMwNjF9.eldihPKMvGYdj5CvPz_vnoKarHDlNAkOvcd_1itG0z8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"EncryptedPayload\": \"Q0khVHD9Fr4mThd5XTHZuJGdoOogNg8yRHcMTj0f1+0kxJLICjhwg0d0vKnPUXJ/bd4HRlUI5noFkZEBXh57hBjk2Ffya97uwHbG3V0fF+99hkiRk2cnW+gNDDOJjs1giv4+xPUbOYiTXJ4AIyllXPoIig2TijQEXbulRbTMtt/RtR3m27tNfQ0U/srd5nji7mthZkx6COY46BtAV5K6WapqWBIkLBSW/m5t1NYqxuQRzwxGjbn43AlAskbtYtOR14PfJwhE3W7ZWeIf9o12Qgvpnpoqm68XLalilFCewzHB3qJyPmAsJB6xF5npHXEu+bRUVAoOxM/gss7no+WERuC9o+tBcOwR6rZ2oIYBikBYJTEwVsxAapIh7pojG9XF64uzslVkV7ldNAMChr3RxEKfEu/s4vggqDVAcT6sXgMpxnorOrDoz8pvtPZn+Fh/T3n4JivS03oUX1coWrQDlWToi82+7lM+w1NW20vyhfbP95CZUuXLzJw5QdzufRXMBYuGU06QJCQhPObhwqv8AWZt4v0Wf6M6FVZw7dij5fxCJoPnf0eTkYpzAJgGQyTOHNInSqpUR2Ln0uVuxHmJYCaUkIqrjDfTUcO6MiecTf6NrHdCEKecdH5u7OKVlYkW5fBAUnLNVeTjRbcLqeH4kn5zU/z2Dtv96QaQbbIf/bg=\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://devapi.sbigeneral.in/ept/intimateClaim",
+							"protocol": "https",
+							"host": [
+								"devapi",
+								"sbigeneral",
+								"in"
+							],
+							"path": [
+								"ept",
+								"intimateClaim"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://devapi.sbigeneral.in/ept/intimateClaim' \\\n--header 'X-IBM-Client-Id: 458b817795bad480c5c59e6c424fd285' \\\n--header 'X-IBM-Client-Secret: 51d9ae9279382a4fa6f1becd4c41ca84' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI0NThiODE3Nzk1YmFkNDgwYzVjNTllNmM0MjRmZDI4NSIsImF1ZCI6IjUxZDlhZTkyNzkzODJhNGZhNmYxYmVjZDRjNDFjYTg0IiwiZXhwIjoxNzM2NDIzMjQxLCJpYXQiOjE3MzY0MjMwNjF9.eldihPKMvGYdj5CvPz_vnoKarHDlNAkOvcd_1itG0z8' \\\n--data '{\n    \"EncryptedPayload\": \"Q0khVHD9Fr4mThd5XTHZuJGdoOogNg8yRHcMTj0f1+0kxJLICjhwg0d0vKnPUXJ/bd4HRlUI5noFkZEBXh57hBjk2Ffya97uwHbG3V0fF+99hkiRk2cnW+gNDDOJjs1giv4+xPUbOYiTXJ4AIyllXPoIig2TijQEXbulRbTMtt/RtR3m27tNfQ0U/srd5nji7mthZkx6COY46BtAV5K6WapqWBIkLBSW/m5t1NYqxuQRzwxGjbn43AlAskbtYtOR14PfJwhE3W7ZWeIf9o12Qgvpnpoqm68XLalilFCewzHB3qJyPmAsJB6xF5npHXEu+bRUVAoOxM/gss7no+WERuC9o+tBcOwR6rZ2oIYBikBYJTEwVsxAapIh7pojG9XF64uzslVkV7ldNAMChr3RxEKfEu/s4vggqDVAcT6sXgMpxnorOrDoz8pvtPZn+Fh/T3n4JivS03oUX1coWrQDlWToi82+7lM+w1NW20vyhfbP95CZUuXLzJw5QdzufRXMBYuGU06QJCQhPObhwqv8AWZt4v0Wf6M6FVZw7dij5fxCJoPnf0eTkYpzAJgGQyTOHNInSqpUR2Ln0uVuxHmJYCaUkIqrjDfTUcO6MiecTf6NrHdCEKecdH5u7OKVlYkW5fBAUnLNVeTjRbcLqeH4kn5zU/z2Dtv96QaQbbIf/bg=\"\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "Health Claim Intimation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customerName\": \"Jay Ashok Dongrekar\",\n  \"policyNumber\": \"0000000000381196\",\n  \"customerEmailId\": \"PRADYUMNA99@GMAIL.COM\",\n  \"customerMobileNo\": \"9807324571\",\n  \"customerAlternateEmailId\": \"jayr@gmail.com\",\n  \"customerAlternateMobileNo\": \"9011123112\",\n  \"memeberId\": \"4016520383\",\n  \"claimType\": \"\",\n  \"patientName\": \"Jay Ashok Dongrekar\",\n  \"claimAmount\": 5000,\n  \"dateOfAdmission\": \"2025-01-24\",\n  \"dateOfDischarge\": \"\",\n  \"remark\": \"\",\n  \"admissionReason\": \"illness\",\n  \"isAccidentCase\": \"\",\n  \"FIRNo\": \"\",\n  \"hospitalState\": \"\",\n  \"hospitalCity\": \"\",\n  \"hospitalPinCode\": \"\",\n  \"hospitalName\": \"testHospital\",\n  \"doctorName\": \"testDoctor\",\n  \"roomType\": \"general\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ansappsuat.sbigen.in/Intimation/healthClaimIntimation",
+							"protocol": "https",
+							"host": [
+								"ansappsuat",
+								"sbigen",
+								"in"
+							],
+							"path": [
+								"Intimation",
+								"healthClaimIntimation"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://ansappsuat.sbigen.in/Intimation/healthClaimIntimation' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n  \"customerName\": \"Jay Ashok Dongrekar\",\n  \"policyNumber\": \"0000000000381196\",\n  \"customerEmailId\": \"PRADYUMNA99@GMAIL.COM\",\n  \"customerMobileNo\": \"9807324571\",\n  \"customerAlternateEmailId\": \"jayr@gmail.com\",\n  \"customerAlternateMobileNo\": \"9011123112\",\n  \"memeberId\": \"4016520383\",\n  \"claimType\": \"\",\n  \"patientName\": \"Jay Ashok Dongrekar\",\n  \"claimAmount\": 5000,\n  \"dateOfAdmission\": \"2025-01-24\",\n  \"dateOfDischarge\": \"\",\n  \"remark\": \"\",\n  \"admissionReason\": \"illness\",\n  \"isAccidentCase\": \"\",\n  \"FIRNo\": \"\",\n  \"hospitalState\": \"\",\n  \"hospitalCity\": \"\",\n  \"hospitalPinCode\": \"\",\n  \"hospitalName\": \"testHospital\",\n  \"doctorName\": \"testDoctor\",\n  \"roomType\": \"general\"\n}\n'"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

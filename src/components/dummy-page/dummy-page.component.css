@@ -105,3 +105,12 @@
 }
 
 
+.loadingContainer {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  background-color: rgba(109, 117, 119, 0.2);
+}
+

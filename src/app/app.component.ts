@@ -68,7 +68,7 @@ import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { MotorClaimIntimationComponent } from '../components/motor-claim-intimation/motor-claim-intimation.component';
 import { HeaderComponent } from '../components/header/header.component';
-import { MainContentComponent, PolicyResponse } from '../components/main-content/main-content.component';
+
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -79,6 +79,9 @@ import { DevAPITokenService } from '../services/DevAPIToken.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogAnimationsExampleDialog } from '../components/custom-modal/custom-modal.component';
 import { DummyPageComponent } from '../components/dummy-page/dummy-page.component';
+import { NgxIndexedDBModule, provideIndexedDb } from 'ngx-indexed-db';
+import { dbConfig } from '../components/db/indexedDb';
+import { PolicyResponse } from '../model/policyResponse';
 
 @Component({
   selector: 'app-root',
@@ -86,7 +89,7 @@ import { DummyPageComponent } from '../components/dummy-page/dummy-page.componen
     RouterOutlet,
     MotorClaimIntimationComponent,
     HeaderComponent,
-    MainContentComponent,
+   
     DummyPageComponent,
     HttpClientModule,
     FormsModule,
@@ -96,6 +99,7 @@ import { DummyPageComponent } from '../components/dummy-page/dummy-page.componen
     MatProgressSpinnerModule,
     MatDialogModule,
     DialogAnimationsExampleDialog,
+   
   ],
   providers: [DevAPITokenService],
   templateUrl: './app.component.html',
