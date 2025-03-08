@@ -10,6 +10,7 @@ export class RedirectionService {
   private clientId = new BehaviorSubject<string>("");
   private agentId = new BehaviorSubject<string>("");
   private policyNo = new BehaviorSubject<string>("");
+  private navigationService = new BehaviorSubject<string>("");
 
   setToken(token: string) {
     this.token.next(token);
@@ -17,6 +18,12 @@ export class RedirectionService {
 
   getToken() {
     return this.token.asObservable();
+  }
+  getNavigationService(){
+    return this.navigationService.asObservable();
+  }
+  setNavigationService(navigationService : string){
+    this.navigationService.next(navigationService);
   }
   setSource(source: string) {
     this.source.next(source);

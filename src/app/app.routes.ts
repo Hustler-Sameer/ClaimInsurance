@@ -8,6 +8,7 @@ import { HealthClaimSubmitComponent } from '../components/health-claim-submit/he
 import { MainOuterComponentComponent } from '../components/main-outer-component/main-outer-component.component';
 import { RedirectGuard } from './guards/RedirectGuard';
 import { DummyPageComponent } from '../components/dummy-page/dummy-page.component';
+import { ClaimMisComponent } from '../components/claim-mis/claim-mis.component';
 
 
 export const routes: Routes = [
@@ -17,7 +18,8 @@ export const routes: Routes = [
     { path: 'motor-claim', component: MotorClaimIntimationComponent , canActivate:[RedirectGuard] },
     { path: 'health-claim', component: HealthClaimIntimationComponent , canActivate:[RedirectGuard] },
     { path: 'health-claim-submit', component: HealthClaimSubmitComponent , canActivate:[RedirectGuard]},
-    
+    {path:'claim-mis' , component:ClaimMisComponent , canActivate:[RedirectGuard]},
+    { path: 'claim-mis-test', component: ClaimMisComponent},
   ];
 
 @NgModule({

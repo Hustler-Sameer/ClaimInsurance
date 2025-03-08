@@ -9,10 +9,11 @@ import { PolicyResponse } from '../main-content/main-content.component';
 import { DialogAnimationsExampleDialog } from '../custom-modal/custom-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { StateService } from '../../services/SharedService.service';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
 @Component({
   selector: 'app-dummy-page',
-  imports: [ReactiveFormsModule,HttpClientModule,CommonModule],
+  imports: [ReactiveFormsModule,HttpClientModule,CommonModule,MatProgressSpinnerModule,MatDialogModule],
   templateUrl: './dummy-page.component.html',
   styleUrl: './dummy-page.component.css'
 })
@@ -23,11 +24,17 @@ export class DummyPageComponent implements OnInit {
   showViewClaimStatus = false;
   showClientId = false;
   lob: string = "";
+  isLoading = false;
+  showPolicyNumber = true;
   
 
   constructor(private fb: FormBuilder, private http: HttpClient,private loaderService: LoaderService, private redirectionService : RedirectionService, private router :Router,private dialog: MatDialog,
     private stateService:StateService
-  ) {}
+  ) {
+    this.loaderService.spinner$.subscribe((data: boolean) => {
+      this.isLoading = data;
+    });
+  }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -51,6 +58,15 @@ export class DummyPageComponent implements OnInit {
       this.showClaimMis = false;
       this.showViewClaimStatus = true;
       this.showClientId=false;
+    }
+  }
+  onClaimTypeChange(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const claimType = selectElement.value;
+  
+    if (claimType === "Claim MIS") {
+      console.log("Disable policy wala option");
+      this.showPolicyNumber = false;
     }
   }
 
@@ -128,6 +144,8 @@ export class DummyPageComponent implements OnInit {
   onSubmit: any = async () => {
     const formData = this.form.value;
     console.log(formData);
+    this.redirectionService.setNavigationService(formData.claimType);
+
     const policyNo1 =this.form.value.policyNo;
     const requestBody: requestBody = {
       clientId: formData.clientId,
@@ -162,7 +180,7 @@ export class DummyPageComponent implements OnInit {
       this.lob = policyResponse[0].lob;
       console.log("This is lob here:", this.lob);
 
-      this.navigateBasedOnLOB(this.lob);
+      this.navigateBasedOnLOB(this.lob , formData.claimType);
       if(formData.claimType == "Claim Intimation"){
         console.log("Redirect to claim Intimation age")
       }
@@ -186,13 +204,14 @@ export class DummyPageComponent implements OnInit {
   };
   
 
-  navigateBasedOnLOB(lob: string) {
+  navigateBasedOnLOB(lob: string , formData : string) {
     if (lob.startsWith("Motor")) {
       this.router.navigate(["/motor-claim"]);
     } else if (lob.startsWith("Health")) {
       this.router.navigate(["/health-claim-submit"]);
-    } else {
-      console.warn("LOB not recognized:", lob);
+    } else if(formData.includes("claimType")) {
+      // console.warn("LOB not recognized:", lob);
+      this.router.navigate(["/claim-mis-test"])
     }
   }
   handleResponse(response: any,formData : any) {
@@ -224,7 +243,8 @@ export class DummyPageComponent implements OnInit {
 
     
     if(formData.claimType == "Claim MIS"){
-      console.log("Redirect to claim mis")
+      // console.log("Redirect to claim mis")
+      this.router.navigate(["/claim-mis-test"])
     }
     if(formData.claimType == "View Claim Status"){  
       console.log("Redirect to claim status")

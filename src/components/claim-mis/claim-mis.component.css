@@ -1,0 +1,23 @@
+
+.name {
+    color: var(--headerText);
+    background-color: var(--headerBackground);
+    padding: 10px;
+}
+
+.name h3  {
+    margin: 0;
+    margin-inline: 10px;
+    font-weight: 100;
+}
+
+.table{
+    /* display: flex; */
+    /* align-items: center; */
+    background: white;
+    margin: 20px;
+    margin-inline: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}

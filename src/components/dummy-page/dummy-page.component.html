@@ -1,3 +1,6 @@
+<div class="loadingContainer" *ngIf="isLoading">
+  <mat-spinner [diameter]="50"></mat-spinner>
+</div>
 <main class="main" [formGroup]="form">
   <div class="parentDiv">
     <div class="sourceDiv">
@@ -37,7 +40,7 @@
     <div class="sourceDependentDiv">
       <div class="sourceDependentDivChild">
         <label for="claimType"> Select Claim Type</label>
-        <select formControlName="claimType">
+        <!-- <select formControlName="claimType" (change)="onClaimTypeChange($event.target.value)">
           <option *ngIf="showClaimIntimation">Select Value</option>
           <option *ngIf="showClaimIntimation" value="Claim Intimation">
             Claim Intimation
@@ -46,11 +49,17 @@
           <option *ngIf="showViewClaimStatus" value="View Claim Status">
             View Claim Status
           </option>
+        </select> -->
+        <select formControlName="claimType" (change)="onClaimTypeChange($event)">
+          <option *ngIf="showClaimIntimation">Select Value</option>
+          <option *ngIf="showClaimIntimation" value="Claim Intimation">Claim Intimation</option>
+          <option *ngIf="showClaimMis" value="Claim MIS">Claim MIS</option>
+          <option *ngIf="showViewClaimStatus" value="View Claim Status">View Claim Status</option>
         </select>
       </div>
 
       <div class="PolicyInformationDiv">
-        <div class="PolicyInformationChildDiv">
+        <div class="PolicyInformationChildDiv" *ngIf="showPolicyNumber">
           <label for="policyNo">Enter Policy Number</label>
           <input type="text" id="policyNo" formControlName="policyNo" />
         </div>
