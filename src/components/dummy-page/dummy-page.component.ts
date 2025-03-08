@@ -206,9 +206,9 @@ export class DummyPageComponent implements OnInit {
 
   navigateBasedOnLOB(lob: string , formData : string) {
     if (lob.startsWith("Motor")) {
-      this.router.navigate(["/motor-claim"]);
+      this.router.navigate(["/intimation/motor-claim"]);
     } else if (lob.startsWith("Health")) {
-      this.router.navigate(["/health-claim-submit"]);
+      this.router.navigate(["/intimation/health-claim-submit"]);
     } else if(formData.includes("claimType")) {
       // console.warn("LOB not recognized:", lob);
       this.router.navigate(["/claim-mis-test"])

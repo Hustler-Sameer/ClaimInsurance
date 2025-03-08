@@ -8,6 +8,7 @@ import { HealthClaimSubmitComponent } from '../components/health-claim-submit/he
 import { MainOuterComponentComponent } from '../components/main-outer-component/main-outer-component.component';
 import { RedirectGuard } from './guards/RedirectGuard';
 import { DummyPageComponent } from '../components/dummy-page/dummy-page.component';
+import { IntimationComponentComponent } from '../components/intimation-component/intimation-component.component';
 import { ClaimMisComponent } from '../components/claim-mis/claim-mis.component';
 
 
@@ -15,9 +16,20 @@ export const routes: Routes = [
     // { path: '', component: MainOuterComponentComponent},
     { path: '', component: DummyPageComponent,canActivate:[RedirectGuard]},
     { path: 'dummy-page', component: DummyPageComponent , canActivate:[RedirectGuard]},
-    { path: 'motor-claim', component: MotorClaimIntimationComponent , canActivate:[RedirectGuard] },
+    // { path: 'motor-claim', component: MotorClaimIntimationComponent , canActivate:[RedirectGuard] },
     { path: 'health-claim', component: HealthClaimIntimationComponent , canActivate:[RedirectGuard] },
-    { path: 'health-claim-submit', component: HealthClaimSubmitComponent , canActivate:[RedirectGuard]},
+    // { path: 'health-claim-submit', component: HealthClaimSubmitComponent , canActivate:[RedirectGuard]},
+    { path: 'intimation' , component:IntimationComponentComponent,children:[
+        {
+          path:'health-claim-submit',
+          component:HealthClaimSubmitComponent
+        },
+        {
+          path:'motor-claim',
+          component:MotorClaimIntimationComponent
+        }
+      ]
+    },
     {path:'claim-mis' , component:ClaimMisComponent , canActivate:[RedirectGuard]},
     { path: 'claim-mis-test', component: ClaimMisComponent},
   ];

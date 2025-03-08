@@ -16,7 +16,10 @@ export class HeaderComponent implements OnInit {
   sourceName:any = "";
   isSimba:boolean = false;
 
-  constructor(private redirectService:RedirectionService){
+  constructor(
+    private redirectService:RedirectionService,
+    private redirectionService:RedirectionService
+  ){
 
   }
   ngOnInit(): void {
