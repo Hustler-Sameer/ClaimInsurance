@@ -10,6 +10,6 @@ export default `<!DOCTYPE html><html lang="en" data-beasties-container><head><li
 </style><link rel="stylesheet" href="styles-NSRP7YVH.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-NSRP7YVH.css"></noscript><style ng-app-id="ng">*[_ngcontent-ng-c3984273398]{margin:0;padding:0;height:100vh;width:100vw}body[_ngcontent-ng-c3984273398]{background:linear-gradient(#b022cc33,#0d9abd33)}</style></head>
 <body><!--nghm-->
   <app-root _nghost-ng-c3984273398 ng-version="19.0.3" ngh="0" ng-server-context="ssg"><router-outlet _ngcontent-ng-c3984273398></router-outlet><!----></app-root>
-<script src="polyfills-FFHMD2TL.js" type="module"></script><script src="scripts-XAWBH4UM.js" defer></script><script src="main-TNC5HLAJ.js" type="module"></script>
+<script src="polyfills-FFHMD2TL.js" type="module"></script><script src="scripts-XAWBH4UM.js" defer></script><script src="main-FLKMATA7.js" type="module"></script>
 
 <script id="ng-state" type="application/json">{"__nghData__":[{"c":{"0":[]}}]}</script></body></html>`;

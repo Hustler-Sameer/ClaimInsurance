@@ -410,7 +410,7 @@ export class DummyPageComponent implements OnInit {
     console.log("Policy No:", policyNo);
 
     if (formData.claimType == "Claim MIS") {
-      this.router.navigate(["/claim-mis-test"]);
+      this.router.navigate(["/claim-mis"]);
     }
     if (formData.claimType == "View Claim Status") {
       console.log("Redirect to claim status");
