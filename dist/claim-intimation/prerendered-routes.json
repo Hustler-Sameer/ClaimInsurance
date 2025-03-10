@@ -2,7 +2,6 @@
   "routes": {
     "/": {},
     "/claim-mis": {},
-    "/claim-mis-test": {},
     "/health-claim": {},
     "/intimation": {},
     "/intimation/health-claim-submit": {},

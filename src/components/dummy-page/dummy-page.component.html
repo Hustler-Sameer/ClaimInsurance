@@ -3,6 +3,7 @@
 </div>
 <main class="main" [formGroup]="form">
   <div class="parentDiv">
+    <h2>Dummy Page</h2>
     <div class="sourceDiv">
       <div class="sourceDivchild">
         <div class="sourceDivGrandChild">
@@ -40,16 +41,6 @@
     <div class="sourceDependentDiv">
       <div class="sourceDependentDivChild">
         <label for="claimType"> Select Claim Type</label>
-        <!-- <select formControlName="claimType" (change)="onClaimTypeChange($event.target.value)">
-          <option *ngIf="showClaimIntimation">Select Value</option>
-          <option *ngIf="showClaimIntimation" value="Claim Intimation">
-            Claim Intimation
-          </option>
-          <option *ngIf="showClaimMis" value="Claim MIS">Claim MIS</option>
-          <option *ngIf="showViewClaimStatus" value="View Claim Status">
-            View Claim Status
-          </option>
-        </select> -->
         <select formControlName="claimType" (change)="onClaimTypeChange($event)">
           <option *ngIf="showClaimIntimation">Select Value</option>
           <option *ngIf="showClaimIntimation" value="Claim Intimation">Claim Intimation</option>
@@ -57,10 +48,25 @@
           <option *ngIf="showViewClaimStatus" value="View Claim Status">View Claim Status</option>
         </select>
       </div>
+      <div class="sourceDependentDivChild" *ngIf="showPolicyType">
+        <label for="claimType"> Select Policy Type</label>
+        <select formControlName="policyType" (change)="onPolicyTypeChange($event)">
+          <option>Select Value</option>
+          <option  value="Motor Policy">Motor Policy</option>
+          <option  value="Health Policy">Health Policy</option>
+          
+        </select>
+      </div>
 
-      <div class="PolicyInformationDiv">
+      <div class="PolicyInformationDiv" *ngIf="!showPolicyType">
         <div class="PolicyInformationChildDiv" *ngIf="showPolicyNumber">
           <label for="policyNo">Enter Policy Number</label>
+          <input type="text" id="policyNo" formControlName="policyNo" />
+        </div>
+      </div>
+      <div class="PolicyInformationDiv" *ngIf="showPolicyType" >
+        <div class="PolicyInformationChildDiv" *ngIf="showPolicyNumber">
+          <label for="policyNo">Enter Claim Number</label>
           <input type="text" id="policyNo" formControlName="policyNo" />
         </div>
       </div>

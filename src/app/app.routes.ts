@@ -24,8 +24,8 @@ export const routes: Routes = [
         }
       ]
     },
-    {path:'claim-mis' , component:ClaimMisComponent , canActivate:[RedirectGuard]},
-    { path: 'claim-mis-test', component: ClaimMisComponent},
+    // {path:'claim-mis' , component:ClaimMisComponent , canActivate:[RedirectGuard]},
+    { path: 'claim-mis', component: ClaimMisComponent},
   ];
 
 @NgModule({
