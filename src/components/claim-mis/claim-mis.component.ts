@@ -29,6 +29,8 @@ export class ClaimMisComponent implements OnInit{
   isLoading = false;
   theme : string ="";
   agentId: string = "";
+  policyNo:string = "";
+  title:string = "";
   constructor(
     private redirectionService : RedirectionService,
     private renderer: Renderer2,
@@ -46,6 +48,16 @@ export class ClaimMisComponent implements OnInit{
        this.redirectionService.getAgentId().subscribe((source:string)=>{
         this.agentId= source;
       })
+
+      if(this.agentId!=null || this.agentId!="") {
+        this.title = "Claim MIS";
+      } else {
+        this.title = "Claims Details";
+      }
+
+      this.redirectionService.getPolicyNo().subscribe((policyNo:string) => {
+        this.policyNo = policyNo;
+      });
       if(this.theme.toLocaleLowerCase() == "simba") {
         this.renderer.addClass(document.body, 'simba-portal');
         this.renderer.removeClass(document.body, 'customer-portal');
@@ -54,5 +66,5 @@ export class ClaimMisComponent implements OnInit{
         this.renderer.removeClass(document.body, 'simba-portal');
       }
      
-  }
+    }
 }

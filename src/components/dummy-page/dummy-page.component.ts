@@ -46,7 +46,7 @@ export class DummyPageComponent implements OnInit {
   showPolicyType = false;
   agentId = "";
   claimStatus = "";
-  claimStatusDescription:"";
+  claimStatusDescription: "";
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -125,12 +125,14 @@ export class DummyPageComponent implements OnInit {
       policyNo: formData.policyNo,
     };
 
+    this.redirectionService.setPolicyNo(requestBody.policyNo);
     console.log(requestBody);
     this.loaderService.showSpinner();
 
     try {
       // Fetch token
       if (formData.source != "Customer Portal") {
+        // this is simbq
         const tokenResponse: any = await this.http
           .post("https://ansappsuat.sbigen.in/Intimation/getToken", requestBody)
           .toPromise();
@@ -198,165 +200,166 @@ export class DummyPageComponent implements OnInit {
           console.log("This is lob here:", this.lob);
 
           this.navigateBasedOnLOB(this.lob, formData.claimType);
-        } else if (formData.claimType === "View Claim Status") {
-          console.log("Hiting api of check claim Status");
-          console.log(formData);
-          if (formData.policyType === "Motor Policy") {
-            console.log("hh");
-            this.loaderService.showSpinner();
-            try {
-              const response = await this.http
-                .post<any>(
-                  "https://ansappsuat.sbigen.in/Intimation/CustomerPortal/getMotorIntimationDetails",
-                  formData.policyNo,
-                  {
-                    headers: {
-                      "Content-Type": "text/plain",
-                    },
-                  }
-                )
-                .toPromise();
-              console.log(response);
-                 this.redirectionService.getAgentId().subscribe((id: string) => {
-                this.agentId = id;
-              });
-              // now hit the api for motor status
-              const checkMotorClaimStatusObj: checkMotorClaimStatus = {
-                Policy_no: response.policyNo,
-                Alternate_Policy_no: "",
-                Claim_no: response.intimationNo,
-                Vehicle_Registration_Number: "",
-                requestID: "123456",
-              };
+        } 
+        else if (formData.claimType === "View Claim Status") {
+          this.router.navigate(["/claim-mis"]);
+        //   console.log("Hiting api of check claim Status");
+        //   console.log(formData);
+        //   if (formData.policyType === "Motor Policy") {
+        //     console.log("hh");
+        //     this.loaderService.showSpinner();
+        //     try {
+        //       const response = await this.http
+        //         .post<any>(
+        //           "https://ansappsuat.sbigen.in/Intimation/CustomerPortal/getMotorIntimationDetails",
+        //           formData.policyNo,
+        //           {
+        //             headers: {
+        //               "Content-Type": "text/plain",
+        //             },
+        //           }
+        //         )
+        //         .toPromise();
+        //       console.log(response);
+        //       this.redirectionService.getAgentId().subscribe((id: string) => {
+        //         this.agentId = id;
+        //       });
+        //       // now hit the api for motor status
+        //       const checkMotorClaimStatusObj: checkMotorClaimStatus = {
+        //         Policy_no: response.policyNo,
+        //         Alternate_Policy_no: "",
+        //         Claim_no: response.intimationNo,
+        //         Vehicle_Registration_Number: "",
+        //         requestID: "123456",
+        //       };
 
-              this.loaderService.showSpinner();
+        //       this.loaderService.showSpinner();
 
-              try {
-                const response = await this.http
-                  .post<any>(
-                    "https://ansappsuat.sbigen.in/Intimation/CustomerPortal/checkMotorStatus",
-                    checkMotorClaimStatusObj,
-                    {
-                      headers: {
-                        "Content-Type": "application/json",
-                       
-                      },
-                    }
-                  )
-                  .toPromise();
+        //       try {
+        //         const response = await this.http
+        //           .post<any>(
+        //             "https://ansappsuat.sbigen.in/Intimation/CustomerPortal/checkMotorStatus",
+        //             checkMotorClaimStatusObj,
+        //             {
+        //               headers: {
+        //                 "Content-Type": "application/json",
+        //               },
+        //             }
+        //           )
+        //           .toPromise();
 
-                const claim = response[0][0];
-                console.log("Response : " + response);
-                console.log("The claim obj is", claim);
+        //         const claim = response[0][0];
+        //         console.log("Response : " + response);
+        //         console.log("The claim obj is", claim);
 
-                // Directly assign the properties to avoid unnecessary JSON.stringify
-                this.claimStatus = claim.ClaimStatus;
-                this.claimStatusDescription = claim.Claim_Status_Description;
+        //         // Directly assign the properties to avoid unnecessary JSON.stringify
+        //         this.claimStatus = claim.ClaimStatus;
+        //         this.claimStatusDescription = claim.Claim_Status_Description;
 
-                console.log(this.claimStatus, "This is claimStatuss");
-                console.log("Claim Description", this.claimStatusDescription);
+        //         console.log(this.claimStatus, "This is claimStatuss");
+        //         console.log("Claim Description", this.claimStatusDescription);
 
-                this.dialog.open(DialogAnimationsExampleDialog, {
-                  width: "300px",
-                  data: {
-                    heading: "Claim Status Details",
-                    claimNumber: "Status : " + this.claimStatus,
-                    remarks: "Remarks : " + this.claimStatusDescription,
-                  },
-                });
-              } catch (error: unknown) {
-                console.error(
-                  "API error:",
-                  (error as HttpErrorResponse).status
-                );
-                const statusCode = (error as HttpErrorResponse).status;
+        //         this.dialog.open(DialogAnimationsExampleDialog, {
+        //           width: "300px",
+        //           data: {
+        //             heading: "Claim Status Details",
+        //             claimNumber: "Status : " + this.claimStatus,
+        //             remarks: "Remarks : " + this.claimStatusDescription,
+        //           },
+        //         });
+        //       } catch (error: unknown) {
+        //         console.error(
+        //           "API error:",
+        //           (error as HttpErrorResponse).status
+        //         );
+        //         const statusCode = (error as HttpErrorResponse).status;
 
-                if (statusCode == 401) {
-                  this.router.navigate(["/"]);
-                } else {
-                  this.dialog.open(DialogAnimationsExampleDialog, {
-                    width: "300px",
-                    data: {
-                      heading: "Claim Status Details",
-                      claimNumber: "Error Occured",
-                      remarks: "",
-                    },
-                  });
-                }
-              } finally {
-                this.loaderService.hideSpinner();
-              }
-            } catch (error: unknown) {
-              console.log(error);
-            }
-          } else if (formData.policyType === "Health Policy") {
-            this.redirectionService.getAgentId().subscribe((id: string) => {
-              this.agentId = id;
-            });
-            const checkHealthClaimStatusObj: checkHealthClaimStatus = {
-              requestId: this.agentId,
-              claimRefNo: formData.policyNo,
-            };
+        //         if (statusCode == 401) {
+        //           this.router.navigate(["/"]);
+        //         } else {
+        //           this.dialog.open(DialogAnimationsExampleDialog, {
+        //             width: "300px",
+        //             data: {
+        //               heading: "Claim Status Details",
+        //               claimNumber: "Error Occured",
+        //               remarks: "",
+        //             },
+        //           });
+        //         }
+        //       } finally {
+        //         this.loaderService.hideSpinner();
+        //       }
+        //     } catch (error: unknown) {
+        //       console.log(error);
+        //     }
+        //   } else if (formData.policyType === "Health Policy") {
+        //     this.redirectionService.getAgentId().subscribe((id: string) => {
+        //       this.agentId = id;
+        //     });
+        //     const checkHealthClaimStatusObj: checkHealthClaimStatus = {
+        //       requestId: this.agentId,
+        //       claimRefNo: formData.policyNo,
+        //     };
 
-            this.loaderService.showSpinner();
+        //     this.loaderService.showSpinner();
 
-            try {
-              const response = await this.http
-                .post<any>(
-                  "https://ansappsuat.sbigen.in/Intimation/CustomerPortal/checkHealthStatus",
-                  checkHealthClaimStatusObj,
-                  {
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                  }
-                )
-                .toPromise();
+        //     try {
+        //       const response = await this.http
+        //         .post<any>(
+        //           "https://ansappsuat.sbigen.in/Intimation/CustomerPortal/checkHealthStatus",
+        //           checkHealthClaimStatusObj,
+        //           {
+        //             headers: {
+        //               "Content-Type": "application/json",
+        //             },
+        //           }
+        //         )
+        //         .toPromise();
 
-              console.log("Response : " + response[0]);
-              const claim = response;
-              this.claimStatus = claim.statusMessage;
-              console.log(
-                "Status from health claim status :" + this.claimStatus
-              );
-              this.loaderService.hideSpinner();
+        //       console.log("Response : " + response[0]);
+        //       const claim = response;
+        //       this.claimStatus = claim.statusMessage;
+        //       console.log(
+        //         "Status from health claim status :" + this.claimStatus
+        //       );
+        //       this.loaderService.hideSpinner();
 
-              this.dialog.open(DialogAnimationsExampleDialog, {
-                width: "300px",
-                data: {
-                  heading: "Claim Status Details",
-                  claimNumber: "Status : " + this.claimStatus,
-                  remarks: "Remarks : ",
-                },
-              });
-            } catch (error: unknown) {
-              console.error("API error:", (error as HttpErrorResponse).status);
-              const statusCode = (error as HttpErrorResponse).status;
-              this.loaderService.hideSpinner();
+        //       this.dialog.open(DialogAnimationsExampleDialog, {
+        //         width: "300px",
+        //         data: {
+        //           heading: "Claim Status Details",
+        //           claimNumber: "Status : " + this.claimStatus,
+        //           remarks: "Remarks : ",
+        //         },
+        //       });
+        //     } catch (error: unknown) {
+        //       console.error("API error:", (error as HttpErrorResponse).status);
+        //       const statusCode = (error as HttpErrorResponse).status;
+        //       this.loaderService.hideSpinner();
 
-              if (statusCode == 401) {
-                this.router.navigate(["/"]);
-              } else {
-                this.dialog.open(DialogAnimationsExampleDialog, {
-                  width: "300px",
-                  data: {
-                    heading: "Claim Status Details",
-                    claimNumber: "Error Occured",
-                    remarks: "",
-                  },
-                });
-              }
-            }
-          }
+        //       if (statusCode == 401) {
+        //         this.router.navigate(["/"]);
+        //       } else {
+        //         this.dialog.open(DialogAnimationsExampleDialog, {
+        //           width: "300px",
+        //           data: {
+        //             heading: "Claim Status Details",
+        //             claimNumber: "Error Occured",
+        //             remarks: "",
+        //           },
+        //         });
+        //       }
+        //     }
+        //   }
 
-          // this.dialog.open(DialogAnimationsExampleDialog, {
-          //   width: "300px",
-          //   data: {
-          //     heading: "",
-          //     claimNumber: "",
-          //     remarks: "",
-          //   },
-          // });
+        //   // this.dialog.open(DialogAnimationsExampleDialog, {
+        //   //   width: "300px",
+        //   //   data: {
+        //   //     heading: "",
+        //   //     claimNumber: "",
+        //   //     remarks: "",
+        //   //   },
+        //   // });
         }
 
         //else ends here
@@ -414,6 +417,7 @@ export class DummyPageComponent implements OnInit {
     }
     if (formData.claimType == "View Claim Status") {
       console.log("Redirect to claim status");
+      this.router.navigate(["/claim-mis"]);
     }
   }
 }

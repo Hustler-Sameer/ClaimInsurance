@@ -5,7 +5,7 @@ table {
   }
 
 th{
-    color: var(--purple-color);
+    color: purple;
     font-weight: 450;
 }
 
@@ -23,7 +23,7 @@ table tr button{
   border: 1px solid;
   border-radius: 7px;
   color: white;
-  background-color:var(--purple-color) ;
+  background-color:purple;
   cursor: pointer;
   margin-left: 5px;
 }

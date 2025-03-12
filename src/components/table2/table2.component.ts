@@ -9,20 +9,25 @@ import { MatDialog } from "@angular/material/dialog";
 import { DialogAnimationsExampleDialog } from "../custom-modal/custom-modal.component";
 import { RedirectionService } from "../../services/Redirection.service";
 import { Router } from "@angular/router";
+import { CommonModule } from "@angular/common";
 
 @Component({
   selector: "app-table2",
-  imports: [FormsModule, DataTablesModule],
+  imports: [FormsModule, DataTablesModule,CommonModule],
   templateUrl: "./table2.component.html",
   styleUrl: "./table2.component.css",
 })
 export class Table2Component implements OnInit {
   @Input() requesterId: string;
+  @Input() policyNo:string;
   claimStatus: string;
   claimStatusDescription: string;
   dtOptions: Config = {};
   dtTrigger: Subject<any> = new Subject<any>();
-  tableDataList!: tableData[];
+  // tableDataList!: tableData1[];
+  tableDataList: any[] = [];
+  columnNames: string[] = [];
+  columnMapping: { [key: string]: string } = {};
   token: string = "";
   constructor(
     private http: HttpClient,
@@ -37,12 +42,13 @@ export class Table2Component implements OnInit {
       pageLength: 5,
     };
     try {
-      this.redirectionServvice.getToken().subscribe((token: string) => {
-        this.token = token;
-      });
-      this.loadingService.showSpinner();
-      this.http
-        .post<tableData[]>(
+      if(this.requesterId != ""){
+        this.redirectionServvice.getToken().subscribe((token: string) => {
+          this.token = token;
+        });
+        this.loadingService.showSpinner();
+        this.http
+        .post<tableData1[]>(
           "https://ansappsuat.sbigen.in/Intimation/getPolicyIntimationsByRequestId",
           this.requesterId,
           {
@@ -52,11 +58,47 @@ export class Table2Component implements OnInit {
             },
           }
         )
-        .subscribe((response: tableData[]) => {
+        .subscribe((response: tableData1[]) => {
           this.loadingService.hideSpinner();
           this.tableDataList = response;
+          this.columnNames = ['Claim Number', 'Policy Number', 'Customer Name', 'Intimation Amount', 'Intimation Date'];
+          this.columnMapping = {
+            'Claim Number': 'intimationNo',
+            'Policy Number': 'policyNo',
+            'Customer Name': 'customerName',
+            'Intimation Amount': 'intimationAmount',
+            'Intimation Date': 'intimationDate',
+          };
           this.dtTrigger.next(null);
         });
+      } else {
+        this.loadingService.showSpinner();
+        console.log("Policy No : "+this.policyNo);
+          this.http
+          .post<tableData2[]>(
+            "https://ansappsuat.sbigen.in/Intimation/CustomerPortal/getPolicyClaims",
+            this.policyNo,
+            {
+              headers: {
+                "Content-Type": "text/plain",
+              },
+            }
+          )
+        .subscribe((response: tableData2[]) => {
+          this.loadingService.hideSpinner();
+          this.tableDataList = response;
+          this.columnNames = ['Claim Number','Policy Type', 'Policy Number','Intimation Amount', 'Intimation Date','Claim Status'];
+          this.columnMapping = {
+            'Claim Number': 'intimationNo',
+            'Policy Type':'lob',
+            'Policy Number': 'policyNo',
+            'Intimation Amount': 'intimationAmount',
+            'Intimation Date': 'intimationDate',
+            'Claim Status':'claimStatus'
+          };
+          this.dtTrigger.next(null);
+        });
+      }
     } catch (error: unknown) {
       console.log("Hey from error");
       this.loadingService.hideSpinner();
@@ -69,7 +111,7 @@ export class Table2Component implements OnInit {
   logRowDetails(data: any): void {
     console.log("Row details:", data);
     console.log("The lob is : ", data.lob);
-    if (data.lob == "Motor") {
+    if (data.lob == "Motor" || data.policyType == "Motor") {
       console.log("Hit the motor claim api ");
 
       const checkMotorClaimStatusObj: checkMotorClaimStatus = {
@@ -224,10 +266,19 @@ export interface checkHealthClaimStatus {
   claimRefNo: string;
 }
 
-export interface tableData {
+export interface tableData1 {
   policyNo: string;
   intimationNo: string;
   intimationAmount: number;
   intimationDate: string;
   customerName: string;
+}
+
+export interface tableData2 {
+  policyNo:string,
+  intimationNo:string,
+  intimationAmount: number;
+  intimationDate: string;
+  lob:string,
+  claimStatus:string
 }

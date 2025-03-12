@@ -48,7 +48,7 @@
           <option *ngIf="showViewClaimStatus" value="View Claim Status">View Claim Status</option>
         </select>
       </div>
-      <div class="sourceDependentDivChild" *ngIf="showPolicyType">
+      <!-- <div class="sourceDependentDivChild" *ngIf="showPolicyType">
         <label for="claimType"> Select Policy Type</label>
         <select formControlName="policyType" (change)="onPolicyTypeChange($event)">
           <option>Select Value</option>
@@ -56,7 +56,7 @@
           <option  value="Health Policy">Health Policy</option>
           
         </select>
-      </div>
+      </div> -->
 
       <div class="PolicyInformationDiv" *ngIf="!showPolicyType">
         <div class="PolicyInformationChildDiv" *ngIf="showPolicyNumber">
@@ -66,7 +66,7 @@
       </div>
       <div class="PolicyInformationDiv" *ngIf="showPolicyType" >
         <div class="PolicyInformationChildDiv" *ngIf="showPolicyNumber">
-          <label for="policyNo">Enter Claim Number</label>
+          <label for="policyNo">Enter Policy Number</label>
           <input type="text" id="policyNo" formControlName="policyNo" />
         </div>
       </div>
